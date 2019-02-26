@@ -1,4 +1,5 @@
 /* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
@@ -12,6 +13,7 @@
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+# define MAX_FRACT 2
 # include <mlx.h>
 # include "libft.h"
 
@@ -29,6 +31,12 @@ typedef struct	s_config
 	unsigned int	s_height;
 }				t_config;
 
+typedef struct	s_fract
+{
+	int		iter;
+	int		iter_max;
+}				t_fract;
+
 typedef struct	s_env
 {
 	void		*mlx_ptr;
@@ -36,6 +44,7 @@ typedef struct	s_env
 	void		*img_ptr;
 	t_img		img;
 	t_config	config;
+	char		*title;
 
 }				t_env;
 
