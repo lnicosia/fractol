@@ -45,7 +45,14 @@ typedef struct	s_env
 	t_img		img;
 	t_config	config;
 	char		*title;
-
+	void		(*fractal[MAX_FRACT])(struct s_env *);
+	int			args[MAX_FRACT];
 }				t_env;
+
+void	julia(t_env *data);
+void	mandelbrot(t_env *data);
+int		init_window(t_env *data, int i, char *title);
+void	init_hook(t_env *data, int i);
+void	init_fract(t_env *data);
 
 #endif
