@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 15:38:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:44:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 2
+# define MAX_FRACT 3
 # include <mlx.h>
 # include "libft.h"
 
@@ -52,6 +52,7 @@ typedef struct	s_env
 
 void			julia(t_env *data);
 void			mandelbrot(t_env *data);
+void			ship(t_env *data);
 int				init_window(t_fract *fract, t_env *data, char *title);
 void			init_hook(t_fract *fract);
 int				init_fract(t_env *data);

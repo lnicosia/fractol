@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 15:38:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:43:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int		init_fract(t_env *data)
 		return (0);
 	data->fract_func[0] = &julia;
 	data->fract_func[1] = &mandelbrot;
+	data->fract_func[2] = &ship;
 	data->fract[0].mlx_ptr = data->mlx_ptr;
 	data->fract[1].mlx_ptr = data->mlx_ptr;
+	data->fract[2].mlx_ptr = data->mlx_ptr;
 	return (1);
 }
