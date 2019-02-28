@@ -6,13 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/27 16:32:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:34:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
 
 void	julia(t_env *data)
 {
-	init_window(data, 0, "[Julia]");
+	printf("Init julia..\n");
+	init_window(&(data->fract[0]), data, "[Julia]");
 }

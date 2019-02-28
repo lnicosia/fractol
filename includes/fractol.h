@@ -1,5 +1,4 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
@@ -7,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/26 12:28:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:38:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +24,36 @@ typedef struct	s_img
 	unsigned int	*str;
 }				t_img;
 
-typedef struct	s_config
+typedef struct	s_window
 {
-	unsigned int	s_width;
-	unsigned int	s_height;
-}				t_config;
+	void		*win_ptr;
+	void		*img_ptr;
+	t_img		img;
+	char		*title;
+}				t_window;
 
 typedef struct	s_fract
 {
-	int		iter;
-	int		iter_max;
+	void		*mlx_ptr;
+	t_window	window;
+	int			iter;
+	int			iter_max;
 }				t_fract;
 
 typedef struct	s_env
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img_ptr;
-	t_img		img;
-	t_config	config;
-	char		*title;
-	void		(*fractal[MAX_FRACT])(struct s_env *);
-	int			args[MAX_FRACT];
+	void			*mlx_ptr;
+	t_fract			fract[MAX_FRACT];
+	void			(*fract_func[MAX_FRACT])(struct s_env *);
+	int				args[MAX_FRACT];
+	unsigned int	s_width;
+	unsigned int	s_height;
 }				t_env;
 
-void	julia(t_env *data);
-void	mandelbrot(t_env *data);
-int		init_window(t_env *data, int i, char *title);
-void	init_hook(t_env *data, int i);
-void	init_fract(t_env *data);
+void			julia(t_env *data);
+void			mandelbrot(t_env *data);
+int				init_window(t_fract *fract, t_env *data, char *title);
+void			init_hook(t_fract *fract);
+int				init_fract(t_env *data);
 
 #endif
