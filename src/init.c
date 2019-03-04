@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 15:43:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:47:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 #include "hook.h"
 #include <stdio.h>
 
-void	init_hook(t_fract *fract)
+void	init_hook(t_fract *fract, t_env *data)
 {
 	mlx_hook(fract->window.win_ptr, KEYPRESS, KEYPRESSMASK, key_press,
-			fract);
+			data);
 	mlx_hook(fract->window.win_ptr, KEYRELEASE, KEYRELEASE, key_release,
-			fract);
+			data);
 	mlx_hook(fract->window.win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
 			close_window,
-			fract);
+			data);
 	mlx_hook(fract->window.win_ptr, BUTTONPRESS, BUTTONPRESSMASK, mouse_press,
-			fract);
+			data);
 	mlx_hook(fract->window.win_ptr, BUTTONRELEASE, BUTTONRELEASEMASK,
-			mouse_release, fract);
+			mouse_release, data);
 	mlx_hook(fract->window.win_ptr, MOTIONNOTIFY, BUTTON1MOTIONMASK,
-			mouse_move, fract);
+			mouse_move, data);
 }
 
 int		init_window(t_fract *fract, t_env *data, char *title)
@@ -43,7 +43,7 @@ int		init_window(t_fract *fract, t_env *data, char *title)
 	fract->window.img.str = (unsigned int*)mlx_get_data_addr(fract->window.
 			img_ptr, &(fract->window.img.bit_per_pixels), &(fract->window.
 				img.size_line), &(fract->window.img.endian));
-	init_hook(fract);
+	init_hook(fract, data);
 	return (1);
 }
 
@@ -57,5 +57,8 @@ int		init_fract(t_env *data)
 	data->fract[0].mlx_ptr = data->mlx_ptr;
 	data->fract[1].mlx_ptr = data->mlx_ptr;
 	data->fract[2].mlx_ptr = data->mlx_ptr;
+	data->titles[0] = "[Julia]";
+	data->titles[1] = "[Mandelbrot]";
+	data->titles[2] = "[Burning ship]";
 	return (1);
 }

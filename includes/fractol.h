@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 12:08:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:06:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct	s_fcoord2
 	double	x;
 	double	y;
 }				t_fcoord2;
+
+typedef struct	s_coord2
+{
+	int	x;
+	int	y;
+}				t_coord2;
 
 typedef struct	s_img
 {
@@ -50,10 +56,14 @@ typedef struct	s_env
 {
 	void			*mlx_ptr;
 	t_fract			fract[MAX_FRACT];
+	char			*titles[MAX_FRACT];
 	void			(*fract_func[MAX_FRACT])(struct s_env *);
 	int				args[MAX_FRACT];
 	int				s_width;
 	int				s_height;
+	int				movement;
+	t_coord2		zoom;
+	t_coord2		drag;
 	t_fcoord2		move;
 }				t_env;
 
@@ -61,7 +71,6 @@ void			julia(t_env *data);
 void			mandelbrot(t_env *data);
 void			ship(t_env *data);
 int				init_window(t_fract *fract, t_env *data, char *title);
-void			init_hook(t_fract *fract);
 int				init_fract(t_env *data);
 
 #endif

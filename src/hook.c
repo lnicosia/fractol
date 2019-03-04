@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 12:26:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:07:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,57 @@ int		key_press(int key, void *param)
 int		mouse_move(int x, int y, void *param)
 {
 	t_env	*data;
+	int		i;
 
 	data = (t_env*)param;
-	printf("[%d][%d]\n", y, x);
-	data->move.x = (double)x / (double)data->s_width;
-	data->move.y = (double)y / (double)data->s_height;
-	printf("move.x = %f move.y = %f\n", data->move.x, data->move.y);
-	printf("julia\n");
-	//julia(data);
+	i = 0;
+	if (data->movement)
+	{
+		data->move.x = (double)x / (double)data->s_width;
+		data->move.y = (double)y / (double)data->s_height;
+		while (i < MAX_FRACT)
+		{
+			if (data->args[i])
+				data->fract_func[i](data);
+			i++;
+		}
+	}
 	return (0);
 }
 
-int		mouse_press(int x, int y, void *param)
+int		mouse_press(int button, int x, int y, void *param)
 {
+	t_env	*data;
+	int	i;
+
+	i = 0;
+	data = (t_env*)param;
 	(void)x;
 	(void)y;
-	(void)param;
+	if (button == SCROLLUP_KEY)
+		data->zoom.x++;
+	else if (button == SCROLLDOWN_KEY)
+	{
+		if (data->zoom.x > 1)
+			data->zoom.x--;
+	}
+	while (i < MAX_FRACT)
+	{
+		if (data->args[i])
+			data->fract_func[i](data);
+		i++;
+	}
 	return (0);
 }
 
-int		mouse_release(int x, int y, void *param)
+int		mouse_release(int button, int x, int y, void *param)
 {
+	t_env	*data;
+
+	data = (t_env*)param;
 	(void)x;
 	(void)y;
-	(void)param;
+	if (button == BUT1_KEY)
+		data->movement = data->movement ? 0 : 1;
 	return (0);
 }

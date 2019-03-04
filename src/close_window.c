@@ -6,27 +6,28 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 12:12:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 15:36:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:39:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-void	quit(t_fract *fract)
+void	quit(t_env *data)
 {
 	ft_putendl("[ESCAPE]");
-	mlx_destroy_image(fract->mlx_ptr, fract->window.img_ptr);
-	mlx_destroy_window(fract->mlx_ptr, fract->window.win_ptr);
+	(void)data;
+	/*mlx_destroy_image(fract->mlx_ptr, fract->window.img_ptr);
+	mlx_destroy_window(fract->mlx_ptr, fract->window.win_ptr);*/
 	exit(0);
 }
 
 int		close_window(void *param)
 {
-	t_fract *fract;
+	t_env	*data;
 
-	fract = (t_fract*)param;
+	data = (t_env*)param;
 	ft_putendl("[CLOSE]");
-	quit(fract);
+	quit(data);
 	return (0);
 }

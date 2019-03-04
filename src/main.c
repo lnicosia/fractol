@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 12:25:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:12:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	parse_args(char **av, t_env *data)
 			if (!data->args[2])
 				data->args[2] = 1;
 		}
+		else
+		{
+			usage();
+			exit(0);
+		}
 		i++;
 	}
 }
@@ -60,12 +65,20 @@ int		main(int ac, char **av)
 		data.s_height = 1080;
 		data.move.x = 0.0;
 		data.move.y = 0.0;
+		data.drag.x = 0;
+		data.drag.y = 0;
+		data.zoom.x = 1;
+		data.zoom.y = 1;
+		data.movement = 1;
 		parse_args(av, &data);
 		i = 0;
 		while (i < MAX_FRACT)
 		{
 			if (data.args[i])
+			{
+				init_window(&data.fract[i], &data, data.titles[i]);
 				data.fract_func[i](&data);
+			}
 			i++;
 		}
 	}
