@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 11:09:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:05:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ship(t_env *data)
 		x = 0;
 		while (x < data->s_width)
 		{
-			c.x = x / (data->s_width / 2.7) - 2.1 + data->move.x;
-			c.y = y / (data->s_height / 2.4) - 1.2 + data->move.y;
+			c.x = ((0.2 * x) / data->s_width - 1.86) / data->zoom.x + data->move.x / 10;
+			c.y = ((0.15 * y) / data->s_height - 0.1) / data->zoom.x + data->move.y / 10;
 			z.x = 0;
 			z.y = 0;
 			data->fract[2].iter = 0;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 11:25:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:04:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	mandelbrot(t_env *data)
 		x = 0;
 		while (x < data->s_width)
 		{
-			c.x = x / (data->s_width / 2.7) - 2.1 + data->move.x;
-			c.y = y / (data->s_height / 2.4) - 1.2 + data->move.y;
+			c.x = ((4.0 * x) / data->s_width - 2.5) / data->zoom.x + data->move.x;
+			c.y = ((2.4 * y) / data->s_height - 1.2) / data->zoom.x + data->move.y;
 			z.x = 0;
 			z.y = 0;
 			data->fract[1].iter = 0;
