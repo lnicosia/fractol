@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 17:06:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/05 12:42:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ typedef struct	s_env
 	int				s_width;
 	int				s_height;
 	int				movement;
-	t_coord2		zoom;
+	t_fcoord2		zoom;
 	t_coord2		drag;
+	t_fcoord2		transfo;
 	t_fcoord2		move;
+	t_coord2		center;
 }				t_env;
 
 void			julia(t_env *data);

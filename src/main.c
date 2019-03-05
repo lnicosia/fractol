@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 17:12:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/05 12:42:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,15 @@ int		main(int ac, char **av)
 		data.s_height = 1080;
 		data.move.x = 0.0;
 		data.move.y = 0.0;
+		data.transfo.x = 0.0;
+		data.transfo.y = 0.0;
 		data.drag.x = 0;
 		data.drag.y = 0;
-		data.zoom.x = 1;
-		data.zoom.y = 1;
-		data.movement = 1;
+		data.zoom.x = 1.0;
+		data.zoom.y = 1.0;
+		data.movement = 0;
+		data.center.x = 0;
+		data.center.y = 0;
 		parse_args(av, &data);
 		i = 0;
 		while (i < MAX_FRACT)

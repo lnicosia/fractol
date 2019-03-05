@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 17:07:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/05 12:42:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,25 @@ int		key_release(int key, void *param)
 
 int		key_press(int key, void *param)
 {
-	(void)key;
-	(void)param;
+	t_env	*data;
+	int		i;
+
+	i = 0;
+	data = (t_env*)param;
+	if (key == UP_KEY)
+		data->move.y += 0.1 / (double)data->zoom.x;
+	if (key == DOWN_KEY)
+		data->move.y -= 0.1 / (double)data->zoom.x;
+	if (key == LEFT_KEY)
+		data->move.x += 0.1 / (double)data->zoom.x;
+	if (key == RIGHT_KEY)
+		data->move.x -= 0.1 / (double)data->zoom.x;
+	while (i < MAX_FRACT)
+	{
+		if (data->args[i])
+			data->fract_func[i](data);
+		i++;
+	}
 	return (0);
 }
 
@@ -41,8 +58,8 @@ int		mouse_move(int x, int y, void *param)
 	i = 0;
 	if (data->movement)
 	{
-		data->move.x = (double)x / (double)data->s_width;
-		data->move.y = (double)y / (double)data->s_height;
+		data->transfo.x = (double)x / (double)data->s_width;
+		data->transfo.y = (double)y / (double)data->s_height;
 		while (i < MAX_FRACT)
 		{
 			if (data->args[i])
@@ -60,14 +77,16 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	i = 0;
 	data = (t_env*)param;
-	(void)x;
-	(void)y;
 	if (button == SCROLLUP_KEY)
-		data->zoom.x++;
+	{
+		data->center.x = (double)x / ((double)data->s_width / 2.0);
+		data->center.y = (double)y / ((double)data->s_height / 2.0);
+		data->zoom.x *= 1.5;
+	}
 	else if (button == SCROLLDOWN_KEY)
 	{
 		if (data->zoom.x > 1)
-			data->zoom.x--;
+			data->zoom.x /= 1.5;
 	}
 	while (i < MAX_FRACT)
 	{

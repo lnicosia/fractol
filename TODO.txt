@@ -1,0 +1,7 @@
+Zoom mandelbrot + burning ship
+burning ship centrer sur le ship
+Zoom sur souris
+couleurs stylees
+multi threading
+OpenCL
+exporter en .fdf
