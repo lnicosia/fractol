@@ -6,17 +6,17 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 12:12:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/04 13:39:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:52:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-void	quit(t_env *data)
+void	quit(t_fract *fract)
 {
 	ft_putendl("[ESCAPE]");
-	(void)data;
+	(void)fract;
 	/*mlx_destroy_image(fract->mlx_ptr, fract->window.img_ptr);
 	mlx_destroy_window(fract->mlx_ptr, fract->window.win_ptr);*/
 	exit(0);
@@ -24,10 +24,10 @@ void	quit(t_env *data)
 
 int		close_window(void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	ft_putendl("[CLOSE]");
-	quit(data);
+	quit(fract);
 	return (0);
 }

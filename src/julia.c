@@ -6,25 +6,25 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 15:16:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:10:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-void	init_julia(t_env *data)
+void	init_julia(t_fract *fract)
 {
-	data->fract[0].iter_max = 64;
-	data->fract[0].max.x = 2.0;
-	data->fract[0].max.y = 2.0;
-	data->fract[0].min.x = 2.0;
-	data->fract[0].min.y = 2.0;
-	data->fract[0].center.x = 2.0;
-	data->fract[0].center.y = 2.0;
+	fract->iter_max = 64;
+	fract->max.x = 2.0;
+	fract->max.y = 2.0;
+	fract->min.x = 2.0;
+	fract->min.y = 2.0;
+	fract->center.x = 2.0;
+	fract->center.y = 2.0;
 }
 
-void	julia(t_env *data)
+void	julia(t_fract *fract)
 {
 	int			x;
 	int			y;
@@ -32,36 +32,36 @@ void	julia(t_env *data)
 	t_fcoord2	z;
 
 	y = 0;
-	while (y < data->s_height)
+	while (y < 1080)
 	{
 		x = 0;
-		while (x < data->s_width)
+		while (x < 1920)
 		{
-			//printf("x = %f\n", data->center.x);
-			//printf("y = %f\n", data->center.y);
-			z.x = ((4.0 * x) / data->s_width - 2.0) / data->zoom.x + data->move.x;
-			z.y = ((4.0 * y) / data->s_height - 2.0) / data->zoom.x + data->move.y;
-			/*z.x = 2.0 * (x - data->s_width / 2) / (0.5 * data->zoom.x * data->s_width) + data->move.x;
-			z.y = (y - data->s_height / 2) / (0.5 * data->zoom.x * data->s_height) + data->move.y;*/
-			data->fract[0].iter = 0;
+			//printf("x = %f\n", fract->center.x);
+			//printf("y = %f\n", fract->center.y);
+			z.x = ((4.0 * x) / 1920.0 - 2.0) / fract->zoom.x + fract->move.x;
+			z.y = ((4.0 * y) / 1080.0 - 2.0) / fract->zoom.x + fract->move.y;
+			/*z.x = 2.0 * (x - fract->s_width / 2) / (0.5 * fract->zoom.x * fract->s_width) + fract->move.x;
+			z.y = (y - fract->s_height / 2) / (0.5 * fract->zoom.x * fract->s_height) + fract->move.y;*/
+			fract->iter = 0;
 			while (z.x * z.x + z.y * z.y < 4
-					&& data->fract[0].iter < data->fract[0].iter_max)
+					&& fract->iter < fract->iter_max)
 			{
 				xtemp = z.x * z.x - z.y * z.y;
-				z.y = 2 * z.x * z.y + 0.2321 + data->transfo.x;
-				z.x = xtemp + -0.835 + data->transfo.y;
-				data->fract[0].iter++;
+				z.y = 2 * z.x * z.y + 0.2321 + fract->transfo.x;
+				z.x = xtemp + -0.835 + fract->transfo.y;
+				fract->iter++;
 			}
-			if (data->fract[0].iter == data->fract[0].iter_max)
-				data->fract[0].window.img.str[x + data->s_width * y] = 0;
+			if (fract->iter == fract->iter_max)
+				fract->window.img.str[x + 1920 * y] = 0;
 			else
 			{
-				data->fract[0].window.img.str[x + data->s_width * y] = 65536 * (int)(256 * data->fract[0].iter / data->fract[0].iter_max);
+				fract->window.img.str[x + 1920 * y] = 65536 * (int)(256 * fract->iter / fract->iter_max);
 			}
 			x++;
 		}
 		y++;
 	}
-	mlx_clear_window(data->mlx_ptr, data->fract[0].window.win_ptr);
-	mlx_put_image_to_window(data->mlx_ptr, data->fract[0].window.win_ptr, data->fract[0].window.img_ptr, 0, 0);
+	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
+	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr, fract->window.img_ptr, 0, 0);
 }

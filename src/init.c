@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 15:45:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:12:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 #include "hook.h"
 #include <stdio.h>
 
-void	init_hook(t_fract *fract, t_env *data)
+void	init_hook(t_fract *fract)
 {
 	mlx_hook(fract->window.win_ptr, KEYPRESS, KEYPRESSMASK, key_press,
-			data);
+			fract);
 	mlx_hook(fract->window.win_ptr, KEYRELEASE, KEYRELEASE, key_release,
-			data);
+			fract);
 	mlx_hook(fract->window.win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
 			close_window,
-			data);
+			fract);
 	mlx_hook(fract->window.win_ptr, BUTTONPRESS, BUTTONPRESSMASK, mouse_press,
-			data);
+			fract);
 	mlx_hook(fract->window.win_ptr, BUTTONRELEASE, BUTTONRELEASEMASK,
-			mouse_release, data);
+			mouse_release, fract);
 	mlx_hook(fract->window.win_ptr, MOTIONNOTIFY, BUTTON1MOTIONMASK,
-			mouse_move, data);
+			mouse_move, fract);
 }
 
 int		init_window(t_fract *fract, t_env *data, char *title)
@@ -43,7 +43,7 @@ int		init_window(t_fract *fract, t_env *data, char *title)
 	fract->window.img.str = (unsigned int*)mlx_get_data_addr(fract->window.
 			img_ptr, &(fract->window.img.bit_per_pixels), &(fract->window.
 				img.size_line), &(fract->window.img.endian));
-	init_hook(fract, data);
+	init_hook(fract);
 	return (1);
 }
 
@@ -54,12 +54,18 @@ int		init_fract(t_env *data)
 	data->fract_func[0] = &julia;
 	data->fract_func[1] = &mandelbrot;
 	data->fract_func[2] = &ship;
+	data->fract[0].func = &julia;
+	data->fract[1].func = &mandelbrot;
+	data->fract[2].func = &ship;
 	data->init_fract[0] = &init_julia;
 	data->init_fract[1] = &init_mandelbrot;
 	data->init_fract[2] = &init_ship;
 	data->fract[0].mlx_ptr = data->mlx_ptr;
 	data->fract[1].mlx_ptr = data->mlx_ptr;
 	data->fract[2].mlx_ptr = data->mlx_ptr;
+	data->fract[0].nb = 0;
+	data->fract[1].nb = 1;
+	data->fract[2].nb = 2;
 	data->titles[0] = "[Julia]";
 	data->titles[1] = "[Mandelbrot]";
 	data->titles[2] = "[Burning ship]";

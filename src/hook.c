@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 15:44:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:05:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,100 +17,85 @@
 
 int		key_release(int key, void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	if (key == ESC_KEY)
-		quit(data);
+		quit(fract);
 	return (0);
 }
 
 int		key_press(int key, void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 	int		i;
 
 	i = 0;
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	if (key == UP_KEY)
-		data->move.y += 0.1 / (double)data->zoom.x;
+		fract->move.y += 0.1 / (double)fract->zoom.x;
 	if (key == DOWN_KEY)
-		data->move.y -= 0.1 / (double)data->zoom.x;
+		fract->move.y -= 0.1 / (double)fract->zoom.x;
 	if (key == LEFT_KEY)
-		data->move.x += 0.1 / (double)data->zoom.x;
+		fract->move.x += 0.1 / (double)fract->zoom.x;
 	if (key == RIGHT_KEY)
-		data->move.x -= 0.1 / (double)data->zoom.x;
-	while (i < MAX_FRACT)
-	{
-		if (data->args[i])
-			data->fract_func[i](data);
-		i++;
-	}
+		fract->move.x -= 0.1 / (double)fract->zoom.x;
+	fract->func(fract);
 	return (0);
 }
 
 int		mouse_move(int x, int y, void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 	int		i;
 
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	i = 0;
-	if (data->movement)
+	if (fract->movement)
 	{
-		data->transfo.x = (double)x / (double)data->s_width;
-		data->transfo.y = (double)y / (double)data->s_height;
-		while (i < MAX_FRACT)
-		{
-			if (data->args[i])
-				data->fract_func[i](data);
-			i++;
-		}
+		fract->transfo.x = (double)x / 1920.0;
+		fract->transfo.y = (double)y / 1080.0;
+		fract->func(fract);
 	}
 	return (0);
 }
 
 int		mouse_press(int button, int x, int y, void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 	int	i;
 
 	i = 0;
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	if (button == SCROLLUP_KEY)
 	{
-		data->center.x = 4.0 * (x - (data->s_width / 2)) / (double)data->s_width;
-		data->center.y = 4.0 * (y - (data->s_height / 2)) / (double)data->s_height;
-		printf("x = %f\n", data->center.x);
-		printf("y = %f\n", data->center.y);
-		data->zoom.x *= 1.5;
+		fract->center.x = 4.0 * (x - 960.0) / 1920.0;
+		fract->center.y = 4.0 * (y - 540.0) / 1080.0;
+		printf("x = %f\n", fract->center.x);
+		printf("y = %f\n", fract->center.y);
+		fract->zoom.x *= 1.5;
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
-		if (data->zoom.x > 1)
+		if (fract->zoom.x > 1)
 		{
-			data->center.x = 4.0 * (x - (data->s_width / 2)) / (double)data->s_width;
-			data->center.y = 4.0 * (y - (data->s_height / 2)) / (double)data->s_height;
-			data->zoom.x /= 1.5;
+			fract->center.x = 4.0 * (x - 960.0) / 1920.0;
+			fract->center.y = 4.0 * (y - 540.0) / 1080.0;
+			fract->zoom.x /= 1.5;
 		}
 	}
-	while (i < MAX_FRACT)
-	{
-		if (data->args[i])
-			data->fract_func[i](data);
-		i++;
-	}
+	fract->func(fract);
 	return (0);
 }
 
 int		mouse_release(int button, int x, int y, void *param)
 {
-	t_env	*data;
+	t_fract	*fract;
 
-	data = (t_env*)param;
+	fract = (t_fract*)param;
 	(void)x;
 	(void)y;
 	if (button == BUT1_KEY)
-		data->movement = data->movement ? 0 : 1;
+		fract->movement = fract->movement ? 0 : 1;
 	return (0);
 }
