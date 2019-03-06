@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 14:18:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:19:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int		main(int ac, char **av)
 		data.zoom.x = 1.0;
 		data.zoom.y = 1.0;
 		data.movement = 0;
-		data.center.x = data.s_width / 2;
-		data.center.y = data.s_height / 2;
+		data.center.x = 0;
+		data.center.y = 0;
 		parse_args(av, &data);
 		i = 0;
 		while (i < MAX_FRACT)
@@ -81,6 +81,7 @@ int		main(int ac, char **av)
 			if (data.args[i])
 			{
 				init_window(&data.fract[i], &data, data.titles[i]);
+				data.init_fract[i](&data);
 				data.fract_func[i](&data);
 			}
 			i++;

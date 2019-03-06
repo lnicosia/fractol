@@ -6,12 +6,23 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 15:04:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:32:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
+
+void	init_mandelbrot(t_env *data)
+{
+	data->fract[1].iter_max = 64;
+	data->fract[1].max.x = 2.0;
+	data->fract[1].max.y = 1.2;
+	data->fract[1].min.x = -2.0;
+	data->fract[1].min.y = -1.2;
+	data->fract[1].center.x = 2.5;
+	data->fract[1].center.y = 1.2;
+}
 
 void	mandelbrot(t_env *data)
 {
@@ -22,14 +33,13 @@ void	mandelbrot(t_env *data)
 	t_fcoord2	c;
 
 	y = 0;
-	data->fract[1].iter_max = 100;
 	while (y < data->s_height)
 	{
 		x = 0;
 		while (x < data->s_width)
 		{
-			c.x = ((4.0 * x) / data->s_width - 2.5) / data->zoom.x + data->move.x;
-			c.y = ((2.4 * y) / data->s_height - 1.2) / data->zoom.x + data->move.y;
+			c.x = (((data->fract[1].max.x - data->fract[1].min.x) * x) / data->s_width - data->fract[1].center.x) / data->zoom.x + data->move.x;
+			c.y = (((data->fract[1].max.y - data->fract[1].min.y) * y) / data->s_height - 1.2) / data->zoom.x + data->move.y;
 			z.x = 0;
 			z.y = 0;
 			data->fract[1].iter = 0;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 12:42:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:15:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct	s_fract
 	t_window	window;
 	int			iter;
 	int			iter_max;
+	t_fcoord2	max;
+	t_fcoord2	min;
+	t_fcoord2	center;
 }				t_fract;
 
 typedef struct	s_env
@@ -58,6 +61,7 @@ typedef struct	s_env
 	t_fract			fract[MAX_FRACT];
 	char			*titles[MAX_FRACT];
 	void			(*fract_func[MAX_FRACT])(struct s_env *);
+	void			(*init_fract[MAX_FRACT])(struct s_env *);
 	int				args[MAX_FRACT];
 	int				s_width;
 	int				s_height;
@@ -66,12 +70,15 @@ typedef struct	s_env
 	t_coord2		drag;
 	t_fcoord2		transfo;
 	t_fcoord2		move;
-	t_coord2		center;
+	t_fcoord2		center;
 }				t_env;
 
 void			julia(t_env *data);
 void			mandelbrot(t_env *data);
 void			ship(t_env *data);
+void			init_julia(t_env *data);
+void			init_mandelbrot(t_env *data);
+void			init_ship(t_env *data);
 int				init_window(t_fract *fract, t_env *data, char *title);
 int				init_fract(t_env *data);
 

@@ -6,13 +6,24 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/05 15:05:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:16:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 #include <stdio.h>
+
+void	init_ship(t_env *data)
+{
+	data->fract[2].iter_max = 64;
+	data->fract[2].max.x = 2.0;
+	data->fract[2].max.y = 2.0;
+	data->fract[2].min.x = 2.0;
+	data->fract[2].min.y = 2.0;
+	data->fract[2].center.x = 1.86;
+	data->fract[2].center.y = 0.1;
+}
 
 void	ship(t_env *data)
 {
@@ -23,7 +34,6 @@ void	ship(t_env *data)
 	t_fcoord2	c;
 
 	y = 0;
-	data->fract[2].iter_max = 64;
 	while (y < data->s_height)
 	{
 		x = 0;
