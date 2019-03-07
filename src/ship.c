@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 16:14:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:12:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 
 void	init_ship(t_fract *fract)
 {
+	fract->nb = 2;
 	fract->iter_max = 64;
-	fract->max.x = 2.0;
-	fract->max.y = 2.0;
-	fract->min.x = 2.0;
-	fract->min.y = 2.0;
+	fract->max.x = -1.76;
+	fract->max.y = 1.075;
+	fract->min.x = -1.96;
+	fract->min.y = 0.925;
 	fract->center.x = 1.86;
 	fract->center.y = 0.1;
 }
@@ -37,10 +38,10 @@ void	ship(t_fract *fract)
 	while (y < 1080)
 	{
 		x = 0;
-		while (x < 1080)
+		while (x < 1920)
 		{
-			c.x = ((0.2 * x) / 1920.0 - 1.86) / fract->zoom.x + fract->move.x / 10;
-			c.y = ((0.15 * y) / 1080.0 - 0.1) / fract->zoom.x + fract->move.y / 10;
+			c.x = (((fract->max.x - fract->min.x) * x) / 1920.0 - fract->center.x) / fract->zoom.x + fract->move.x / 10;
+			c.y = (((fract->max.y - fract->min.y) * y) / 1080.0 - fract->center.y) / fract->zoom.x + fract->move.y / 10;
 			z.x = 0;
 			z.y = 0;
 			fract->iter = 0;

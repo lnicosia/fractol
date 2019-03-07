@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 16:05:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:02:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,22 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
+	(void)x;
+	(void)y;
 	if (button == SCROLLUP_KEY)
 	{
-		fract->center.x = 4.0 * (x - 960.0) / 1920.0;
+		/*fract->center.x = 4.0 * (x - 960.0) / 1920.0;
 		fract->center.y = 4.0 * (y - 540.0) / 1080.0;
 		printf("x = %f\n", fract->center.x);
-		printf("y = %f\n", fract->center.y);
+		printf("y = %f\n", fract->center.y);*/
 		fract->zoom.x *= 1.5;
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
 		if (fract->zoom.x > 1)
 		{
-			fract->center.x = 4.0 * (x - 960.0) / 1920.0;
-			fract->center.y = 4.0 * (y - 540.0) / 1080.0;
+			/*fract->center.x = 4.0 * (x - 960.0) / 1920.0;
+			fract->center.y = 4.0 * (y - 540.0) / 1080.0;*/
 			fract->zoom.x /= 1.5;
 		}
 	}

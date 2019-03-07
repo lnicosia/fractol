@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 16:12:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:00:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int		init_fract(t_env *data)
 	data->fract[0].mlx_ptr = data->mlx_ptr;
 	data->fract[1].mlx_ptr = data->mlx_ptr;
 	data->fract[2].mlx_ptr = data->mlx_ptr;
-	data->fract[0].nb = 0;
-	data->fract[1].nb = 1;
-	data->fract[2].nb = 2;
+	data->fract[0].zoom.x = 1;
+	data->fract[1].zoom.x = 1;
+	data->fract[2].zoom.x = 1;
 	data->titles[0] = "[Julia]";
 	data->titles[1] = "[Mandelbrot]";
 	data->titles[2] = "[Burning ship]";
