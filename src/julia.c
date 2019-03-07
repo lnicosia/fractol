@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 15:01:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:16:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 void	init_julia(t_fract *fract)
 {
 	fract->nb = 0;
+	fract->zoom = 400;
 	fract->iter_max = 64;
-	fract->max.x = 2.0;
-	fract->max.y = 2.0;
-	fract->min.x = -2.0;
-	fract->min.y = -2.0;
+	fract->max.x = 1.2;
+	fract->min.x = -2.25;
+	fract->min.y = -1.4;
+	fract->max.y = 2.5;
 	fract->center.x = 2.0;
 	fract->center.y = 2.0;
 }
@@ -38,10 +39,8 @@ void	julia(t_fract *fract)
 		x = 0;
 		while (x < 1920)
 		{
-			z.x = (((fract->max.x - fract->min.x) * x) / 1920.0 - fract->center.x) / fract->zoom.x + fract->move.x;
-			z.y = (((fract->max.y - fract->min.y) * y) / 1080.0 - fract->center.y) / fract->zoom.x + fract->move.y;
-			/*z.x = 2.0 * (x - fract->s_width / 2) / (0.5 * fract->zoom.x * fract->s_width) + fract->move.x;
-			  z.y = (y - fract->s_height / 2) / (0.5 * fract->zoom.x * fract->s_height) + fract->move.y;*/
+			z.x = x / fract->zoom + fract->min.x + fract->move.x;
+			z.y = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
 			while (z.x * z.x + z.y * z.y < 4
 					&& fract->iter < fract->iter_max)

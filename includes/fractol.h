@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 16:11:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:11:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_window
 typedef struct	s_fract
 {
 	int			nb;
+	double		zoom;
 	void		*mlx_ptr;
 	t_window	window;
 	int			iter;
@@ -54,7 +55,6 @@ typedef struct	s_fract
 	t_fcoord2	max;
 	t_fcoord2	min;
 	t_fcoord2	center;
-	t_fcoord2	zoom;
 	t_coord2	drag;
 	t_fcoord2	transfo;
 	t_fcoord2	move;

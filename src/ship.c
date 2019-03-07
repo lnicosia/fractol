@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 15:12:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:32:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 void	init_ship(t_fract *fract)
 {
 	fract->nb = 2;
-	fract->iter_max = 64;
+	fract->zoom = 12500;
+	fract->iter_max = 150;
 	fract->max.x = -1.76;
 	fract->max.y = 1.075;
-	fract->min.x = -1.96;
-	fract->min.y = 0.925;
+	fract->min.x = -1.840;
+	fract->min.y = -0.075;
 	fract->center.x = 1.86;
 	fract->center.y = 0.1;
 }
@@ -40,8 +41,8 @@ void	ship(t_fract *fract)
 		x = 0;
 		while (x < 1920)
 		{
-			c.x = (((fract->max.x - fract->min.x) * x) / 1920.0 - fract->center.x) / fract->zoom.x + fract->move.x / 10;
-			c.y = (((fract->max.y - fract->min.y) * y) / 1080.0 - fract->center.y) / fract->zoom.x + fract->move.y / 10;
+			c.x = x / fract->zoom + fract->min.x + fract->move.x;
+			c.y = y / fract->zoom + fract->min.y + fract->move.y;
 			z.x = 0;
 			z.y = 0;
 			fract->iter = 0;

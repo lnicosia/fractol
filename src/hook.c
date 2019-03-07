@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 15:02:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:23:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int		key_press(int key, void *param)
 	i = 0;
 	fract = (t_fract*)param;
 	if (key == UP_KEY)
-		fract->move.y += 0.1 / (double)fract->zoom.x;
+		fract->move.y += 100 / (double)fract->zoom;
 	if (key == DOWN_KEY)
-		fract->move.y -= 0.1 / (double)fract->zoom.x;
+		fract->move.y -= 100 / (double)fract->zoom;
 	if (key == LEFT_KEY)
-		fract->move.x += 0.1 / (double)fract->zoom.x;
+		fract->move.x += 100 / (double)fract->zoom;
 	if (key == RIGHT_KEY)
-		fract->move.x -= 0.1 / (double)fract->zoom.x;
+		fract->move.x -= 100 / (double)fract->zoom;
 	fract->func(fract);
 	return (0);
 }
@@ -71,21 +71,34 @@ int		mouse_press(int button, int x, int y, void *param)
 	(void)y;
 	if (button == SCROLLUP_KEY)
 	{
-		/*fract->center.x = 4.0 * (x - 960.0) / 1920.0;
-		fract->center.y = 4.0 * (y - 540.0) / 1080.0;
-		printf("x = %f\n", fract->center.x);
-		printf("y = %f\n", fract->center.y);*/
-		fract->zoom.x *= 1.5;
+		fract->max.x = (x / fract->zoom + fract->max.x)
+			- (x / (fract->zoom * 1.5));
+		fract->min.x = (x / fract->zoom + fract->min.x)
+			- (x / (fract->zoom * 1.5));
+		fract->max.y = (y / fract->zoom + fract->max.y)
+			- (y / (fract->zoom * 1.5));
+		fract->min.y = (y / fract->zoom + fract->min.y)
+			- (y / (fract->zoom * 1.5));
+		fract->zoom *= 1.5;
+		fract->iter_max += 8;
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
-		if (fract->zoom.x > 1)
+		if (fract->zoom > 25 && fract->iter_max > 0)
 		{
-			/*fract->center.x = 4.0 * (x - 960.0) / 1920.0;
-			fract->center.y = 4.0 * (y - 540.0) / 1080.0;*/
-			fract->zoom.x /= 1.5;
+			fract->max.x = (x / fract->zoom + fract->max.x)
+				- (x / (fract->zoom / 1.5));
+			fract->min.x = (x / fract->zoom + fract->min.x)
+				- (x / (fract->zoom / 1.5));
+			fract->max.y = (y / fract->zoom + fract->max.y)
+				- (y / (fract->zoom / 1.5));
+			fract->min.y = (y / fract->zoom + fract->min.y)
+				- (y / (fract->zoom / 1.5));
+			fract->zoom /= 1.5;
+			fract->iter_max -= 8;
 		}
 	}
+	printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x, fract->min.y, fract->max.y);
 	fract->func(fract);
 	return (0);
 }

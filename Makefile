@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/02/28 15:44:14 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/07 23:12:58 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,18 +50,19 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 
 $(BIN_DIR)/$(NAME): $(OBJ) $(LIBFT)
 	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(NAME)' executable with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled '$(NAME)' with success!"${RESET}
 
 clean: 
+	@make clean -C libft
 	@rm -f $(OBJ)
 	@rm -Rf $(OBJ_DIR)
-	@make clean -C libft
-	@echo ${CYAN}"[INFO] Removed [$(OBJ)] with success!"${RESET}
-	@echo ${CYAN}"[INFO] Removed [$(OBJ_DIR)] with success!"${RESET}
+	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 
 fclean: clean
-	@rm -Rf fractol
-	@echo ${CYAN}"[INFO] Removed everything because SKIBIDI PA PA"${RESET}
+	@rm -Rf $(LIBFT)
+	@echo ${CYAN}"[INFO] Removed $(LIBFT)"${RESET}
+	@rm -Rf $(NAME)
+	@echo ${CYAN}"[INFO] Removed $(NAME)"${RESET}
 
 re: fclean all
 

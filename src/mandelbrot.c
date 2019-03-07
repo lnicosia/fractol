@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 15:00:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:37:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 void	init_mandelbrot(t_fract *fract)
 {
 	fract->nb = 1;
+	fract->zoom = 400;
 	fract->iter_max = 64;
-	fract->max.x = 2.0;
+	fract->max.x = 0.6;
 	fract->max.y = 1.2;
-	fract->min.x = -2.0;
-	fract->min.y = -1.2;
-	fract->center.x = 2.5;
-	fract->center.y = 1.2;
+	fract->min.x = -2.7;
+	fract->min.y = -1.35;
 }
 
 void	mandelbrot(t_fract *fract)
@@ -39,8 +38,8 @@ void	mandelbrot(t_fract *fract)
 		x = 0;
 		while (x < 1920)
 		{
-			c.x = (((fract->max.x - fract->min.x) * x) / 1920.0 - fract->center.x) / fract->zoom.x + fract->move.x;
-			c.y = (((fract->max.y - fract->min.y) * y) / 1080.0 - fract->center.y) / fract->zoom.x + fract->move.y;
+			c.x = x / fract->zoom + fract->min.x + fract->move.x;
+			c.y = y / fract->zoom + fract->min.y + fract->move.y;
 			z.x = 0;
 			z.y = 0;
 			fract->iter = 0;

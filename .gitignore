@@ -39,6 +39,8 @@ src/*.swp
 *.i*86
 *.x86_64
 *.hex
+./fractol
+fractol
 
 # Debug files
 *.dSYM/
