@@ -6,14 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 20:45:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:03:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx_keycode.h"
 #include "hook.h"
-#include <stdio.h>
 
 void	init_hook(t_fract *fract)
 {
@@ -34,11 +33,11 @@ void	init_hook(t_fract *fract)
 
 int		init_window(t_fract *fract, t_env *data, char *title)
 {
-	if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, data->s_width,
-					data->s_height, title)))
+	if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1920,
+					1080, title)))
 		return (0);
-	if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, data->s_width,
-					data->s_height)))
+	if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1920,
+					1080)))
 		return (0);
 	fract->window.img.str = (unsigned int*)mlx_get_data_addr(fract->window.
 			img_ptr, &(fract->window.img.bit_per_pixels), &(fract->window.

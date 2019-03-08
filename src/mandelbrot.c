@@ -6,16 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 22:37:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:27:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 void	init_mandelbrot(t_fract *fract)
 {
 	fract->nb = 1;
+	fract->name = "Mandelbrot";
 	fract->zoom = 400;
 	fract->iter_max = 64;
 	fract->max.x = 0.6;

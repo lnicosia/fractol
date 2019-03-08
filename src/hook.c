@@ -6,14 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 11:40:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:32:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx_keycode.h"
 #include "hook.h"
-#include <stdio.h>
 
 int		key_release(int key, void *param)
 {
@@ -22,6 +21,8 @@ int		key_release(int key, void *param)
 	fract = (t_fract*)param;
 	if (key == ESC_KEY)
 		quit(fract);
+	if (key == E_KEY)
+		export_fdf(*fract);
 	return (0);
 }
 
@@ -63,7 +64,7 @@ int		mouse_move(int x, int y, void *param)
 int		mouse_press(int button, int x, int y, void *param)
 {
 	t_fract	*fract;
-	int	i;
+	int		i;
 
 	i = 0;
 	fract = (t_fract*)param;
@@ -98,7 +99,8 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->iter_max -= 8;
 		}
 	}
-	ft_printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x, fract->min.y, fract->max.y);
+	ft_printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x,
+			fract->min.y, fract->max.y);
 	fract->func(fract);
 	return (0);
 }

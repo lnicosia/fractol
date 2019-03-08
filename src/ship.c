@@ -6,17 +6,17 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 22:32:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:28:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
-#include <stdio.h>
 
 void	init_ship(t_fract *fract)
 {
 	fract->nb = 2;
+	fract->name = "Burning ship";
 	fract->zoom = 12500;
 	fract->iter_max = 150;
 	fract->max.x = -1.76;

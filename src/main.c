@@ -6,17 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/06 16:11:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:02:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 int		usage(void)
 {
-	printf("usage: ./fractol julia | mandelbrot | ship\n");
-	return (-1);
+	ft_printf("usage: ./fractol julia | mandelbrot | ship\n");
+	exit(0);
 }
 
 void	parse_args(char **av, t_env *data)
@@ -42,10 +41,7 @@ void	parse_args(char **av, t_env *data)
 				data->args[2] = 1;
 		}
 		else
-		{
 			usage();
-			exit(0);
-		}
 		i++;
 	}
 }
@@ -56,13 +52,11 @@ int		main(int ac, char **av)
 	int		i;
 
 	if (ac < 2)
-		return (usage());
+		usage();
 	else
 	{
 		if (init_fract(&data) == 0)
 			return (-1);
-		data.s_width = 1920;
-		data.s_height = 1080;
 		parse_args(av, &data);
 		i = 0;
 		while (i < MAX_FRACT)
@@ -76,7 +70,7 @@ int		main(int ac, char **av)
 			i++;
 		}
 	}
-	printf("launching..\n");
+	ft_printf("launching..\n");
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

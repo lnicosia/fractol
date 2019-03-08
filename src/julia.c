@@ -6,16 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 22:16:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:27:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 void	init_julia(t_fract *fract)
 {
 	fract->nb = 0;
+	fract->name = "Julia";
 	fract->zoom = 400;
 	fract->iter_max = 64;
 	fract->max.x = 1.2;
