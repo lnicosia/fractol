@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/07 22:23:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:40:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->iter_max -= 8;
 		}
 	}
-	printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x, fract->min.y, fract->max.y);
+	ft_printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x, fract->min.y, fract->max.y);
 	fract->func(fract);
 	return (0);
 }

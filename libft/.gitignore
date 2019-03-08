@@ -1,1 +1,5 @@
-a.out
+libft.a
+obj
+obj/*.c
+*.swp
+*/*.swp
