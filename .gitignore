@@ -26,9 +26,6 @@ src/*.swp
 *.la
 *.lo
 
-# Libft
-libft/*
-
 # Shared objects (inc. Windows DLLs)
 *.dll
 *.so
