@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/07 23:12:58 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/08 11:23:47 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,15 @@ all:
 	@make -C $(LIBFT_DIR)
 	@make $(BIN_DIR)/$(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(BIN_DIR)/$(NAME): $(OBJ) $(LIBFT)
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
 	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(NAME)' with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled '$(BIN_DIR)/$(NAME)' with success!"${RESET}
 
 clean: 
 	@make clean -C libft
@@ -58,11 +60,13 @@ clean:
 	@rm -Rf $(OBJ_DIR)
 	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 
-fclean: clean
-	@rm -Rf $(LIBFT)
-	@echo ${CYAN}"[INFO] Removed $(LIBFT)"${RESET}
+fclean:
+	@make fclean -C libft
+	@rm -f $(OBJ)
+	@rm -Rf $(OBJ_DIR)
+	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 	@rm -Rf $(NAME)
-	@echo ${CYAN}"[INFO] Removed $(NAME)"${RESET}
+	@echo ${CYAN}"[INFO] Removed $(BIN_DIR)/$(NAME)"${RESET}
 
 re: fclean all
 

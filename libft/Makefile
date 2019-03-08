@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/07 23:12:06 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/08 11:17:49 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC_DIR = .
 OBJ_DIR = obj
 INCLUDES_DIR = .
 BIN_DIR = .
+PRINTF_DIR = ft_printf
 
 SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_isalpha.c ft_isalnum.c ft_isdigit.c ft_isascii.c ft_isprint.c \
@@ -36,25 +37,41 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 
 HEADERS = 
 
+PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
+				 parse_flags.c parse_functions.c pf_atoi.c pf_float_padding.c \
+				 pf_invalid.c pf_putaddr.c pf_putchar.c pf_putfloat.c \
+				 pf_putlong_base.c pf_putnbr.c pf_putnbr_base.c \
+				 pf_putpercent.c pf_putstr.c pf_putunbr.c pf_strnequ.c \
+				 put_padding.c putfloat_utils.c
+
+PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
+
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS = -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) 
+PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
+PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
+
+CFLAGS = -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) 
 
 RED := "\033[0;31m"
 GREEN := "\033[0;32m"
 CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
-all:
-	@make $(BIN_DIR)/$(NAME)
+all: $(BIN_DIR)/$(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@mkdir -p $(OBJ_DIR)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(BIN_DIR)/$(NAME): $(OBJ)
+$(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR) $(MAKEFILE)
+	@gcc -c $< -o $@ $(CFLAGS) 
+
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(NAME)' with success"${RESET}
