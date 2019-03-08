@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 18:04:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 20:39:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ int		key_press(int key, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
-	if (key == UP_KEY)
+	if (key == UP_KEY && fract->nb != 3)
 		fract->move.y += 100 / (double)fract->zoom;
-	if (key == DOWN_KEY)
+	if (key == DOWN_KEY && fract->nb != 3)
 		fract->move.y -= 100 / (double)fract->zoom;
-	if (key == LEFT_KEY)
+	if (key == LEFT_KEY && fract->nb != 3)
 		fract->move.x += 100 / (double)fract->zoom;
-	if (key == RIGHT_KEY)
+	if (key == RIGHT_KEY && fract->nb != 3)
 		fract->move.x -= 100 / (double)fract->zoom;
-	fract->func(fract);
+	if (fract->nb != 3)
+		fract->func(fract);
 	return (0);
 }
 
@@ -52,7 +53,7 @@ int		mouse_move(int x, int y, void *param)
 
 	fract = (t_fract*)param;
 	i = 0;
-	if (fract->movement)
+	if (fract->movement && fract->nb != 3)
 	{
 		fract->transfo.x = (double)x / 1920.0;
 		fract->transfo.y = (double)y / 1080.0;
@@ -80,6 +81,7 @@ int		mouse_press(int button, int x, int y, void *param)
 			- (y / (fract->zoom * 1.5));
 		fract->zoom *= 1.5;
 		fract->iter_max += 4;
+		fract->func(fract);
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
@@ -95,9 +97,9 @@ int		mouse_press(int button, int x, int y, void *param)
 				- (y / (fract->zoom / 1.5));
 			fract->zoom /= 1.5;
 			fract->iter_max -= 4;
+			fract->func(fract);
 		}
 	}
-	fract->func(fract);
 	return (0);
 }
 

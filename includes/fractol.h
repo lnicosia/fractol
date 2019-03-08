@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 17:19:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 19:40:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,24 @@ typedef struct	s_window
 
 typedef struct	s_fract
 {
-	int			nb;
-	int			start;
-	int			end;
-	char		*name;
-	double		zoom;
-	void		*mlx_ptr;
-	t_window	window;
-	int			iter;
-	int			iter_max;
-	t_fcoord2	max;
-	t_fcoord2	min;
-	t_fcoord2	center;
-	t_coord2	drag;
-	t_fcoord2	transfo;
-	t_fcoord2	move;
-	int			movement;
-	void		(*func)(struct s_fract *);
+	int				nb;
+	int				start;
+	int				end;
+	char			*name;
+	double			zoom;
+	void			*mlx_ptr;
+	t_window		window;
+	int				iter;
+	int				iter_max;
+	t_fcoord2		max;
+	t_fcoord2		min;
+	t_fcoord2		center;
+	t_coord2		drag;
+	t_fcoord2		transfo;
+	t_fcoord2		move;
+	int				movement;
+	t_list			*pixels;
+	void			(*func)(struct s_fract *);
 }				t_fract;
 
 typedef struct	s_env
