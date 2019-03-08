@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 12:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 14:12:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 14:55:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	write_fdf(t_fract fract, int fd)
 			if (x != 0)
 				ft_dprintf(fd, " ");
 			ft_dprintf(fd, "%d,0x%X",
-					(fract.window.img.str[x + y * 1920] / 0xFFFFFF) * 100,
+					(fract.window.img.str[x + y * 1920] * 1000 / 0xFFFFFF),
 					fract.window.img.str[x + y * 1920]);
 			x += 3;
 		}

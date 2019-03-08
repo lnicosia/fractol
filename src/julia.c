@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 14:26:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 14:56:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	julia(t_fract *fract)
 				fract->window.img.str[x + 1920 * y] = 0;
 			else
 			{
-				fract->window.img.str[x + 1920 * y] = 0xFFFFFF * (int)(256 * fract->iter / fract->iter_max);
+				fract->window.img.str[x + 1920 * y] = 65536 * (int)(256 * fract->iter / fract->iter_max);
 			}
 			x++;
 		}
