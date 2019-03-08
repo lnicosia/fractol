@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 12:32:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:04:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
-	(void)x;
-	(void)y;
 	if (button == SCROLLUP_KEY)
 	{
 		fract->max.x = (x / fract->zoom + fract->max.x)
@@ -81,7 +79,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
 		fract->zoom *= 1.5;
-		fract->iter_max += 8;
+		fract->iter_max += 4;
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
@@ -96,11 +94,9 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
 			fract->zoom /= 1.5;
-			fract->iter_max -= 8;
+			fract->iter_max -= 4;
 		}
 	}
-	ft_printf("x = [%f, %f]\ny = [%f, %f]\n\n", fract->min.x, fract->max.x,
-			fract->min.y, fract->max.y);
 	fract->func(fract);
 	return (0);
 }

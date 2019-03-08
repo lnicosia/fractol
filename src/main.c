@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 12:02:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/08 15:11:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	parse_args(char **av, t_env *data)
 		{
 			if (!data->args[2])
 				data->args[2] = 1;
+		}
+		else if (ft_strequ(av[i], "buddhabrot"))
+		{
+			if (!data->args[3])
+				data->args[3] = 1;
 		}
 		else
 			usage();

@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/08 12:23:59 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/08 15:12:57 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
-		  export.c
+		  export.c buddhabrot.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h
 

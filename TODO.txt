@@ -1,3 +1,5 @@
+8 fract mini
+Mandelbulb?
 Supprimer max.x et max.y si inutiles
 couleurs stylees
 multi threading
