@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 15:43:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 18:42:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void		init_buddhabrot(t_fract *fract)
 {
 	fract->nb = 3;
+	fract->color_base = BLUE;
+	fract->color_mode = FLAT;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
 	fract->iter_max = 64;
@@ -68,7 +70,7 @@ static void	*calc_buddhabrot(void *param)
 				while (tmp)
 				{
 					tmp_c = (t_coord2*)tmp->content;
-					fract->window.img.str[tmp_c->y + tmp_c->x * 1024] += 4500;
+					color_buddha(tmp_c->x, tmp_c->y, fract);
 					tmp = tmp->next;
 				}
 			}
@@ -86,6 +88,24 @@ static void	*calc_buddhabrot(void *param)
 	return (NULL);
 }
 
+static void	reset_img(t_fract *fract)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 1024)
+	{
+		x = 0;
+		while (x < 1024)
+		{
+			fract->window.img.str[x + y * 1024] = 0;
+			x++;
+		}
+		y++;
+	}
+}
+
 void		buddhabrot(t_fract *fract)
 {
 	pthread_t		thread[8];
@@ -93,10 +113,11 @@ void		buddhabrot(t_fract *fract)
 	int				i;
 
 	i = 0;
-	ft_printf("launching buddhabrot..\n");
+	//ft_printf("launching buddhabrot..\n");
+	reset_img(fract);
 	while (i < 8)
 	{
-		ft_printf("thread %d..\n", i + 1);
+		//ft_printf("thread %d..\n", i + 1);
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
 		buddhabrot[i].end = 1024 / 8 * (i + 1);
 		buddhabrot[i].start = 1024 / 8 * i;

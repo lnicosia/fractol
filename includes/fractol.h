@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 15:24:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 18:10:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ typedef struct	s_window
 typedef struct	s_fract
 {
 	int				nb;
-	int				color_base;
-	int				color_mode;
+	unsigned int	color_base;
+	unsigned int	color_mode;
+	unsigned		color_center;
 	int				start;
 	int				end;
 	char			*name;
@@ -99,6 +100,7 @@ int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
 void			color(int x, int y, t_fract *fract);
+void			color_buddha(int x, int y, t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);
 void			swap_color_mode(int key, t_fract *fract);
 
