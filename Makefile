@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/11 14:12:19 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/11 15:00:33 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
-		  export.c buddhabrot.c
+		  export.c buddhabrot.c color.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h
 
@@ -32,13 +32,13 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -g3 -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		 -I $(LIBFT_DIR)
+		 -I $(LIBFT_DIR) -fsanitize=address
 
 DEBUG ?= 0
 
-ifeq ($(DEBUG), 1)
-	CFLAGS += -fsanitize=address
-endif
+#ifeq ($(DEBUG), 1)
+#	CFLAGS += -fsanitize=address
+#endif
 
 MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 
@@ -55,10 +55,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
-	gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(BIN_DIR)/$(NAME)' with success!"${RESET}
 
 clean: 

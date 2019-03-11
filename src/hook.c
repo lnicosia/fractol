@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 20:39:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:43:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ int		key_release(int key, void *param)
 		quit(fract);
 	if (key == E_KEY)
 		export_fdf(*fract);
+	if (key >= K1_KEY && key <= K0_KEY && fract->nb != 3)
+		swap_color_base(key, fract);
+	if (key >= NK0_KEY && key <= NK9_KEY && fract->nb != 3)
+		swap_color_mode(key, fract);
+	if (key == NKPL_KEY)
+	{
+		fract->iter_max += 4;
+		fract->func(fract);
+	}
+	if (key == NKMN_KEY)
+	{
+		fract->iter_max -= 4;
+		fract->func(fract);
+	}
 	return (0);
 }
 

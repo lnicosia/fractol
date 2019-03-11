@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 12:19:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:24:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <mlx.h>
 # include <pthread.h>
 # include "libft.h"
+# define WHITE 0
+# define RED 1
+# define GREEN 2
+# define BLUE 3
+# define FLAT 0
+# define COS 1
+# define SIN 2
 
 typedef struct	s_fcoord2
 {
@@ -48,6 +55,8 @@ typedef struct	s_window
 typedef struct	s_fract
 {
 	int				nb;
+	int				color_base;
+	int				color_mode;
 	int				start;
 	int				end;
 	char			*name;
@@ -89,5 +98,8 @@ void			init_buddhabrot(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
+void			color(int x, int y, t_fract *fract);
+void			swap_color_base(int key, t_fract *fract);
+void			swap_color_mode(int key, t_fract *fract);
 
 #endif

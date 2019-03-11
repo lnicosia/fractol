@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 18:03:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:08:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void		init_mandelbrot(t_fract *fract)
 {
 	fract->nb = 1;
+	fract->color_base = WHITE;
+	fract->color_mode = FLAT;
 	fract->name = "Mandelbrot";
 	fract->zoom = 400;
-	fract->iter_max = 50;
+	fract->iter_max = 64;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -2.7;
@@ -56,10 +58,7 @@ static void	*calc_mandelbrot(void *param)
 			if (fract->iter == fract->iter_max)
 				fract->window.img.str[x + 1920 * y] = 0;
 			else
-			{
-				fract->window.img.str[x + 1920 * y] = 0xFFFFFF
-					* (int)(256 * fract->iter / fract->iter_max);
-			}
+				color(x, y, fract);
 			x++;
 		}
 		y++;

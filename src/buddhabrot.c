@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 12:28:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:43:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		init_buddhabrot(t_fract *fract)
 	fract->nb = 3;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 128;
+	fract->iter_max = 64;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
@@ -86,11 +86,6 @@ static void	*calc_buddhabrot(void *param)
 	return (NULL);
 }
 
-void		rotate_buddha(t_fract *fract)
-{
-	(void)fract;
-}
-
 void		buddhabrot(t_fract *fract)
 {
 	pthread_t		thread[8];
@@ -98,8 +93,10 @@ void		buddhabrot(t_fract *fract)
 	int				i;
 
 	i = 0;
+	ft_printf("launching buddhabrot..\n");
 	while (i < 8)
 	{
+		ft_printf("thread %d..\n", i + 1);
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
 		buddhabrot[i].end = 1024 / 8 * (i + 1);
 		buddhabrot[i].start = 1024 / 8 * i;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:28:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 18:04:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:15:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void		init_ship(t_fract *fract)
 {
 	fract->nb = 2;
+	fract->color_base = WHITE;
+	fract->color_mode = FLAT;
 	fract->name = "Burning ship";
 	fract->zoom = 12500;
 	fract->iter_max = 150;
@@ -59,10 +61,7 @@ static void	*calc_ship(void *param)
 			if (fract->iter == fract->iter_max)
 				fract->window.img.str[x + 1920 * y] = 0;
 			else
-			{
-				fract->window.img.str[x + 1920 * y] = 0xFFFFFF
-					* (int)(256 * fract->iter / fract->iter_max);
-			}
+				color(x, y, fract);
 			x++;
 		}
 		y++;
