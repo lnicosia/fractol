@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 19:40:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:19:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct	s_env
 {
 	void			*mlx_ptr;
 	t_fract			fract[MAX_FRACT];
-	char			*titles[MAX_FRACT];
 	void			(*fract_func[MAX_FRACT])(t_fract *);
 	void			(*init_fract[MAX_FRACT])(t_fract *);
 	int				args[MAX_FRACT];
@@ -87,7 +86,7 @@ void			init_julia(t_fract *fract);
 void			init_mandelbrot(t_fract *fract);
 void			init_ship(t_fract *fract);
 void			init_buddhabrot(t_fract *fract);
-int				init_window(t_fract *fract, t_env *data, char *title);
+int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 15:12:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:20:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,26 @@ void	init_hook(t_fract *fract)
 			mouse_move, fract);
 }
 
-int		init_window(t_fract *fract, t_env *data, char *title)
+int		init_window(t_fract *fract, t_env *data)
 {
-	if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1920,
-					1080, title)))
-		return (0);
-	if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1920,
-					1080)))
-		return (0);
+	if (ft_strequ(fract->name, "Buddhabrot"))
+	{
+		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1024,
+						1024, fract->name)))
+			return (0);
+		if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1024,
+						1024)))
+			return (0);
+	}
+	else
+	{
+		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1920,
+						1080, fract->name)))
+			return (0);
+		if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1920,
+						1080)))
+			return (0);
+	}
 	fract->window.img.str = (unsigned int*)mlx_get_data_addr(fract->window.
 			img_ptr, &(fract->window.img.bit_per_pixels), &(fract->window.
 				img.size_line), &(fract->window.img.endian));
@@ -66,9 +78,5 @@ int		init_fract(t_env *data)
 	data->fract[1].mlx_ptr = data->mlx_ptr;
 	data->fract[2].mlx_ptr = data->mlx_ptr;
 	data->fract[3].mlx_ptr = data->mlx_ptr;
-	data->titles[0] = "[Julia]";
-	data->titles[1] = "[Mandelbrot]";
-	data->titles[2] = "[Burning ship]";
-	data->titles[3] = "[Buddhabrot]";
 	return (1);
 }

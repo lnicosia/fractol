@@ -1,3 +1,5 @@
+Plein de parametres donnes par l'utilisateur
+Buddha SEGFAULT
 buddha colors
 8 fract mini
 Mandelbulb?

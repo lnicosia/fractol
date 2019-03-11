@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 15:11:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:19:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int		main(int ac, char **av)
 		{
 			if (data.args[i])
 			{
-				init_window(&data.fract[i], &data, data.titles[i]);
 				data.init_fract[i](&data.fract[i]);
+				init_window(&data.fract[i], &data);
 				data.fract_func[i](&data.fract[i]);
 			}
 			i++;
