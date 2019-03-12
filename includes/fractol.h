@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 18:10:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:28:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 4
+# define MAX_FRACT 5
 # include <mlx.h>
 # include <pthread.h>
 # include "libft.h"
@@ -68,7 +68,6 @@ typedef struct	s_fract
 	int				iter_max;
 	t_fcoord2		max;
 	t_fcoord2		min;
-	t_fcoord2		center;
 	t_coord2		drag;
 	t_fcoord2		transfo;
 	t_fcoord2		move;
@@ -92,10 +91,12 @@ void			julia(t_fract *fract);
 void			mandelbrot(t_fract *fract);
 void			ship(t_fract *fract);
 void			buddhabrot(t_fract *fract);
+void			burning_julia(t_fract *fract);
 void			init_julia(t_fract *fract);
 void			init_mandelbrot(t_fract *fract);
 void			init_ship(t_fract *fract);
 void			init_buddhabrot(t_fract *fract);
+void			init_burning_julia(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);

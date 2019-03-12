@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 15:08:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:36:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void		init_julia(t_fract *fract)
 {
 	fract->nb = 0;
+	fract->movement = 0;
 	fract->color_base = RED;
 	fract->color_mode = FLAT;
 	fract->name = "Julia";
@@ -24,8 +25,10 @@ void		init_julia(t_fract *fract)
 	fract->min.x = -2.25;
 	fract->min.y = -1.4;
 	fract->max.y = 2.5;
-	fract->center.x = 2.0;
-	fract->center.y = 2.0;
+	fract->move.x = 0;
+	fract->move.y = 0;
+	fract->transfo.x = 0;
+	fract->transfo.y = 0;
 }
 
 static void	*calc_julia(void *param)

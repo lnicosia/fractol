@@ -1,3 +1,4 @@
+Buddha random version (+ speeded up)
 Plein de parametres donnes par l'utilisateur
 Buddha SEGFAULT
 buddha colors

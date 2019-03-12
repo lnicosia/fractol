@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/11 15:00:33 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/12 11:20:45 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
-		  export.c buddhabrot.c color.c
+		  export.c buddhabrot.c color.c burning_julia.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h
 
@@ -32,7 +32,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -g3 -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		 -I $(LIBFT_DIR) -fsanitize=address
+		 -I $(LIBFT_DIR)
 
 DEBUG ?= 0
 
