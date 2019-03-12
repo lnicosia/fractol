@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/11 16:42:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 17:32:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	*calc_mandelbrot(void *param)
 	int			x;
 	int			y;
 	double		xtemp;
-	t_fcoord2	z;
-	t_fcoord2	c;
+	t_complex	z;
+	t_complex	c;
 	t_fract		*fract;
 
 	fract = (t_fract*)param;
@@ -42,17 +42,17 @@ static void	*calc_mandelbrot(void *param)
 		x = 0;
 		while (x < 1920)
 		{
-			c.x = x / fract->zoom + fract->min.x + fract->move.x;
-			c.y = y / fract->zoom + fract->min.y + fract->move.y;
-			z.x = 0;
-			z.y = 0;
+			c.r = x / fract->zoom + fract->min.x + fract->move.x;
+			c.i = y / fract->zoom + fract->min.y + fract->move.y;
+			z.r = 0;
+			z.i = 0;
 			fract->iter = 0;
-			while (z.x * z.x + z.y * z.y < 4
+			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
-				xtemp = z.x * z.x - z.y * z.y;
-				z.y = 2 * z.x * z.y + c.y;
-				z.x = xtemp + c.x;
+				xtemp = z.r * z.r - z.i * z.i;
+				z.i = 2 * z.r * z.i + c.i;
+				z.r = xtemp + c.r;
 				fract->iter++;
 			}
 			if (fract->iter == fract->iter_max)

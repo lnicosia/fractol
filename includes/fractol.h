@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 13:57:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 18:15:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct	s_coord2
 	int	x;
 	int	y;
 }				t_coord2;
+
+typedef struct	s_complex
+{
+	double	r;
+	double	i;
+}				t_complex;
 
 typedef struct	s_img
 {
@@ -106,5 +112,11 @@ void			color(int x, int y, t_fract *fract);
 void			color_buddha(int x, int y, t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);
 void			swap_color_mode(int key, t_fract *fract);
+t_complex		ft_cadd(t_complex c1, t_complex c2);
+t_complex		ft_csub(t_complex c1, t_complex c2);
+t_complex		ft_cmul(t_complex c1, t_complex c2);
+t_complex		ft_cdiv(t_complex c1, t_complex c2);
+t_complex		ft_cpow(t_complex c1, int pow);
+t_complex		new_complex(double r, double i);
 
 #endif

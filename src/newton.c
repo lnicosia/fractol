@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 14:01:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:05:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <math.h>
 
 void		init_newton(t_fract *fract)
 {
@@ -19,45 +20,62 @@ void		init_newton(t_fract *fract)
 	fract->color_mode = FLAT;
 	fract->name = "Newton";
 	fract->zoom = 400;
-	fract->iter_max = 64;
+	fract->iter_max = 30;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
-	fract->min.x = -2.0;
-	fract->min.y = -2.0;
+	fract->min.x = -2.4;
+	fract->min.y = -1.4;
 	fract->move.x = 0;
 	fract->move.y = 0;
+}
+
+static int	is_tol(t_complex z, t_complex root, double tolerance)
+{
+	return (fabs(ft_csub(z, root).r) < tolerance && fabs(ft_csub(z, root).i) < tolerance);
 }
 
 static void	*calc_newton(void *param)
 {
 	int			x;
 	int			y;
-	double		xtemp;
-	t_fcoord2	z;
+	t_complex	z;
 	t_fract		*fract;
+	t_complex	roots[3];
+	double		tolerance;
 
 	fract = (t_fract*)param;
+	tolerance = 0.001;
+	roots[0] = new_complex(1, 0);
+	roots[1] = new_complex(-0.5, sqrt(3) / 2);
+	roots[2] = new_complex(-0.5, -sqrt(3) / 2);
 	y = fract->start;
 	while (y < fract->end)
 	{
 		x = 0;
 		while (x < 1920)
 		{
-			z.x = x / fract->zoom + fract->min.x + fract->move.x;
-			z.y = y / fract->zoom + fract->min.y + fract->move.y;
+			z.r = x / fract->zoom + fract->min.x + fract->move.x;
+			z.i = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
-			while (z.x * z.x + z.y * z.y < 4
-					&& fract->iter < fract->iter_max)
+			while (fract->iter < fract->iter_max && !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
 			{
-				xtemp = z.x * z.x - z.y * z.y;
-				z.y = 2 * z.x * z.y;
-				z.x = xtemp;
+				z = ft_cdiv(ft_cadd(ft_cmul(new_complex(2, 0),
+					ft_cpow(z, 3)), new_complex(1, 0)),
+						ft_cmul(new_complex(3, 0), ft_cpow(z, 2)));
 				fract->iter++;
 			}
-			if (fract->iter == fract->iter_max)
-				fract->window.img.str[x + 1920 * y] = 0;
+			//ft_printf("%f + %fi\n", z.r, z.i);
+			if (is_tol(z, roots[0], tolerance))
+				fract->window.img.str[x + 1920 * y] = 0xFF0000 *
+					(255 * fract->iter / fract->iter_max);
+			else if (is_tol(z, roots[1], tolerance))
+				fract->window.img.str[x + 1920 * y] = 0x00FF00 *
+					(255 * fract->iter / fract->iter_max);
+			else if (is_tol(z, roots[2], tolerance))
+				fract->window.img.str[x + 1920 * y] = 0x0000FF *
+					(255 * fract->iter / fract->iter_max);
 			else
-				color(x, y, fract);
+				fract->window.img.str[x + 1920 * y] = 0;
 			x++;
 		}
 		y++;
