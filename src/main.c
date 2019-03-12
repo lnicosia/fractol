@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 11:25:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 13:58:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	parse_args(char **av, t_env *data)
 		{
 			if (!data->args[4])
 				data->args[4] = 1;
+		}
+		else if (ft_strequ(av[i], "newton"))
+		{
+			if (!data->args[5])
+				data->args[5] = 1;
 		}
 		else
 			usage();

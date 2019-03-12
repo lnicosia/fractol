@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 11:37:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/12 13:35:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	*calc_julia(void *param)
 			z.y = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
 			while (z.x * z.x + z.y * z.y < 4
-					&& fract->iter < fract->iter_max)
+				&& fract->iter < fract->iter_max)
 			{
 				xtemp = z.x * z.x - z.y * z.y;
 				z.y = fabs(2 * z.x * z.y + 0.01 + fract->transfo.x);

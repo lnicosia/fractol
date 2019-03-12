@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ship.c                                             :+:      :+:    :+:   */
+/*   newton.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 13:23:53 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/03/12 14:01:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
-void		init_ship(t_fract *fract)
+void		init_newton(t_fract *fract)
 {
-	fract->nb = 2;
+	fract->nb = 5;
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
-	fract->name = "Burning ship";
-	fract->zoom = 12500;
-	fract->iter_max = 150;
-	fract->max.x = -1.76;
-	fract->max.y = 1.075;
-	fract->min.x = -1.840;
-	fract->min.y = -0.075;
+	fract->name = "Newton";
+	fract->zoom = 400;
+	fract->iter_max = 64;
+	fract->max.x = 0.6;
+	fract->max.y = 1.2;
+	fract->min.x = -2.0;
+	fract->min.y = -2.0;
+	fract->move.x = 0;
+	fract->move.y = 0;
 }
 
-static void	*calc_ship(void *param)
+static void	*calc_newton(void *param)
 {
 	int			x;
 	int			y;
 	double		xtemp;
 	t_fcoord2	z;
-	t_fcoord2	c;
 	t_fract		*fract;
 
 	fract = (t_fract*)param;
@@ -43,17 +43,15 @@ static void	*calc_ship(void *param)
 		x = 0;
 		while (x < 1920)
 		{
-			c.x = x / fract->zoom + fract->min.x + fract->move.x;
-			c.y = y / fract->zoom + fract->min.y + fract->move.y;
-			z.x = 0;
-			z.y = 0;
+			z.x = x / fract->zoom + fract->min.x + fract->move.x;
+			z.y = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
 			while (z.x * z.x + z.y * z.y < 4
 					&& fract->iter < fract->iter_max)
 			{
 				xtemp = z.x * z.x - z.y * z.y;
-				z.y = fabs(2 * z.x * z.y + c.y);
-				z.x = fabs(xtemp + c.x);
+				z.y = 2 * z.x * z.y;
+				z.x = xtemp;
 				fract->iter++;
 			}
 			if (fract->iter == fract->iter_max)
@@ -67,19 +65,19 @@ static void	*calc_ship(void *param)
 	return (NULL);
 }
 
-void		ship(t_fract *fract)
+void		newton(t_fract *fract)
 {
 	pthread_t	thread[8];
-	t_fract		ship[8];
+	t_fract		newton[8];
 	int			i;
 
 	i = 0;
 	while (i < 8)
 	{
-		ft_memcpy(&ship[i], fract, sizeof(t_fract));
-		ship[i].end = 1080 / 8 * (i + 1);
-		ship[i].start = 1080 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_ship, &ship[i]);
+		ft_memcpy(&newton[i], fract, sizeof(t_fract));
+		newton[i].end = 1080 / 8 * (i + 1);
+		newton[i].start = 1080 / 8 * i;
+		pthread_create(&thread[i], NULL, calc_newton, &newton[i]);
 		i++;
 	}
 	while (i-- > 0)
