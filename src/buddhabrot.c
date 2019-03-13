@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 17:12:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:59:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void		init_buddhabrot(t_fract *fract)
 {
 	fract->nb = 3;
-	fract->color_base = WHITE;
+	fract->color_base = GREEN;
 	fract->color_mode = FLAT;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 256;
+	fract->iter_max = 20;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
@@ -30,6 +30,7 @@ static void	*calc_buddhabrot(void *param)
 {
 	int			x;
 	int			y;
+	int			freer;
 	double		xtemp;
 	t_complex	z;
 	t_complex	c;
@@ -41,6 +42,7 @@ static void	*calc_buddhabrot(void *param)
 
 	fract = (t_fract*)param;
 	y = fract->start;
+	pixels = NULL;
 	while (y < fract->end)
 	{
 		x = 0;
@@ -51,6 +53,7 @@ static void	*calc_buddhabrot(void *param)
 			z.r = 0;
 			z.i = 0;
 			fract->iter = 0;
+			freer = 0;
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
@@ -62,7 +65,17 @@ static void	*calc_buddhabrot(void *param)
 				coord.y = (int)((z.i - fract->min.y) * fract->zoom);
 				if (coord.x >= 0 && coord.x < 1024
 					&& coord.y >= 0 && coord.y < 1024)
-					ft_lstadd(&pixels, ft_lstnew(&coord, sizeof(t_coord2*)));
+				{
+					if (!(tmp = ft_lstnew(&coord, sizeof(t_coord2*))))
+					{
+						ft_printf("malloc failed\n");
+						if (pixels)
+							free(pixels);
+						exit(0);
+					}
+					ft_lstadd(&pixels, tmp);
+					freer = 1;
+				}
 			}
 			if (fract->iter < fract->iter_max && fract->iter > 15)
 			{
@@ -74,12 +87,13 @@ static void	*calc_buddhabrot(void *param)
 					tmp = tmp->next;
 				}
 			}
-			while (pixels)
+			while (pixels && freer)
 			{
 				tmp = pixels;
 				pixels = pixels->next;
 				free(tmp->content);
 				free(tmp);
+				tmp = NULL;
 			}
 			x++;
 		}
@@ -114,6 +128,7 @@ void		buddhabrot(t_fract *fract)
 
 	i = 0;
 	reset_img(fract);
+	ft_printf("Buddha\n");
 	while (i < 8)
 	{
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
@@ -124,6 +139,7 @@ void		buddhabrot(t_fract *fract)
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
+	ft_printf("Done\n\n");
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);

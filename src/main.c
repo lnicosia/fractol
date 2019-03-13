@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 13:58:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 11:08:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		usage(void)
 {
 	ft_printf("usage: ./fractol julia | mandelbrot | ship | buddhabrot");
-	ft_printf("| bjulia\n");
+	ft_printf("| bjulia | newton\n");
 	exit(0);
 }
 

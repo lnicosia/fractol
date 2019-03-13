@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 17:02:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 11:55:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,26 @@ int		key_press(int key, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
-	if (key == UP_KEY && fract->nb != 3)
+	if (key == UP_KEY)
+	{
 		fract->move.y += 100 / (double)fract->zoom;
-	if (key == DOWN_KEY && fract->nb != 3)
-		fract->move.y -= 100 / (double)fract->zoom;
-	if (key == LEFT_KEY && fract->nb != 3)
-		fract->move.x += 100 / (double)fract->zoom;
-	if (key == RIGHT_KEY && fract->nb != 3)
-		fract->move.x -= 100 / (double)fract->zoom;
-	if (fract->nb != 3)
 		fract->func(fract);
+	}
+	if (key == DOWN_KEY)
+	{
+		fract->move.y -= 100 / (double)fract->zoom;
+		fract->func(fract);
+	}
+	if (key == LEFT_KEY)
+	{
+		fract->move.x += 100 / (double)fract->zoom;
+		fract->func(fract);
+	}
+	if (key == RIGHT_KEY)
+	{
+		fract->move.x -= 100 / (double)fract->zoom;
+		fract->func(fract);
+	}
 	return (0);
 }
 
