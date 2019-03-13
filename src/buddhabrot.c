@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 14:59:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:24:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void		init_buddhabrot(t_fract *fract)
 {
 	fract->nb = 3;
-	fract->color_base = GREEN;
+	fract->color_base = RED;
 	fract->color_mode = FLAT;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 20;
+	fract->iter_max = 1024;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
@@ -128,7 +128,7 @@ void		buddhabrot(t_fract *fract)
 
 	i = 0;
 	reset_img(fract);
-	ft_printf("Buddha\n");
+	ft_printf("Computing Buddha..\n");
 	while (i < 8)
 	{
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
@@ -140,6 +140,8 @@ void		buddhabrot(t_fract *fract)
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
 	ft_printf("Done\n\n");
+	if (fract->color_mode == SIN)
+		colorize_buddha(fract);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);

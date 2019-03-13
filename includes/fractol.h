@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 18:15:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:33:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
 void			color(int x, int y, t_fract *fract);
 void			color_buddha(int x, int y, t_fract *fract);
+void			colorize_buddha(t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);
 void			swap_color_mode(int key, t_fract *fract);
 t_complex		ft_cadd(t_complex c1, t_complex c2);

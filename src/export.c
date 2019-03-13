@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 12:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 14:55:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:18:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,30 @@ static int	write_fdf(t_fract fract, int fd)
 	return (0);
 }
 
+static int	write_buddha_fdf(t_fract fract, int fd)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 1024)
+	{
+		x = 0;
+		while (x < 1024)
+		{
+			if (x != 0)
+				ft_dprintf(fd, " ");
+			ft_dprintf(fd, "%d,0x%X",
+					(fract.window.img.str[x + y * 1024] * 1000 / 0xFFFFFF),
+					fract.window.img.str[x + y * 1024]);
+			x += 2;
+		}
+		ft_dprintf(fd, "\n");
+		y += 2;
+	}
+	return (0);
+}
+
 int			export_fdf(t_fract fract)
 {
 	int		fd;
@@ -55,7 +79,10 @@ int			export_fdf(t_fract fract)
 		ft_printf("Open error\n");
 		return (-1);
 	}
-	write_fdf(fract, fd);
+	if (fract.nb == 3)
+		write_buddha_fdf(fract, fd);
+	else
+		write_fdf(fract, fd);
 	if (close(fd) == -1)
 		return (-1);
 	ft_printf("%s created successfully!\n", file);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 11:09:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:04:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,70 @@ void		color(int x, int y, t_fract *fract)
 		fract->window.img.str[x + y * 1920] = div;
 }
 
+void		colorize_buddha(t_fract *fract)
+{
+	int				x;
+	int				y;
+	unsigned int	max;
+	unsigned int	col;
+
+	y = 0;
+	max = 0;
+	while (y < 1024)
+	{
+		x = 0;
+		while (x < 1024)
+		{
+			if (fract->window.img.str[y + x * 1024] > max)
+				max = fract->window.img.str[y + x * 1024];
+			x++;
+		}
+		y++;
+	}
+	y = 0;
+	ft_printf("Max count = %u\n", max);
+	while (y < 1024)
+	{
+		x = 0;
+		while (x < 1024)
+		{
+			//col = 255 * sqrt(fract->window.img.str[y + x * 1024]) / sqrt(max);
+			col = 255 * pow(fract->window.img.str[y + x * 1024] / (double)max, 0.5);
+			fract->window.img.str[y + x * 1024] = col + 256 * col + 65536 * col;
+			x++;
+		}
+		y++;
+	}
+}
+
 void		color_buddha(int x, int y, t_fract *fract)
 {
-	if (fract->color_base == WHITE)
-		fract->window.img.str[y + x * 1024] += 25 * 256 * 256 + 25 * 256 + 25;
-	if (fract->color_base == RED)
-		fract->window.img.str[y + x * 1024] += 25 * 256 * 256;
-	if (fract->color_base == GREEN)
-		fract->window.img.str[y + x * 1024] += 25 * 256;
-	if (fract->color_base == BLUE)
-		fract->window.img.str[y + x * 1024] += 25;
+	double	mul;
+
+	mul = 25;
+	if (fract->color_mode == COS)
+	{
+		//mul = sqrt(mul);
+		if (fract->iter < fract->iter_max / 20 + 15)
+			fract->window.img.str[y + x * 1024] += mul * 256 * 256;
+		else if(fract->iter >= fract->iter_max / 20 + 15 && fract->iter < fract->iter_max / 5 + 15)
+			fract->window.img.str[y + x * 1024] += mul * 256;
+		else if(fract->iter >= fract->iter_max / 5 + 15 && fract->iter < fract->iter_max)
+			fract->window.img.str[y + x * 1024] += mul;
+	}
+	else if (fract->color_mode == SIN)
+			fract->window.img.str[y + x * 1024] += 1;
+	else
+	{
+		if (fract->color_base == WHITE)
+			fract->window.img.str[y + x * 1024] += mul * 256 * 256 + mul * 256 + mul;
+		if (fract->color_base == RED)
+			fract->window.img.str[y + x * 1024] += mul * 256 * 256;
+		if (fract->color_base == GREEN)
+			fract->window.img.str[y + x * 1024] += mul * 256;
+		if (fract->color_base == BLUE)
+			fract->window.img.str[y + x * 1024] += mul;
+	}
 }
 
 void		swap_color_base(int key, t_fract *fract)
