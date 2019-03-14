@@ -1,4 +1,3 @@
-Femer correctement (variable statique)
 Afficher nombre d'iterations
 Buddha random version (+ speeded up)
 Plein de parametres donnes par l'utilisateur

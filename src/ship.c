@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 13:23:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:23:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void		init_ship(t_fract *fract)
 {
-	fract->nb = 2;
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
 	fract->name = "Burning ship";

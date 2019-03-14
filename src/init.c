@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 13:58:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:18:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_hook(t_fract *fract)
 
 int		init_window(t_fract *fract, t_env *data)
 {
+	fract->state = 1;
 	if (ft_strequ(fract->name, "Buddhabrot"))
 	{
 		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1024,
@@ -60,6 +61,10 @@ int		init_window(t_fract *fract, t_env *data)
 
 int		init_fract(t_env *data)
 {
+	int	i;
+	int	j;
+
+	i = 0;
 	if (!(data->mlx_ptr = mlx_init()))
 		return (0);
 	data->fract_func[0] = &julia;
@@ -80,11 +85,17 @@ int		init_fract(t_env *data)
 	data->init_fract[3] = &init_buddhabrot;
 	data->init_fract[4] = &init_burning_julia;
 	data->init_fract[5] = &init_newton;
-	data->fract[0].mlx_ptr = data->mlx_ptr;
-	data->fract[1].mlx_ptr = data->mlx_ptr;
-	data->fract[2].mlx_ptr = data->mlx_ptr;
-	data->fract[3].mlx_ptr = data->mlx_ptr;
-	data->fract[4].mlx_ptr = data->mlx_ptr;
-	data->fract[5].mlx_ptr = data->mlx_ptr;
+	while (i < MAX_FRACT)
+	{
+		j = 0;
+		while (j < MAX_FRACT)
+		{
+			data->fract[i].fract[j] = &data->fract[j];
+			j++;
+		}
+		data->fract[i].nb = i;
+		data->fract[i].mlx_ptr = data->mlx_ptr;
+		i++;
+	}
 	return (1);
 }

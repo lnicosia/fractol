@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 19:05:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:19:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void		init_newton(t_fract *fract)
 {
-	fract->nb = 5;
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
 	fract->name = "Newton";

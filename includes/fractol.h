@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 16:33:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:18:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct	s_window
 typedef struct	s_fract
 {
 	int				nb;
+	int				state;
+	struct s_fract	*fract[MAX_FRACT];
 	unsigned int	color_base;
 	unsigned int	color_mode;
 	unsigned		color_center;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 17:24:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:19:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		init_buddhabrot(t_fract *fract)
 {
-	fract->nb = 3;
 	fract->color_base = RED;
 	fract->color_mode = FLAT;
 	fract->name = "Buddhabrot";
