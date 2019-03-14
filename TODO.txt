@@ -1,4 +1,4 @@
-Afficher nombre d'iterations
+Afficher nombre d'iterations = coder sprintf
 Buddha random version (+ speeded up)
 Plein de parametres donnes par l'utilisateur
 8 fract mini

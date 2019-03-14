@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 10:18:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:36:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_fract
 	struct s_fract	*fract[MAX_FRACT];
 	unsigned int	color_base;
 	unsigned int	color_mode;
-	unsigned		color_center;
+	unsigned int	color_center;
 	int				start;
 	int				end;
 	char			*name;
@@ -81,6 +81,7 @@ typedef struct	s_fract
 	t_fcoord2		move;
 	int				movement;
 	t_list			*pixels;
+	int				maj_buffer;
 	void			(*func)(struct s_fract *);
 }				t_fract;
 

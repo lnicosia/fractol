@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 11:18:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:37:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_hook(t_fract *fract)
 int		init_window(t_fract *fract, t_env *data)
 {
 	fract->state = 1;
+	fract->maj_buffer = 0;
 	if (ft_strequ(fract->name, "Buddhabrot"))
 	{
 		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1024,

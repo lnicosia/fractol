@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 12:12:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 11:20:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:26:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static void	close_all_windows(t_fract *fract)
 	exit(0);
 }
 
-void	quit(t_fract *fract)
+void		quit(t_fract *fract)
 {
 	ft_putendl("[ESCAPE]");
 	close_all_windows(fract);
 	exit(0);
 }
 
-int		close_window(void *param)
+int			close_window(void *param)
 {
 	t_fract	*fract;
 

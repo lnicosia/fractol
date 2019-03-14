@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 17:17:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:39:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,22 @@ int		key_release(int key, void *param)
 		swap_color_mode(key, fract);
 	if (key == NKPL_KEY)
 	{
-		fract->iter_max += 4;
+		if (fract->maj_buffer)
+			fract->iter_max += 40;
+		else
+			fract->iter_max += 4;
 		fract->func(fract);
 	}
 	if (key == NKMN_KEY)
 	{
-		fract->iter_max -= 4;
+		if (fract->maj_buffer)
+			fract->iter_max -= 40;
+		else
+			fract->iter_max -= 4;
 		fract->func(fract);
 	}
+	if (key == LSFT_KEY)
+		fract->maj_buffer = 0;
 	return (0);
 }
 
@@ -67,6 +75,8 @@ int		key_press(int key, void *param)
 		fract->move.x -= 100 / (double)fract->zoom;
 		fract->func(fract);
 	}
+	if (key == LSFT_KEY)
+		fract->maj_buffer = 1;
 	return (0);
 }
 
