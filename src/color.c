@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 17:04:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:54:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,28 @@ void		colorize_buddha(t_fract *fract)
 		while (x < 1024)
 		{
 			//col = 255 * sqrt(fract->window.img.str[y + x * 1024]) / sqrt(max);
-			col = 255 * pow(fract->window.img.str[y + x * 1024] / (double)max, 0.5);
-			fract->window.img.str[y + x * 1024] = col + 256 * col + 65536 * col;
+			col = 255 * (pow(fract->window.img.str[y + x * 1024] / (double)max, 1/2.0));
+			//col = 255 * fract->window.img.str[y + x * 1024] / (double)max;
+			if (fract->color_mode == COS)
+			{
+				if (fract->iter < fract->iter_max / 20 + 15)
+					fract->window.img.str[y + x * 1024] = col * 65536;
+				else if(fract->iter >= fract->iter_max / 20 + 15 && fract->iter < fract->iter_max / 5 + 15)
+					fract->window.img.str[y + x * 1024] = col * 256;
+				else if(fract->iter >= fract->iter_max / 5 + 15 && fract->iter < fract->iter_max)
+					fract->window.img.str[y + x * 1024] = col;
+			}
+			else
+			{
+				if (fract->color_base == WHITE)
+					fract->window.img.str[y + x * 1024] = col + 256 * col + 65536 * col;
+				if (fract->color_base == RED)
+					fract->window.img.str[y + x * 1024] = 65536 * col;
+				if (fract->color_base == GREEN)
+					fract->window.img.str[y + x * 1024] = 256 * col;
+				if (fract->color_base == BLUE)
+					fract->window.img.str[y + x * 1024] = col;
+			}
 			x++;
 		}
 		y++;
@@ -85,7 +105,7 @@ void		color_buddha(int x, int y, t_fract *fract)
 			fract->window.img.str[y + x * 1024] += mul;
 	}
 	else if (fract->color_mode == SIN)
-			fract->window.img.str[y + x * 1024] += 1;
+		fract->window.img.str[y + x * 1024] += 1;
 	else
 	{
 		if (fract->color_base == WHITE)

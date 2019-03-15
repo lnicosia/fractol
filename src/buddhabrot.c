@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 11:39:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:54:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void		init_buddhabrot(t_fract *fract)
 {
-	fract->color_base = RED;
-	fract->color_mode = FLAT;
+	fract->color_base = WHITE;
+	fract->color_mode = COS;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 64;
+	fract->iter_max = 512;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
@@ -29,19 +29,16 @@ static void	*calc_buddhabrot(void *param)
 {
 	int			x;
 	int			y;
-	int			freer;
 	double		xtemp;
 	t_complex	z;
 	t_complex	c;
 	t_fract		*fract;
 	t_coord2	coord;
-	t_coord2	*tmp_c;
-	t_list		*pixels;
-	t_list		*tmp;
+	int			i;
 
 	fract = (t_fract*)param;
 	y = fract->start;
-	pixels = NULL;
+	i = 0;
 	while (y < fract->end)
 	{
 		x = 0;
@@ -52,7 +49,6 @@ static void	*calc_buddhabrot(void *param)
 			z.r = 0;
 			z.i = 0;
 			fract->iter = 0;
-			freer = 0;
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
@@ -60,39 +56,26 @@ static void	*calc_buddhabrot(void *param)
 				z.i = 2 * z.r * z.i + c.i;
 				z.r = xtemp + c.r;
 				fract->iter++;
-				coord.x = (int)((z.r - fract->min.x) * fract->zoom);
-				coord.y = (int)((z.i - fract->min.y) * fract->zoom);
-				if (coord.x >= 0 && coord.x < 1024
-					&& coord.y >= 0 && coord.y < 1024)
-				{
-					if (!(tmp = ft_lstnew(&coord, sizeof(t_coord2*))))
-					{
-						ft_printf("malloc failed\n");
-						if (pixels)
-							free(pixels);
-						exit(0);
-					}
-					ft_lstadd(&pixels, tmp);
-					freer = 1;
-				}
 			}
 			if (fract->iter < fract->iter_max && fract->iter > 15)
 			{
-				tmp = pixels;
-				while (tmp)
+				i = 0;
+				z.r = 0;
+				z.i = 0;
+				while (z.r * z.r + z.i * z.i < 4
+						&& i < fract->iter_max)
 				{
-					tmp_c = (t_coord2*)tmp->content;
-					color_buddha(tmp_c->x, tmp_c->y, fract);
-					tmp = tmp->next;
+					xtemp = z.r * z.r - z.i * z.i;
+					z.i = 2 * z.r * z.i + c.i;
+					z.r = xtemp + c.r;
+					fract->iter++;
+					coord.x = (int)((z.r - fract->min.x) * fract->zoom);
+					coord.y = (int)((z.i - fract->min.y) * fract->zoom);
+					if (coord.x >= 0 && coord.x < 1024
+						&& coord.y >= 0 && coord.y < 1024)
+						//color_buddha(coord.x, coord.y, fract);
+						fract->window.img.str[coord.y + coord.x * 1024]++;
 				}
-			}
-			while (pixels && freer)
-			{
-				tmp = pixels;
-				pixels = pixels->next;
-				free(tmp->content);
-				free(tmp);
-				tmp = NULL;
 			}
 			x++;
 		}
@@ -138,9 +121,10 @@ void		buddhabrot(t_fract *fract)
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
-	ft_printf("Done\n\n");
-	if (fract->color_mode == SIN)
+	//if (fract->color_mode == SIN)
 		colorize_buddha(fract);
+	ft_printf("Done\n\n");
+	//exit(0);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);

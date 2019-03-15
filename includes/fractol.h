@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 11:36:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/15 11:26:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 6
+# define MAX_FRACT 7
 # include <mlx.h>
 # include <pthread.h>
 # include "libft.h"
@@ -100,12 +100,14 @@ void			julia(t_fract *fract);
 void			mandelbrot(t_fract *fract);
 void			ship(t_fract *fract);
 void			buddhabrot(t_fract *fract);
+void			buddha2(t_fract *fract);
 void			burning_julia(t_fract *fract);
 void			newton(t_fract *fract);
 void			init_julia(t_fract *fract);
 void			init_mandelbrot(t_fract *fract);
 void			init_ship(t_fract *fract);
 void			init_buddhabrot(t_fract *fract);
+void			init_buddha2(t_fract *fract);
 void			init_burning_julia(t_fract *fract);
 void			init_newton(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
