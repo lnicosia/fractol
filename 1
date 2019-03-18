@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/18 12:40:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/18 10:26:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void		init_buddhabrot(t_fract *fract)
 	fract->color_mode = FLAT;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 512;
+	fract->iter_max = 1024;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
-	fract->min.y = -1.28;
+	fract->min.y = -1.35;
 }
 
 static void	*calc_buddhabrot(void *param)
@@ -39,7 +39,6 @@ static void	*calc_buddhabrot(void *param)
 	fract = (t_fract*)param;
 	y = fract->start;
 	i = 0;
-	//ft_printf("de %d a %d\n", y, fract->end);
 	while (y < fract->end)
 	{
 		x = 0;
@@ -77,15 +76,7 @@ static void	*calc_buddhabrot(void *param)
 					{
 						if (fract->color_mode == COS)
 							color_buddha(coord.x, coord.y, fract);
-						else
-							fract->window.img.str[coord.y + coord.x * 1024]++;
-						//ft_printf("coord y = %d ", coord.y);
-						coord.y = coord.y + 2 * (512 - coord.y) - 1;
-						//ft_printf("coord y = %d\n", coord.y);
-						if (fract->color_mode == COS)
-							color_buddha(coord.x, coord.y, fract);
-						else
-							fract->window.img.str[coord.y + coord.x * 1024]++;
+						fract->window.img.str[coord.y + coord.x * 1024]++;
 					}
 				}
 			}
@@ -126,14 +117,14 @@ void		buddhabrot(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
-		buddhabrot[i].end = 512 / 8 * (i + 1);
-		buddhabrot[i].start = 512 / 8 * i;
+		buddhabrot[i].end = 1024 / 8 * (i + 1);
+		buddhabrot[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_buddhabrot, &buddhabrot[i]);
 		i++;
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
-	//if (fract->color_mode != COS)
+	if (fract->color_mode != COS)
 		colorize_buddha(fract);
 	ft_printf("Done\n\n");
 	//exit(0);
