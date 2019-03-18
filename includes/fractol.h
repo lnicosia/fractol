@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/15 11:26:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:51:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FLAT 0
 # define COS 1
 # define SIN 2
+# define NASA 3
 
 typedef struct	s_fcoord2
 {
@@ -66,6 +67,9 @@ typedef struct	s_fract
 	unsigned int	color_base;
 	unsigned int	color_mode;
 	unsigned int	color_center;
+	unsigned int	*red;
+	unsigned int	*green;
+	unsigned int	*blue;
 	int				start;
 	int				end;
 	char			*name;
@@ -74,6 +78,7 @@ typedef struct	s_fract
 	t_window		window;
 	int				iter;
 	int				iter_max;
+	int				iter_min;
 	t_fcoord2		max;
 	t_fcoord2		min;
 	t_coord2		drag;

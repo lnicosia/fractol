@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/18 12:40:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/18 17:45:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 void		init_buddhabrot(t_fract *fract)
 {
 	fract->color_base = WHITE;
-	fract->color_mode = FLAT;
+	fract->color_mode = NASA;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 512;
+	fract->iter_max = 1024;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
+	fract->iter_min = 15;
 }
 
 static void	*calc_buddhabrot(void *param)
@@ -58,13 +59,14 @@ static void	*calc_buddhabrot(void *param)
 				z.r = xtemp + c.r;
 				fract->iter++;
 			}
-			if (fract->iter < fract->iter_max && fract->iter > 15)
+			if (fract->iter < fract->iter_max && fract->iter > fract->iter_min)
 			{
 				i = 0;
 				z.r = 0;
 				z.i = 0;
+				fract->iter = 0;
 				while (z.r * z.r + z.i * z.i < 4
-						&& i < fract->iter_max)
+						&& fract->iter < fract->iter_max)
 				{
 					xtemp = z.r * z.r - z.i * z.i;
 					z.i = 2 * z.r * z.i + c.i;
@@ -73,19 +75,11 @@ static void	*calc_buddhabrot(void *param)
 					coord.x = (int)((z.r - fract->min.x) * fract->zoom);
 					coord.y = (int)((z.i - fract->min.y) * fract->zoom);
 					if (coord.x >= 0 && coord.x < 1024
-						&& coord.y >= 0 && coord.y < 1024)
+							&& coord.y >= 0 && coord.y < 1024)
 					{
-						if (fract->color_mode == COS)
-							color_buddha(coord.x, coord.y, fract);
-						else
-							fract->window.img.str[coord.y + coord.x * 1024]++;
-						//ft_printf("coord y = %d ", coord.y);
+						color_buddha(coord.x, coord.y, fract);
 						coord.y = coord.y + 2 * (512 - coord.y) - 1;
-						//ft_printf("coord y = %d\n", coord.y);
-						if (fract->color_mode == COS)
-							color_buddha(coord.x, coord.y, fract);
-						else
-							fract->window.img.str[coord.y + coord.x * 1024]++;
+						color_buddha(coord.x, coord.y, fract);
 					}
 				}
 			}
@@ -114,12 +108,42 @@ static void	reset_img(t_fract *fract)
 	}
 }
 
+static void	init_array(unsigned int *array)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 1024)
+	{
+		x = 0;
+		while (x < 1024)
+		{
+			array[y + x * 1024] = 0;
+			x++;
+		}
+		y++;
+	}
+}
+
 void		buddhabrot(t_fract *fract)
 {
 	pthread_t		thread[8];
 	t_fract			buddhabrot[8];
 	int				i;
 
+	if (fract->color_mode == NASA)
+	{
+		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
+			return ;
+		init_array(fract->red);
+		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
+			return ;
+		init_array(fract->blue);
+		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
+			return ;
+		init_array(fract->green);
+	}
 	i = 0;
 	reset_img(fract);
 	ft_printf("Computing Buddha..\n");
@@ -133,8 +157,14 @@ void		buddhabrot(t_fract *fract)
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
-	//if (fract->color_mode != COS)
+	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
+	if (fract->color_mode == NASA)
+	{
+		free(fract->red);
+		free(fract->green);
+		free(fract->blue);
+	}
 	ft_printf("Done\n\n");
 	//exit(0);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
