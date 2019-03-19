@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 10:19:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/19 16:15:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		init_newton(t_fract *fract)
 	fract->color_mode = FLAT;
 	fract->name = "Newton";
 	fract->zoom = 400;
-	fract->iter_max = 30;
+	fract->iter_max = 128;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -2.4;
@@ -58,9 +58,13 @@ static void	*calc_newton(void *param)
 			fract->iter = 0;
 			while (fract->iter < fract->iter_max && !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
 			{
-				z = ft_cdiv(ft_cadd(ft_cmul(new_complex(2, 0),
+				/*z = ft_cdiv(ft_cadd(ft_cmul(new_complex(2, 0),
 					ft_cpow(z, 3)), new_complex(1, 0)),
-						ft_cmul(new_complex(3, 0), ft_cpow(z, 2)));
+						ft_cmul(new_complex(3, 0), ft_cpow(z, 2)));*/
+				z = ft_csub(z, ft_cmul(new_complex(0.5, 0.5), ft_cdiv(ft_csub(ft_cpow(z, 3),
+									new_complex(1, 0)),
+								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
+				//z = ft_csub(z, ft_cmul(new_complex(1, 0), ft_cdiv(ft_csin(z), ft_ccos(z))));
 				fract->iter++;
 			}
 			//ft_printf("%f + %fi\n", z.r, z.i);
@@ -102,4 +106,6 @@ void		newton(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
 }

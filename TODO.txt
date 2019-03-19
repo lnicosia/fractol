@@ -1,4 +1,5 @@
 Centrer les 2 buddha
+AA
 Afficher nombre d'iterations = coder sprintf
 Buddha random version (+ speeded up)
 Plein de parametres donnes par l'utilisateur

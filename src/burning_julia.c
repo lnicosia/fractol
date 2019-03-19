@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 10:19:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/19 15:51:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	*calc_julia(void *param)
 			z.i = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
 			while (z.r * z.r + z.i * z.i < 4
-				&& fract->iter < fract->iter_max)
+					&& fract->iter < fract->iter_max)
 			{
 				xtemp = z.r * z.r - z.i * z.i;
 				z.i = fabs(2 * z.r * z.i + 0.01 + fract->transfo.x);
@@ -88,4 +88,6 @@ void		burning_julia(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
 }

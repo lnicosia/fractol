@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/18 14:51:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/19 15:09:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ t_complex		ft_csub(t_complex c1, t_complex c2);
 t_complex		ft_cmul(t_complex c1, t_complex c2);
 t_complex		ft_cdiv(t_complex c1, t_complex c2);
 t_complex		ft_cpow(t_complex c1, int pow);
+t_complex		ft_csin(t_complex c);
+t_complex		ft_ccos(t_complex c);
 t_complex		new_complex(double r, double i);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:05:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/12 18:48:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/19 15:08:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "math.h"
 
 t_complex	ft_cadd(t_complex c1, t_complex c2)
 {
@@ -67,5 +68,23 @@ t_complex	new_complex(double r, double i)
 
 	res.r = r;
 	res.i = i;
+	return (res);
+}
+
+t_complex	ft_csin(t_complex c)
+{
+	t_complex	res;
+
+	res.r = sin(c.r) * cosh(c.i);
+	res.i = sinh(c.i) * cos(c.r);
+	return (res);
+}
+
+t_complex	ft_ccos(t_complex c)
+{
+	t_complex	res;
+
+	res.r = cos(c.r) * cosh(c.i);
+	res.i = -sinh(c.r) * sinh(c.r);
 	return (res);
 }
