@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/18 17:13:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:00:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,21 @@
 void		color(int x, int y, t_fract *fract)
 {
 	float	div;
+	/*float	red;
+	float	green;
+	float	blue;*/
 
 	div = 255 * fract->iter / fract->iter_max;
 	if (fract->color_mode == COS)
-		div = cos(div);
+	{
+		div = cos(fract->iter * 0.01);
+	}
 	else if (fract->color_mode == SIN)
-		div = sin(div);
+	{
+		div = sin(fract->iter * 0.02);
+	}
+	if (fract->color_base == BLACK)
+		fract->window.img.str[x + y * 1920] = 0;
 	if (fract->color_base == WHITE)
 		fract->window.img.str[x + y * 1920] = 65536 * div + 256 * div + div;
 	if (fract->color_base == RED)
@@ -31,6 +40,24 @@ void		color(int x, int y, t_fract *fract)
 		fract->window.img.str[x + y * 1920] = 256 * div;
 	if (fract->color_base == BLUE)
 		fract->window.img.str[x + y * 1920] = div;
+}
+
+void		color_inside(int x, int y, t_fract *fract)
+{
+	if (fract->color_inside == BLACK)
+		fract->window.img.str[x + y * 1920] = 0;
+	if (fract->color_inside == WHITE)
+		fract->window.img.str[x + y * 1920] = 0xFFFFFF;
+	if (fract->color_inside == RED)
+		fract->window.img.str[x + y * 1920] = 0xFF0000;
+	if (fract->color_inside == GREEN)
+		fract->window.img.str[x + y * 1920] = 0xFF00;
+	if (fract->color_inside == BLUE)
+		fract->window.img.str[x + y * 1920] = 0xFF;
+	if (fract->color_inside_mode == COS)
+		fract->window.img.str[x + y * 1920] *= 255 * cos(fract->iter * 0.01);
+	if (fract->color_inside_mode == SIN)
+		fract->window.img.str[x + y * 1920] *= 255 * sin(fract->iter * 0.01);
 }
 
 void		colorize_buddha(t_fract *fract)
@@ -143,25 +170,72 @@ void		color_buddha(int x, int y, t_fract *fract)
 void		swap_color_base(int key, t_fract *fract)
 {
 	if (key == K1_KEY)
-		fract->color_base = WHITE;
-	else if (key == K2_KEY)
-		fract->color_base = RED;
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = BLACK;
+		else
+			fract->color_base = BLACK;
+	}
+	if (key == K2_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = WHITE;
+		else
+			fract->color_base = WHITE;
+	}
 	else if (key == K3_KEY)
-		fract->color_base = GREEN;
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = RED;
+		else
+			fract->color_base = RED;
+	}
 	else if (key == K4_KEY)
-		fract->color_base = BLUE;
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = GREEN;
+		else
+			fract->color_base = GREEN;
+	}
+	else if (key == K5_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = BLUE;
+		else
+			fract->color_base = BLUE;
+	}
 	fract->func(fract);
 }
 
 void		swap_color_mode(int key, t_fract *fract)
 {
 	if (key == NK1_KEY)
-		fract->color_mode = FLAT;
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = FLAT;
+		else
+			fract->color_mode = FLAT;
+	}
 	else if (key == NK2_KEY)
-		fract->color_mode = COS;
-	else if (key == NK3_KEY)
-		fract->color_mode = SIN;
-	else if (key == NK4_KEY)
-		fract->color_mode = NASA;
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = COS;
+		else
+			fract->color_mode = COS;
+	}
+	if (key == NK3_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = SIN;
+		else
+			fract->color_mode = SIN;
+	}
+	if (key == NK4_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = NASA;
+		else
+			fract->color_mode = NASA;
+	}
 	fract->func(fract);
 }

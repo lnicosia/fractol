@@ -6,20 +6,21 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/19 15:09:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:09:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 7
+# define MAX_FRACT 8
 # include <mlx.h>
 # include <pthread.h>
 # include "libft.h"
-# define WHITE 0
-# define RED 1
-# define GREEN 2
-# define BLUE 3
+# define BLACK 0
+# define WHITE 1
+# define RED 2
+# define GREEN 3
+# define BLUE 4
 # define FLAT 0
 # define COS 1
 # define SIN 2
@@ -66,6 +67,8 @@ typedef struct	s_fract
 	struct s_fract	*fract[MAX_FRACT];
 	unsigned int	color_base;
 	unsigned int	color_mode;
+	unsigned int	color_inside;
+	unsigned int	color_inside_mode;
 	unsigned int	color_center;
 	unsigned int	*red;
 	unsigned int	*green;
@@ -108,6 +111,7 @@ void			buddhabrot(t_fract *fract);
 void			buddha2(t_fract *fract);
 void			burning_julia(t_fract *fract);
 void			newton(t_fract *fract);
+void			newton_sin(t_fract *fract);
 void			init_julia(t_fract *fract);
 void			init_mandelbrot(t_fract *fract);
 void			init_ship(t_fract *fract);
@@ -115,10 +119,12 @@ void			init_buddhabrot(t_fract *fract);
 void			init_buddha2(t_fract *fract);
 void			init_burning_julia(t_fract *fract);
 void			init_newton(t_fract *fract);
+void			init_newton_sin(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
 void			color(int x, int y, t_fract *fract);
+void			color_inside(int x, int y, t_fract *fract);
 void			color_buddha(int x, int y, t_fract *fract);
 void			colorize_buddha(t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);

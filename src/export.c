@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 12:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/13 17:18:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 14:41:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			export_fdf(t_fract fract)
 		ft_printf("Open error\n");
 		return (-1);
 	}
-	if (fract.nb == 3)
+	if (fract.nb == 3 || fract.nb == 6)
 		write_buddha_fdf(fract, fd);
 	else
 		write_fdf(fract, fd);

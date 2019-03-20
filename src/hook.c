@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/14 11:39:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 14:15:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		key_release(int key, void *param)
 			fract->iter_max -= 4;
 		fract->func(fract);
 	}
-	if (key == LSFT_KEY)
+	if (key == LSFT_KEY || key == RSFT_KEY)
 		fract->maj_buffer = 0;
 	return (0);
 }
@@ -75,7 +75,7 @@ int		key_press(int key, void *param)
 		fract->move.x -= 100 / (double)fract->zoom;
 		fract->func(fract);
 	}
-	if (key == LSFT_KEY)
+	if (key == LSFT_KEY || key == RSFT_KEY)
 		fract->maj_buffer = 1;
 	return (0);
 }
@@ -119,7 +119,7 @@ int		mouse_press(int button, int x, int y, void *param)
 	}
 	else if (button == SCROLLDOWN_KEY)
 	{
-		if (fract->zoom > 25 && fract->iter_max > 0)
+		if (fract->zoom > 25 && fract->iter_max > 4)
 		{
 			fract->max.x = (x / fract->zoom + fract->max.x)
 				- (x / (fract->zoom / 1.5));
