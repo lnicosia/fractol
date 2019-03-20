@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 14:38:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:04:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	*calc_julia(void *param)
 					&& fract->iter < fract->iter_max)
 			{
 				xtemp = z.r * z.r - z.i * z.i;
-				z.i = fabs(2 * z.r * z.i + 0.01 + fract->transfo.x);
+				z.i = fabs(2 * z.r * z.i + 0.00 + fract->transfo.x);
 				z.r = fabs(xtemp + 0.285 + fract->transfo.y);
 				fract->iter++;
 			}

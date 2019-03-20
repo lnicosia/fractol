@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:30:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 16:05:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:40:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	color_blue(int x, int y, t_fract *fract)
 void	color_newton(int x, int y, t_fract *fract, t_complex z)
 {
 	if (fract->color_mode == FLAT)
-		fract->window.img.str[x + 1920 * y] = 255 * z.r + 65535 * z.i;
+		fract->window.img.str[x + 1920 * y] = 0xFF * z.r + 0x00FF00 * z.i;
 	else if (fract->color_mode == COS)
-		fract->window.img.str[x + 1920 * y] = 0xFF *
-			cos(fract->iter * 0.01);
+		fract->window.img.str[x + 1920 * y] = 0xFF0000 * fabs(cos(z.r * 0.05));
 	else if (fract->color_mode == SIN)
 		fract->window.img.str[x + 1920 * y] = 0xFF *
 			sin(fract->iter * 0.01);

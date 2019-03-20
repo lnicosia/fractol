@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 15:08:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:28:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		usage(void)
 {
 	ft_printf("usage: ./fractol julia | mandelbrot | ship | buddhabrot");
-	ft_printf("| buddha2 | bjulia | newton | sin\n");
+	ft_printf("| buddha2 | bjulia | newton | sin | barnsley\n");
 	exit(0);
 }
 
@@ -23,6 +23,9 @@ void	parse_args(char **av, t_env *data)
 {
 	int	i;
 
+	i = -1;
+	while (++i < MAX_FRACT)
+		data->args[i] = 0;
 	i = 1;
 	while (av[i])
 	{
@@ -65,6 +68,11 @@ void	parse_args(char **av, t_env *data)
 		{
 			if (!data->args[7])
 				data->args[7] = 1;
+		}
+		else if (ft_strequ(av[i], "barnsley"))
+		{
+			if (!data->args[8])
+				data->args[8] = 1;
 		}
 		else
 			usage();

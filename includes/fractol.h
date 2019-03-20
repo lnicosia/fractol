@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 15:09:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:56:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 8
+# define MAX_FRACT 9
 # include <mlx.h>
 # include <pthread.h>
 # include "libft.h"
@@ -112,6 +112,7 @@ void			buddha2(t_fract *fract);
 void			burning_julia(t_fract *fract);
 void			newton(t_fract *fract);
 void			newton_sin(t_fract *fract);
+void			barnsley(t_fract *fract);
 void			init_julia(t_fract *fract);
 void			init_mandelbrot(t_fract *fract);
 void			init_ship(t_fract *fract);
@@ -120,9 +121,11 @@ void			init_buddha2(t_fract *fract);
 void			init_burning_julia(t_fract *fract);
 void			init_newton(t_fract *fract);
 void			init_newton_sin(t_fract *fract);
+void			init_barnsley(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
+void			reset_img(t_fract *fract);
 void			color(int x, int y, t_fract *fract);
 void			color_inside(int x, int y, t_fract *fract);
 void			color_buddha(int x, int y, t_fract *fract);

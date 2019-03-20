@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 15:09:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:26:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		init_fract(t_env *data)
 	data->fract_func[5] = &newton;
 	data->fract_func[6] = &buddha2;
 	data->fract_func[7] = &newton_sin;
+	data->fract_func[8] = &barnsley;
 	data->fract[0].func = &julia;
 	data->fract[1].func = &mandelbrot;
 	data->fract[2].func = &ship;
@@ -85,6 +86,7 @@ int		init_fract(t_env *data)
 	data->fract[5].func = &newton;
 	data->fract[6].func = &buddha2;
 	data->fract[7].func = &newton_sin;
+	data->fract[8].func = &barnsley;
 	data->init_fract[0] = &init_julia;
 	data->init_fract[1] = &init_mandelbrot;
 	data->init_fract[2] = &init_ship;
@@ -93,6 +95,7 @@ int		init_fract(t_env *data)
 	data->init_fract[5] = &init_newton;
 	data->init_fract[6] = &init_buddha2;
 	data->init_fract[7] = &init_newton_sin;
+	data->init_fract[8] = &init_barnsley;
 	while (i < MAX_FRACT)
 	{
 		j = 0;

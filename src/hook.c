@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 14:15:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 19:14:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ int		key_release(int key, void *param)
 		swap_color_mode(key, fract);
 	if (key == NKPL_KEY)
 	{
-		if (fract->maj_buffer)
+		if (fract->maj_buffer && fract->iter_max < 2147483607)
 			fract->iter_max += 40;
-		else
+		else if (fract->iter_max < 2147483643)
 			fract->iter_max += 4;
 		fract->func(fract);
 	}
 	if (key == NKMN_KEY)
 	{
-		if (fract->maj_buffer)
+		if (fract->maj_buffer && fract->iter_max > 40)
 			fract->iter_max -= 40;
-		else
+		else if (fract->iter_max > 4)
 			fract->iter_max -= 4;
 		fract->func(fract);
 	}
@@ -103,7 +103,7 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
-	if (button == SCROLLUP_KEY)
+	if (button == SCROLLUP_KEY && fract->iter_max < 2147483643)
 	{
 		fract->max.x = (x / fract->zoom + fract->max.x)
 			- (x / (fract->zoom * 1.5));
@@ -117,9 +117,9 @@ int		mouse_press(int button, int x, int y, void *param)
 		fract->iter_max += 4;
 		fract->func(fract);
 	}
-	else if (button == SCROLLDOWN_KEY)
+	else if (button == SCROLLDOWN_KEY && fract->iter_max > 4)
 	{
-		if (fract->zoom > 25 && fract->iter_max > 4)
+		if (fract->zoom > 3 && fract->iter_max > 4)
 		{
 			fract->max.x = (x / fract->zoom + fract->max.x)
 				- (x / (fract->zoom / 1.5));

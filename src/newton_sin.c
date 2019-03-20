@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 16:03:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:30:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		init_newton_sin(t_fract *fract)
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
 	fract->name = "Newton";
-	fract->zoom = 400;
-	fract->iter_max = 64;
+	fract->zoom = 200;
+	fract->iter_max = 16;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -2.0;
@@ -31,8 +31,9 @@ void		init_newton_sin(t_fract *fract)
 
 int	is_sin_tol(t_complex z, t_complex root, double tolerance)
 {
-	//return (fabs(ft_csub(z, root).r) < tolerance && fabs(ft_csub(z, root).i) < tolerance);
 	return (fabs(ft_csub(z, root).r) < tolerance && fabs(ft_csub(z, root).i) < tolerance);
+	/*(void)tolerance;
+	return (z.r % root.r == 0);*/
 }
 
 static void	*calc_newton_sin(void *param)

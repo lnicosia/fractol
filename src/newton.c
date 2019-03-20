@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 16:06:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:45:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	*calc_newton(void *param)
 				/*z = ft_cdiv(ft_cadd(ft_cmul(new_complex(2, 0),
 					ft_cpow(z, 3)), new_complex(1, 0)),
 						ft_cmul(new_complex(3, 0), ft_cpow(z, 2)));*/
-				z = ft_csub(z, ft_cmul(new_complex(0.5, 0.5), ft_cdiv(ft_csub(ft_cpow(z, 3),
+				z = ft_csub(z, ft_cmul(new_complex(0, 0.5), ft_cdiv(ft_csub(ft_cpow(z, 3),
 									new_complex(1, 0)),
 								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
 				fract->iter++;

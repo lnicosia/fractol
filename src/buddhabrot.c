@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/19 15:51:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:56:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		init_buddhabrot(t_fract *fract)
 	fract->color_mode = NASA;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 1024;
+	fract->iter_max = 10000;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -1.8;
@@ -88,24 +88,6 @@ static void	*calc_buddhabrot(void *param)
 		y++;
 	}
 	return (NULL);
-}
-
-static void	reset_img(t_fract *fract)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < 1024)
-	{
-		x = 0;
-		while (x < 1024)
-		{
-			fract->window.img.str[x + y * 1024] = 0;
-			x++;
-		}
-		y++;
-	}
 }
 
 static void	init_array(unsigned int *array)
