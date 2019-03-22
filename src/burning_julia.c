@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:42:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:14:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		burning_julia(t_fract *fract)
 	pthread_t	thread[8];
 	t_fract		julia[8];
 	int			i;
+	char		*str;
 
 	i = 0;
 	while (i < 8)
@@ -87,5 +88,7 @@ void		burning_julia(t_fract *fract)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
+	str = ft_itoa(fract->iter_max);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	free(str);
 }

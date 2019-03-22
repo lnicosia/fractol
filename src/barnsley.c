@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:43:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:14:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	barnsley(t_fract *fract)
 	t_fcoord2	c2;
 	t_coord2	pixel;
 	int			dice;
+	char		*str;
 
 	fract->iter = fract->iter_max;
 	c1.x = 0;
@@ -93,5 +94,7 @@ void	barnsley(t_fract *fract)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
+	str = ft_itoa(fract->iter_max);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	free(str);
 }

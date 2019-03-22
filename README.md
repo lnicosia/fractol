@@ -24,7 +24,7 @@ make
 ### Using Fractol
 		
 ```
-run ./fractole with any of the following arguments: julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia | newton | barnsley | koch
+run ./fractol with any of the following arguments: julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia | newton | barnsley | koch
 ```
 
 ## Features

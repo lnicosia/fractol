@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:37:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:15:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void    koch(t_fract *fract)
 	t_coord2    p1;
 	t_coord2    p2;
 	t_coord2    p3;
+	char		*str;
 
 	p1 = new_coord2((960 - (415 + fract->move.x) * fract->zoom),
 			(650 - (360 + fract->move.y) * fract->zoom));
@@ -89,5 +90,7 @@ void    koch(t_fract *fract)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
+	str = ft_itoa(fract->iter_max);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:44:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:16:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		init_buddha2(t_fract *fract)
 	fract->color_mode = NASA;
 	fract->name = "Random buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 1000;
+	fract->iter_max = 512;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
 	fract->iter_min = 15;
@@ -120,6 +120,7 @@ void		buddha2(t_fract *fract)
 	pthread_t		thread[8];
 	t_fract			buddha2[8];
 	int				i;
+	char			*str;
 
 	if (fract->color_mode == NASA)
 	{
@@ -159,5 +160,7 @@ void		buddha2(t_fract *fract)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
+	str = ft_itoa(fract->iter_max);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	free(str);
 }
