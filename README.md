@@ -24,9 +24,7 @@ make
 ### Using Fractol
 		
 ```
-run ./fractole with any of the following arguments: \
-julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia \
-| newton | barnsley | koch
+run ./fractole with any of the following arguments: julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia | newton | barnsley | koch
 ```
 
 ## Features
@@ -51,8 +49,8 @@ Left click + move
 
 * Iterations increasing and decreasing
 ```
-⊞ ⊟ : +4 /-4
-⇧ + ⊞ ⊟ : +40/-40
+⊞ / ⊟ : +4 /-4
+⇧ + ⊞ / ⊟ : +40/-40
 ```
 
 * Zoom
