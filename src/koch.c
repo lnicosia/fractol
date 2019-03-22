@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 12:31:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:37:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void    init_koch(t_fract *fract)
 	fract->name = "Koch snowflake";
 	fract->zoom = 400;
 	fract->iter_max = 0;
+	fract->zoom = 0.5;
+	fract->move.x = 0;
+	fract->move.y = 0;
 }
 
 static void	reset_image(t_fract *fract)
@@ -72,9 +75,12 @@ void    koch(t_fract *fract)
 	t_coord2    p2;
 	t_coord2    p3;
 
-	p1 = new_coord2(640, 360);
-	p2 = new_coord2(1280, 360);
-	p3 = new_coord2(960, 720);
+	p1 = new_coord2((960 - (415 + fract->move.x) * fract->zoom),
+			(650 - (360 + fract->move.y) * fract->zoom));
+	p2 = new_coord2((960 + (415 - fract->move.x) * fract->zoom),
+			(650 - (360 + fract->move.y) * fract->zoom));
+	p3 = new_coord2(960 - fract->move.x * fract->zoom,
+			(650 + (360 - fract->move.y) * fract->zoom));
 	reset_image(fract);
 	calc_koch(p1, p2, fract, fract->iter_max);
 	calc_koch(p2, p3, fract, fract->iter_max);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 17:45:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 13:22:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		init_newton(t_fract *fract)
 	fract->color_mode = FLAT;
 	fract->name = "Newton";
 	fract->zoom = 400;
-	fract->iter_max = 32;
+	fract->iter_max = 40;
 	fract->max.x = 0.6;
 	fract->max.y = 1.2;
 	fract->min.x = -2.4;
@@ -57,27 +57,27 @@ static void	*calc_newton(void *param)
 			z.r = x / fract->zoom + fract->min.x + fract->move.x;
 			z.i = y / fract->zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
-			while (fract->iter < fract->iter_max)
-				//&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
+			while (fract->iter < fract->iter_max
+				&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
 			{
 				/*z = ft_cdiv(ft_cadd(ft_cmul(new_complex(2, 0),
 					ft_cpow(z, 3)), new_complex(1, 0)),
 						ft_cmul(new_complex(3, 0), ft_cpow(z, 2)));*/
-				z = ft_csub(z, ft_cmul(new_complex(0, 0.5), ft_cdiv(ft_csub(ft_cpow(z, 3),
+				z = ft_csub(z, ft_cmul(new_complex(0.5, 0), ft_cdiv(ft_csub(ft_cpow(z, 3),
 									new_complex(1, 0)),
 								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
 				fract->iter++;
 			}
 			//ft_printf("%f + %fi\n", z.r, z.i);
-			color_newton(x, y, fract, z);
-			/*if (is_tol(z, roots[0], tolerance))
+			//color_newton(x, y, fract, z);
+			if (is_tol(z, roots[0], tolerance))
 				color_red(x, y, fract);
 			else if (is_tol(z, roots[1], tolerance))
 				color_green(x, y, fract);
 			else if (is_tol(z, roots[2], tolerance))
 				color_blue(x, y, fract);
 			else
-				fract->window.img.str[x + 1920 * y] = 0;*/
+				fract->window.img.str[x + 1920 * y] = 0;
 			x++;
 		}
 		y++;
