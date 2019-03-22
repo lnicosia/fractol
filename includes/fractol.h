@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 18:56:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 12:02:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void			buddhabrot(t_fract *fract);
 void			buddha2(t_fract *fract);
 void			burning_julia(t_fract *fract);
 void			newton(t_fract *fract);
+void			koch(t_fract *fract);
 void			newton_sin(t_fract *fract);
 void			barnsley(t_fract *fract);
 void			init_julia(t_fract *fract);
@@ -122,6 +123,7 @@ void			init_burning_julia(t_fract *fract);
 void			init_newton(t_fract *fract);
 void			init_newton_sin(t_fract *fract);
 void			init_barnsley(t_fract *fract);
+void			init_koch(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
@@ -140,5 +142,8 @@ t_complex		ft_cpow(t_complex c1, int pow);
 t_complex		ft_csin(t_complex c);
 t_complex		ft_ccos(t_complex c);
 t_complex		new_complex(double r, double i);
+t_coord2		new_coord2(int x, int y);
+t_fcoord2		new_fcoord2(double x, double y);
+void			plot_line(t_coord2 c1, t_coord2 c2, t_fract *fract, int color);
 
 #endif

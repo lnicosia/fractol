@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   barnsley.c                                       :+:      :+:    :+:   */
+/*   barnsley.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 19:31:18 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/03/21 15:30:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	barnsley(t_fract *fract)
 		//ft_printf("[%d][%d]\n", pixel.y, pixel.x);
 		if (pixel.x >= 0 && pixel.x < 1920
 				&& pixel.y >= 0 && pixel.y < 1080)
-		fract->window.img.str[pixel.x + pixel.y * 1920] += 0xFFFFFF / 100 * dice;
+		//fract->window.img.str[pixel.x + pixel.y * 1920] += 0xFFFFFF / 100 * dice;
+		fract->window.img.str[pixel.x + pixel.y * 1920] = 0x00FF00;
 		c1 = c2;
 		fract->iter--;
 	}
@@ -96,4 +97,3 @@ void	barnsley(t_fract *fract)
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, ft_itoa(fract->iter_max));
 }
-

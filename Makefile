@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/20 18:19:11 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/03/22 11:41:48 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  export.c buddhabrot.c color.c burning_julia.c newton.c complex.c \
-		  buddha2.c newton_sin.c color_newton.c barnsley.c
+		  buddha2.c newton_sin.c color_newton.c barnsley.c koch.c \
+		  plot_line.c coord_utils.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h
 

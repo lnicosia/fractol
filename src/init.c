@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 18:26:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 11:24:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int		init_fract(t_env *data)
 	data->fract_func[4] = &burning_julia;
 	data->fract_func[5] = &newton;
 	data->fract_func[6] = &buddha2;
-	data->fract_func[7] = &newton_sin;
-	data->fract_func[8] = &barnsley;
+	data->fract_func[7] = &barnsley;
+	data->fract_func[8] = &koch;
 	data->fract[0].func = &julia;
 	data->fract[1].func = &mandelbrot;
 	data->fract[2].func = &ship;
@@ -85,8 +85,8 @@ int		init_fract(t_env *data)
 	data->fract[4].func = &burning_julia;
 	data->fract[5].func = &newton;
 	data->fract[6].func = &buddha2;
-	data->fract[7].func = &newton_sin;
-	data->fract[8].func = &barnsley;
+	data->fract[7].func = &barnsley;
+	data->fract[8].func = &koch;
 	data->init_fract[0] = &init_julia;
 	data->init_fract[1] = &init_mandelbrot;
 	data->init_fract[2] = &init_ship;
@@ -94,8 +94,8 @@ int		init_fract(t_env *data)
 	data->init_fract[4] = &init_burning_julia;
 	data->init_fract[5] = &init_newton;
 	data->init_fract[6] = &init_buddha2;
-	data->init_fract[7] = &init_newton_sin;
-	data->init_fract[8] = &init_barnsley;
+	data->init_fract[7] = &init_barnsley;
+	data->init_fract[8] = &init_koch;
 	while (i < MAX_FRACT)
 	{
 		j = 0;

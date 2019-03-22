@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 19:14:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 12:14:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,18 @@ int		key_release(int key, void *param)
 	if (key == NKPL_KEY)
 	{
 		if (fract->maj_buffer && fract->iter_max < 2147483607)
-			fract->iter_max += 40;
+			fract->iter_max += fract->nb != 8 ? 40: 0;
 		else if (fract->iter_max < 2147483643)
-			fract->iter_max += 4;
+			fract->iter_max += fract->nb == 8 ? 1 : 4;
 		fract->func(fract);
 	}
 	if (key == NKMN_KEY)
 	{
 		if (fract->maj_buffer && fract->iter_max > 40)
-			fract->iter_max -= 40;
-		else if (fract->iter_max > 4)
-			fract->iter_max -= 4;
+			fract->iter_max -= fract->nb != 8 ? 40 : 0;
+		else if (fract->iter_max > 4
+				|| (fract->nb == 8 && fract->iter_max > 0))
+			fract->iter_max -= fract->nb == 8 ? 1 : 4;
 		fract->func(fract);
 	}
 	if (key == LSFT_KEY || key == RSFT_KEY)
