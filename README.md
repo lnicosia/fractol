@@ -31,12 +31,17 @@ julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia \
 
 ## Features
 
-* Color choices:
+* Color choices
 ```
 ⓵ ⓶ ⓷ ⓸ ⑤ : swap outside color
-shift + ⓵ ⓶ ⓷ ⓸ ⑤ : swap inside color
+⇧ + ⓵ ⓶ ⓷ ⓸ ⑤ : swap inside color
 ⓵ ⓶ ⓷ ⓸  (numpad): swap outside color mode
-shift+ ⓵ ⓶ ⓷ ⓸  (numpad): swap inside color mode
+⇧ + ⓵ ⓶ ⓷ ⓸  (numpad): swap inside color mode
+```
+
+* Julia variation
+```
+Left click + move
 ```
 
 * Movement
@@ -46,13 +51,18 @@ shift+ ⓵ ⓶ ⓷ ⓸  (numpad): swap inside color mode
 
 * Iterations increasing and decreasing
 ```
-⊞ ⊟: +4 /-4
-shift + ⊞ ⊟: +40/-40
+⊞ ⊟ : +4 /-4
+⇧ + ⊞ ⊟ : +40/-40
 ```
 
 * Zoom
 ```
 Mouse scroll
+```
+
+* Fdf export
+```
+🄴 : export to a readable .fdf format
 ```
 
 ## Authors
