@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 15:24:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:40:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
 		fract->zoom *= 1.5;
-		fract->iter_max += fract->nb == 8 ? 0 : 4;
+		fract->iter_max += fract->nb == 8 ? 0 : 1;
 		fract->func(fract);
 	}
 	else if (button == SCROLLDOWN_KEY && (fract->iter_max > 4
@@ -125,7 +125,7 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
 			fract->zoom /= 1.5;
-			fract->iter_max -= fract->nb == 8 ? 0 : 4;
+			fract->iter_max -= fract->nb == 8 ? 0 : 1;
 			fract->func(fract);
 		}
 	}

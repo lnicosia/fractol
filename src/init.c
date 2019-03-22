@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 11:24:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:48:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	init_hook(t_fract *fract)
 
 int		init_window(t_fract *fract, t_env *data)
 {
-	fract->state = 1;
-	fract->maj_buffer = 0;
 	if (ft_strequ(fract->name, "Buddhabrot")
 			|| ft_strequ(fract->name, "Random buddhabrot"))
 	{
@@ -61,14 +59,8 @@ int		init_window(t_fract *fract, t_env *data)
 	return (1);
 }
 
-int		init_fract(t_env *data)
+void	init_fract1(t_env *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	if (!(data->mlx_ptr = mlx_init()))
-		return (0);
 	data->fract_func[0] = &julia;
 	data->fract_func[1] = &mandelbrot;
 	data->fract_func[2] = &ship;
@@ -78,15 +70,10 @@ int		init_fract(t_env *data)
 	data->fract_func[6] = &buddha2;
 	data->fract_func[7] = &barnsley;
 	data->fract_func[8] = &koch;
-	data->fract[0].func = &julia;
-	data->fract[1].func = &mandelbrot;
-	data->fract[2].func = &ship;
-	data->fract[3].func = &buddhabrot;
-	data->fract[4].func = &burning_julia;
-	data->fract[5].func = &newton;
-	data->fract[6].func = &buddha2;
-	data->fract[7].func = &barnsley;
-	data->fract[8].func = &koch;
+}
+
+void	init_fract2(t_env *data)
+{
 	data->init_fract[0] = &init_julia;
 	data->init_fract[1] = &init_mandelbrot;
 	data->init_fract[2] = &init_ship;
@@ -96,6 +83,18 @@ int		init_fract(t_env *data)
 	data->init_fract[6] = &init_buddha2;
 	data->init_fract[7] = &init_barnsley;
 	data->init_fract[8] = &init_koch;
+}
+
+int		init_fract(t_env *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!(data->mlx_ptr = mlx_init()))
+		return (0);
+	init_fract1(data);
+	init_fract2(data);
 	while (i < MAX_FRACT)
 	{
 		j = 0;
@@ -105,6 +104,9 @@ int		init_fract(t_env *data)
 			j++;
 		}
 		data->fract[i].nb = i;
+		data->fract[i].state = 1;
+		data->fract[i].maj_buffer = 0;
+		data->fract[i].func = data->fract_func[i];
 		data->fract[i].mlx_ptr = data->mlx_ptr;
 		i++;
 	}
