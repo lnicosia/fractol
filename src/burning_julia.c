@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 18:04:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:42:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void		init_burning_julia(t_fract *fract)
 	fract->name = "Burning Julia";
 	fract->zoom = 400;
 	fract->iter_max = 64;
-	fract->max.x = 1.2;
 	fract->min.x = -2.25;
 	fract->min.y = -1.4;
-	fract->max.y = 2.5;
 	fract->move.x = 0;
 	fract->move.y = 0;
 	fract->transfo.x = 0;

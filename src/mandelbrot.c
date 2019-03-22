@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 17:59:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:42:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void		init_mandelbrot(t_fract *fract)
 	fract->name = "Mandelbrot";
 	fract->zoom = 400;
 	fract->iter_max = 50;
-	fract->max.x = 0.6;
-	fract->max.y = 1.2;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
 }

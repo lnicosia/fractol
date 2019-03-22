@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:36:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 15:24:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,8 @@ int		mouse_press(int button, int x, int y, void *param)
 	fract = (t_fract*)param;
 	if (button == SCROLLUP_KEY && fract->iter_max < 2147483643)
 	{
-		fract->max.x = (x / fract->zoom + fract->max.x)
-			- (x / (fract->zoom * 1.5));
 		fract->min.x = (x / fract->zoom + fract->min.x)
 			- (x / (fract->zoom * 1.5));
-		fract->max.y = (y / fract->zoom + fract->max.y)
-			- (y / (fract->zoom * 1.5));
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
 		fract->zoom *= 1.5;
@@ -124,12 +120,8 @@ int		mouse_press(int button, int x, int y, void *param)
 		if ((fract->zoom > 3 && fract->iter_max > 4)
 				|| fract->nb == 8)
 		{
-			fract->max.x = (x / fract->zoom + fract->max.x)
-				- (x / (fract->zoom / 1.5));
 			fract->min.x = (x / fract->zoom + fract->min.x)
 				- (x / (fract->zoom / 1.5));
-			fract->max.y = (y / fract->zoom + fract->max.y)
-				- (y / (fract->zoom / 1.5));
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
 			fract->zoom /= 1.5;

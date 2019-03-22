@@ -1,9 +1,5 @@
 Zoom souris barnsley
 Centrer les 2 buddha
 AA
-Afficher nombre d'iterations = coder sprintf
 Plein de parametres donnes par l'utilisateur
-8 fract mini
-Mandelbulb?
-Supprimer max.x et max.y si inutiles
 COULEURS

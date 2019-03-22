@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/21 15:30:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:43:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void		init_barnsley(t_fract *fract)
 	fract->name = "Barnsley";
 	fract->zoom = 10;
 	fract->iter_max = 1000000;
-	fract->max.x = 0.6;
-	fract->max.y = 1.2;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
 }

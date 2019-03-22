@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 12:02:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:40:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct	s_fract
 	int				iter;
 	int				iter_max;
 	int				iter_min;
-	t_fcoord2		max;
 	t_fcoord2		min;
 	t_coord2		drag;
 	t_fcoord2		transfo;

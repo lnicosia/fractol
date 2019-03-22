@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 14:56:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:42:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void		init_ship(t_fract *fract)
 	fract->name = "Burning ship";
 	fract->zoom = 12500;
 	fract->iter_max = 150;
-	fract->max.x = -1.76;
-	fract->max.y = 1.075;
 	fract->min.x = -1.840;
 	fract->min.y = -0.075;
 }

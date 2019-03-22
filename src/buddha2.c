@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 18:56:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:44:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void		init_buddha2(t_fract *fract)
 	fract->color_mode = NASA;
 	fract->name = "Random buddhabrot";
 	fract->zoom = 400;
-	fract->iter_max = 100000;
-	fract->max.x = 0.6;
-	fract->max.y = 1.2;
+	fract->iter_max = 1000;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
 	fract->iter_min = 15;
@@ -39,8 +37,8 @@ static void	*calc_buddha2(void *param)
 	x = 0;
 	while (x < 65536)
 	{
-		c.r = (rand() / (double)RAND_MAX) * (fract->max.x - fract->min.x) + fract->min.x;
-		c.i = (rand() / (double)RAND_MAX) * (fract->max.y - fract->min.y) + fract->min.y;
+		c.r = (rand() / (double)RAND_MAX) * -fract->min.x + fract->min.x;
+		c.i = (rand() / (double)RAND_MAX) * -fract->min.y + fract->min.y;
 		//ft_printf("c = %f + %fi\n", c.r, c.i);
 		z.r = 0;
 		z.i = 0;
