@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:16:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:30:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static void	*calc_buddha2(void *param)
 	x = 0;
 	while (x < 65536)
 	{
-		c.r = (rand() / (double)RAND_MAX) * -fract->min.x + fract->min.x;
-		c.i = (rand() / (double)RAND_MAX) * -fract->min.y + fract->min.y;
+		c.r = (rand() / (double)RAND_MAX) * -fract->min.x * 2 + fract->min.x;
+		c.i = (rand() / (double)RAND_MAX) * -fract->min.y * 2 + fract->min.y;
 		//ft_printf("c = %f + %fi\n", c.r, c.i);
 		z.r = 0;
 		z.i = 0;
@@ -69,8 +69,9 @@ static void	*calc_buddha2(void *param)
 						&& coord.y >= 0 && coord.y < 1024)
 				{
 					color_buddha(coord.x, coord.y, fract);
-					coord.y = coord.y + 2 * (512 - coord.y) - 1;
-					color_buddha(coord.x, coord.y, fract);
+					//coord.y = coord.y + 2 * (512 - coord.y) - 1;
+					/*coord.y = (int)((-z.i - fract->min.y) * fract->zoom);
+					color_buddha(coord.x, coord.y, fract);*/
 				}
 			}
 		}
@@ -159,8 +160,12 @@ void		buddha2(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iter max: ");
 	str = ft_itoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	free(str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF, "Iter min: ");
+	str = ft_itoa(fract->iter_min);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF, str);
 	free(str);
 }

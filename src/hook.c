@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 18:40:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:58:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,45 @@ int		key_release(int key, void *param)
 		swap_color_mode(key, fract);
 	if (key == NKPL_KEY)
 	{
-		if (fract->maj_buffer && fract->iter_max < 2147483607)
-			fract->iter_max += fract->nb != 8 ? 40: 0;
-		else if (fract->iter_max < 2147483643)
-			fract->iter_max += fract->nb == 8 ? 1 : 4;
+		if (fract->ctrl_buffer)
+		{
+			if (fract->maj_buffer && fract->iter_min < 2147483642)
+				fract->iter_min += 5;
+			else if (fract->iter_max < 2147483646)
+				fract->iter_min += 1;
+		}
+		else
+		{
+			if (fract->maj_buffer && fract->iter_max < 2147483607)
+				fract->iter_max += fract->nb != 8 ? 40: 0;
+			else if (fract->iter_max < 2147483643)
+				fract->iter_max += fract->nb == 8 ? 1 : 4;
+		}
 		fract->func(fract);
 	}
 	if (key == NKMN_KEY)
 	{
-		if (fract->maj_buffer && fract->iter_max > 40)
-			fract->iter_max -= fract->nb != 8 ? 40 : 0;
-		else if (fract->iter_max > 4
-				|| (fract->nb == 8 && fract->iter_max > 0))
-			fract->iter_max -= fract->nb == 8 ? 1 : 4;
+		if (fract->ctrl_buffer)
+		{
+			if (fract->maj_buffer && fract->iter_min > 4)
+				fract->iter_min -= 5;
+			else if (fract->iter_min > 0)
+				fract->iter_min -= 1;
+		}
+		else
+		{
+			if (fract->maj_buffer && fract->iter_max > 40)
+				fract->iter_max -= fract->nb != 8 ? 40 : 0;
+			else if (fract->iter_max > 4
+					|| (fract->nb == 8 && fract->iter_max > 0))
+				fract->iter_max -= fract->nb == 8 ? 1 : 4;
+		}
 		fract->func(fract);
 	}
 	if (key == LSFT_KEY || key == RSFT_KEY)
 		fract->maj_buffer = 0;
+	if (key == LCTRL_KEY || key == RCTRL_KEY)
+		fract->ctrl_buffer = 0;
 	return (0);
 }
 
@@ -78,6 +100,8 @@ int		key_press(int key, void *param)
 	}
 	if (key == LSFT_KEY || key == RSFT_KEY)
 		fract->maj_buffer = 1;
+	if (key == LCTRL_KEY || key == RCTRL_KEY)
+		fract->ctrl_buffer = 1;
 	return (0);
 }
 
@@ -106,10 +130,20 @@ int		mouse_press(int button, int x, int y, void *param)
 	fract = (t_fract*)param;
 	if (button == SCROLLUP_KEY && fract->iter_max < 2147483643)
 	{
+		//if (fract->nb != 3 && fract->nb != 6)
+		//{
 		fract->min.x = (x / fract->zoom + fract->min.x)
 			- (x / (fract->zoom * 1.5));
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
+		/*}
+		  else
+		  {
+		  fract->min.y = (x / fract->zoom + fract->min.x)
+		  - (x / (fract->zoom * 1.5));
+		  fract->min.x = (y / fract->zoom + fract->min.y)
+		  - (y / (fract->zoom * 1.5));
+		  }*/
 		fract->zoom *= 1.5;
 		fract->iter_max += fract->nb == 8 ? 0 : 1;
 		fract->func(fract);
@@ -120,10 +154,20 @@ int		mouse_press(int button, int x, int y, void *param)
 		if ((fract->zoom > 3 && fract->iter_max > 4)
 				|| fract->nb == 8)
 		{
+			//if (fract->nb != 3 && fract->nb != 6)
+			//{
 			fract->min.x = (x / fract->zoom + fract->min.x)
 				- (x / (fract->zoom / 1.5));
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
+			//}
+			/*else
+			  {
+			  fract->min.y = (x / fract->zoom + fract->min.x)
+			  - (x / (fract->zoom / 1.5));
+			  fract->min.x = (y / fract->zoom + fract->min.y)
+			  - (y / (fract->zoom / 1.5));
+			  }*/
 			fract->zoom /= 1.5;
 			fract->iter_max -= fract->nb == 8 ? 0 : 1;
 			fract->func(fract);

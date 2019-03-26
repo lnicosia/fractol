@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 14:40:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:51:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_fract
 	int				movement;
 	t_list			*pixels;
 	int				maj_buffer;
+	int				ctrl_buffer;
 	void			(*func)(struct s_fract *);
 }				t_fract;
 
