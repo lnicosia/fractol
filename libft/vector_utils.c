@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/22 15:56:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+t_point	new_point(int x, int y)
 {
-	char		*tmp;
-	const char	*source;
+	t_point	new;
 
-	tmp = dst;
-	source = src;
-	if (dst > src)
-	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
-	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	new.x = x;
+	new.y = y;
+	return (new);
+}
+
+t_v2	new_v2(double x, double y)
+{
+	t_v2	new;
+
+	new.x = x;
+	new.y = y;
+	return (new);
+}
+
+t_v3	new_v3(double x, double y, double z)
+{
+	t_v3	new;
+
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	return (new);
 }

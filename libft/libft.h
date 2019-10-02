@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 11:01:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:29:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_point
+{
+	int			x;
+	int			y;
+}				t_point;
+
+typedef struct	s_v2
+{
+	double		x;
+	double		y;
+}				t_v2;
+
+typedef struct	s_v3
+{
+	double		x;
+	double		y;
+	double		z;
+}				t_v3;
+
+typedef	struct		s_segment
+{
+	t_v2			p1;
+	t_v2			p2;
+}					t_segment;
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -61,6 +86,7 @@ void			*ft_memset(void *b, int c, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 int				ft_atoi(const char *str);
+double			ft_atof(const char *str);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strncpy(char *dst, char const *src, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
@@ -81,6 +107,7 @@ void			ft_putstr_fd(char const *s, int fd);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 char			*ft_itoa(int nbr);
+char			*ft_sitoa(int nbr);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
@@ -91,6 +118,7 @@ int				ft_lstlen(t_list *lst);
 void			ft_lstpushback(t_list **alst, t_list *new);
 int				ft_abs(int	nb);
 int				ft_clamp(int nb, int min, int max);
+double				ft_fclamp(double nb, double min, double max);
 int				ft_min(int nb1, int nb2);
 int				ft_max(int nb1, int nb2);
 double			ft_fabs(double nb);
@@ -103,5 +131,18 @@ int				ft_count(int nb);
 int				ft_atoi_base(char *str, char *base);
 int				ft_dprintf(int fd, const char *restrict format, ...);
 int				ft_printf(const char *restrict format, ...);
+size_t			ft_getlen(long nb);
+size_t			ft_getsize(long nb);
+void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+int				ft_perror(const char *s);
+void			*ft_delindex(void *ptr, size_t old_size, size_t new_size, size_t index);
+int				ft_lstcontains(t_list *lst, void *content);
+t_point			new_point(int x, int y);
+t_v2			new_v2(double x, double y);
+t_v3			new_v3(double x, double y, double z);
+t_v2			get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
+int				segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
+int				check_line_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
+int				custom_error(const char *message);
 
 #endif

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_getsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/07/30 13:19:30 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/30 13:31:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+size_t	ft_getsize(long nbr)
 {
-	char		*tmp;
-	const char	*source;
+	size_t	size;
 
-	tmp = dst;
-	source = src;
-	if (dst > src)
+	size = 0;
+	if (nbr <= 0)
+		size++;
+	while (nbr != 0)
 	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
+		nbr = nbr / 10;
+		size++;
 	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	return (size);
 }

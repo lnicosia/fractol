@@ -6,14 +6,14 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 18:39:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:12:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 
-void    init_koch(t_fract *fract)
+int		   init_koch(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -25,6 +25,7 @@ void    init_koch(t_fract *fract)
 	fract->zoom = 0.5;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	return (0);
 }
 
 static void	reset_image(t_fract *fract)

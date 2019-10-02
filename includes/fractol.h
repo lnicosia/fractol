@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/26 13:51:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:10:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define MAX_FRACT 9
 # include <mlx.h>
 # include <pthread.h>
+# include <time.h>
 # include "libft.h"
 # define BLACK 0
 # define WHITE 1
@@ -98,7 +99,7 @@ typedef struct	s_env
 	void			*mlx_ptr;
 	t_fract			fract[MAX_FRACT];
 	void			(*fract_func[MAX_FRACT])(t_fract *);
-	void			(*init_fract[MAX_FRACT])(t_fract *);
+	int				(*init_fract[MAX_FRACT])(t_fract *);
 	int				args[MAX_FRACT];
 	int				s_width;
 	int				s_height;
@@ -114,16 +115,16 @@ void			newton(t_fract *fract);
 void			koch(t_fract *fract);
 void			newton_sin(t_fract *fract);
 void			barnsley(t_fract *fract);
-void			init_julia(t_fract *fract);
-void			init_mandelbrot(t_fract *fract);
-void			init_ship(t_fract *fract);
-void			init_buddhabrot(t_fract *fract);
-void			init_buddha2(t_fract *fract);
-void			init_burning_julia(t_fract *fract);
-void			init_newton(t_fract *fract);
-void			init_newton_sin(t_fract *fract);
-void			init_barnsley(t_fract *fract);
-void			init_koch(t_fract *fract);
+int				init_julia(t_fract *fract);
+int				init_mandelbrot(t_fract *fract);
+int				init_ship(t_fract *fract);
+int				init_buddhabrot(t_fract *fract);
+int				init_buddha2(t_fract *fract);
+int				init_burning_julia(t_fract *fract);
+int				init_newton(t_fract *fract);
+int				init_newton_sin(t_fract *fract);
+int				init_barnsley(t_fract *fract);
+int				init_koch(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);

@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/22 11:41:48 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/02 12:17:09 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,10 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -g3 -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR)
+CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
+		  -I $(LIBFT_DIR) \
+		  -flto -Ofast \
+		  #-g3 -fsanitize=address
 
 DEBUG ?= 0
 

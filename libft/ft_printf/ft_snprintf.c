@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_snprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/05/13 10:27:50 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/05/13 10:30:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+int		ft_snprintf(char *restrict str, size_t size, const char * restrict format, ...)
 {
-	char		*tmp;
-	const char	*source;
+	t_data	data;
 
-	tmp = dst;
-	source = src;
-	if (dst > src)
-	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
-	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	if (!format)
+		return (-1);
+	init_data(&data, 1);
+	va_start(data.ap, format);
+	parse_format(format, &data);
+	write(1, data.buffer, data.i);
+	va_end(data.ap);
+	return (data.ret);
 }

@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/22 11:30:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/09/02 17:35:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+int		custom_error(const char *message)
 {
-	char		*tmp;
-	const char	*source;
-
-	tmp = dst;
-	source = src;
-	if (dst > src)
-	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
-	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	ft_dprintf(STDERR_FILENO, "{red}%s{reset}\n", message);
+	return (-1);
 }

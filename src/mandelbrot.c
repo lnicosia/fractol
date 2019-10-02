@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:12:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:12:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void		init_mandelbrot(t_fract *fract)
+int			init_mandelbrot(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -23,6 +23,7 @@ void		init_mandelbrot(t_fract *fract)
 	fract->iter_max = 50;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
+	return (0);
 }
 
 static void	*calc_mandelbrot(void *param)
@@ -87,7 +88,6 @@ void		mandelbrot(t_fract *fract)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
-	str = ft_itoa(fract->iter_max);
+	str = ft_sitoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
-	free(str);
 }

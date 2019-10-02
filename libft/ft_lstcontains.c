@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstcontains.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/21 15:09:59 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/21 15:19:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+int		ft_lstcontains(t_list *lst, void *content)
 {
-	char		*tmp;
-	const char	*source;
+	t_list	*tmp;
 
-	tmp = dst;
-	source = src;
-	if (dst > src)
+	tmp = lst;
+	while (tmp)
 	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
+		if (tmp->content == content)
+			return (1);
+		tmp = tmp->next;
 	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	return (0);
 }

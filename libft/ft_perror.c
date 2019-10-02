@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/19 16:37:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/19 18:46:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
-{
-	char		*tmp;
-	const char	*source;
+/*
+**	Calls perror with the given string then returns -1
+*/
 
-	tmp = dst;
-	source = src;
-	if (dst > src)
-	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
-	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+int		ft_perror(const char *s)
+{
+	perror(s);
+	return (-1);
 }

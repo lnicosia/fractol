@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:14:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:12:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 
-void		init_burning_julia(t_fract *fract)
+int			init_burning_julia(t_fract *fract)
 {
 	fract->movement = 0;
 	fract->color_base = RED;
@@ -27,6 +27,7 @@ void		init_burning_julia(t_fract *fract)
 	fract->move.y = 0;
 	fract->transfo.x = 0;
 	fract->transfo.y = 0;
+	return (0);
 }
 
 static void	*calc_julia(void *param)

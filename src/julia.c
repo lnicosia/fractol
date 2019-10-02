@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:12:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:12:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void		init_julia(t_fract *fract)
+int			init_julia(t_fract *fract)
 {
 	fract->movement = 0;
 	fract->color_base = RED;
@@ -27,6 +27,7 @@ void		init_julia(t_fract *fract)
 	fract->move.y = 0;
 	fract->transfo.x = 0;
 	fract->transfo.y = 0;
+	return (0);
 }
 
 static void	*calc_julia(void *param)

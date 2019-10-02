@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 17:27:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:42:49 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/29 17:32:52 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/29 17:34:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+int		main(void)
 {
-	char		*tmp;
-	const char	*source;
-
-	tmp = dst;
-	source = src;
-	if (dst > src)
-	{
-		while (n > 0)
-		{
-			tmp[n - 1] = source[n - 1];
-			n--;
-		}
-	}
-	else
-		ft_memcpy(dst, src, n);
-	return (dst);
+	ft_printf("un nombre: %d, un texte: %s, un nombre a virgule: %f\n", 4, "cc", 4.5454);
+	return (0);
 }

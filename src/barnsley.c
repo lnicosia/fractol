@@ -6,14 +6,14 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:14:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:11:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 
-void		init_barnsley(t_fract *fract)
+int			init_barnsley(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -24,24 +24,16 @@ void		init_barnsley(t_fract *fract)
 	fract->iter_max = 1000000;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
+	return (0);
 }
 
 static void	reset_image(t_fract *fract)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	y = 0;
-	while (y < 1080)
-	{
-		x = 0;
-		while (x < 1920)
-		{
-			fract->window.img.str[x + y * 1920] = 0;
-			x++;
-		}
-		y++;
-	}
+	i = -1;
+	while (++i < 2073600)
+		fract->window.img.str[i] = 0;
 }
 
 void	barnsley(t_fract *fract)

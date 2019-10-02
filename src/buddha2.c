@@ -6,13 +6,31 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/26 15:30:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:16:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void		init_buddha2(t_fract *fract)
+void	reset_img(t_fract *fract)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 1048576)
+		fract->window.img.str[i] = 0;
+}
+
+static void	init_array(unsigned int *array)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 1048576)
+		array[i] = 0;
+}
+
+int			init_buddha2(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = NASA;
@@ -22,6 +40,29 @@ void		init_buddha2(t_fract *fract)
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
 	fract->iter_min = 15;
+	fract->red = NULL;
+	fract->green = NULL;
+	fract->blue = NULL;
+	if (fract->color_mode == NASA)
+	{
+		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+			return (ft_perror("Could not malloc red array:"));
+		init_array(fract->red);
+		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+		{
+			free(fract->red);
+			return (ft_perror("Could not malloc blue array:"));
+		}
+		init_array(fract->blue);
+		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+		{
+			free(fract->red);
+			free(fract->blue);
+			return (ft_perror("Could not malloc green array:"));
+		}
+		init_array(fract->green);
+	}
+	return (0);
 }
 
 static void	*calc_buddha2(void *param)
@@ -34,6 +75,7 @@ static void	*calc_buddha2(void *param)
 	t_coord2	coord;
 
 	fract = (t_fract*)param;
+	srand(time(NULL));
 	x = 0;
 	while (x < 65536)
 	{
@@ -80,42 +122,6 @@ static void	*calc_buddha2(void *param)
 	return (NULL);
 }
 
-void	reset_img(t_fract *fract)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < 1024)
-	{
-		x = 0;
-		while (x < 1024)
-		{
-			fract->window.img.str[x + y * 1024] = 0;
-			x++;
-		}
-		y++;
-	}
-}
-
-static void	init_array(unsigned int *array)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < 1024)
-	{
-		x = 0;
-		while (x < 1024)
-		{
-			array[y + x * 1024] = 0;
-			x++;
-		}
-		y++;
-	}
-}
-
 void		buddha2(t_fract *fract)
 {
 	pthread_t		thread[8];
@@ -123,18 +129,6 @@ void		buddha2(t_fract *fract)
 	int				i;
 	char			*str;
 
-	if (fract->color_mode == NASA)
-	{
-		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
-			return ;
-		init_array(fract->red);
-		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
-			return ;
-		init_array(fract->blue);
-		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int) * 1024 * 1024)))
-			return ;
-		init_array(fract->green);
-	}
 	i = 0;
 	reset_img(fract);
 	ft_printf("Computing Buddha..\n");
@@ -149,12 +143,6 @@ void		buddha2(t_fract *fract)
 		pthread_join(thread[i], NULL);
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
-	if (fract->color_mode == NASA)
-	{
-		free(fract->red);
-		free(fract->green);
-		free(fract->blue);
-	}
 	ft_printf("Done\n\n");
 	//exit(0);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
@@ -165,7 +153,20 @@ void		buddha2(t_fract *fract)
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
 	free(str);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF, "Iter min: ");
-	str = ft_itoa(fract->iter_min);
+	str = ft_sitoa(fract->iter_min);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF, str);
-	free(str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 50, 0xFFFFFF,
+			"Color mode: ");
+	if (fract->color_mode == NASA)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
+				"NASA");
+	else if (fract->color_mode == SIN)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
+				"SIN");
+	else if (fract->color_mode == FLAT)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
+				"FLAT");
+	else if (fract->color_mode == COS)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
+				"COS");
 }

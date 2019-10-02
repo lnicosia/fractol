@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:13:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:13:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
 
-void		init_ship(t_fract *fract)
+int			init_ship(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -24,6 +24,7 @@ void		init_ship(t_fract *fract)
 	fract->iter_max = 150;
 	fract->min.x = -1.840;
 	fract->min.y = -0.075;
+	return (0);
 }
 
 static void	*calc_ship(void *param)

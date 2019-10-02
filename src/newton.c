@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 16:14:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:12:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "color_newton.h"
 #include <math.h>
 
-void		init_newton(t_fract *fract)
+int			init_newton(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -25,6 +25,7 @@ void		init_newton(t_fract *fract)
 	fract->min.y = -1.4;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	return (0);
 }
 
 int	is_tol(t_complex z, t_complex root, double tolerance)

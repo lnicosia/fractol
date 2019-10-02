@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 13:20:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 11:56:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:17:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_get_size(int nbr)
 	return (size);
 }
 
-static char	*ft_fillstr(int size, int i, int nbr, char *str)
+static void	ft_fillstr(int size, int i, int nbr, char *str)
 {
 	while (size > i)
 	{
@@ -35,20 +35,18 @@ static char	*ft_fillstr(int size, int i, int nbr, char *str)
 		nbr = nbr / 10;
 		size--;
 	}
-	return (str);
 }
 
-char		*ft_itoa(int nbr)
+char		*ft_sitoa(int nbr)
 {
-	int		i;
-	int		size;
-	char	*str;
+	int			i;
+	int			size;
+	static char	str[11];
 
 	i = 0;
 	size = 0;
 	size = ft_get_size(nbr);
-	if (!(str = ft_strnew(size)))
-		return (0);
+	ft_bzero(str, 11);
 	if (nbr == -2147483648)
 	{
 		str[0] = '-';
@@ -62,6 +60,6 @@ char		*ft_itoa(int nbr)
 		i = 1;
 		nbr = -nbr;
 	}
-	str = ft_fillstr(size, i, nbr, str);
+	ft_fillstr(size, i, nbr, str);
 	return (str);
 }

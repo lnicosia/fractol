@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 15:00:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 11:29:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void		colorize_buddha(t_fract *fract)
 {
 	int				x;
 	int				y;
+	int				color_coord;
+	int				coord;
 	unsigned int	max;
 	unsigned int	max_blue;
 	unsigned int	max_green;
@@ -73,70 +75,79 @@ void		colorize_buddha(t_fract *fract)
 	unsigned int	col_green;
 	unsigned int	col_red;
 
-	y = 0;
 	max = 0;
 	max_blue = 0;
 	max_green = 0;
 	max_red = 0;
-	while (y < 1024)
+	y = -1;
+	while (++y < 1024)
 	{
-		x = 0;
-		while (x < 1024)
+		x = -1;
+		while (++x < 1024)
 		{
-			if (fract->window.img.str[y + x * 1024] > max)
-				max = fract->window.img.str[y + x * 1024];
+			/*coord = x - fract->move.x * 50 + (y - fract->move.y * 50) * 1024;
+			if (x - fract->move.x * 50 < 0 || x - fract->move.x * 50 >= 1024
+					|| y - fract->move.y * 50 < 0 || y - fract->move.y * 50 >= 1024)
+				continue;*/
+			coord = x + y * 1024;
+			if (fract->window.img.str[coord] > max)
+				max = fract->window.img.str[coord];
 			if (fract->color_mode == NASA)
 			{
-				if (fract->red[y + x * 1024] > max_red)
-					max_red = fract->red[y + x * 1024];
-				if (fract->green[y + x * 1024]  > max_green)
-					max_green = fract->green[y + x * 1024];
-				else if (fract->blue[y + x * 1024] > max_blue)
-					max_blue = fract->blue[y + x * 1024];
+				if (fract->red[coord] > max_red)
+					max_red = fract->red[coord];
+				if (fract->green[coord]  > max_green)
+					max_green = fract->green[coord];
+				else if (fract->blue[coord] > max_blue)
+					max_blue = fract->blue[coord];
 			}
-			x++;
 		}
-		y++;
 	}
-	y = 0;
-	ft_printf("Max count = %u\n", max);
-	ft_printf("Max red = %u\n", max_red);
-	ft_printf("Max green = %u\n", max_green);
-	ft_printf("Max blue = %u\n", max_blue);
-	while (y < 1024)
+	if (fract->color_mode == NASA)
 	{
-		x = 0;
-		while (x < 1024)
+		ft_printf("Max count = %u\n", max);
+		ft_printf("Max red = %u\n", max_red);
+		ft_printf("Max green = %u\n", max_green);
+		ft_printf("Max blue = %u\n", max_blue);
+	}
+	y = -1;
+	while (++y < 1024)
+	{
+		x = -1;
+		while (++x < 1024)
 		{
+			coord = x - fract->move.x * 50 + (y - fract->move.y * 60) * 1024;
+			color_coord = y + x * 1024;
+			if (x - fract->move.x * 50 < 0 || x - fract->move.x * 50 >= 1024
+					|| y - fract->move.y * 60 < 0 || y - fract->move.y * 60 >= 1024)
+				continue;
 			if (fract->color_mode == FLAT)
-				col = 255 * (pow(fract->window.img.str[y + x * 1024] / (double)max, 1/2.0));
+				col = 255 * (pow(fract->window.img.str[coord] / (double)max, 1/2.0));
 			else if (fract->color_mode == COS)
-				col = 255 * fract->window.img.str[y + x * 1024] / (double)max;
+				col = 255 * fract->window.img.str[coord] / (double)max;
 			//ft_printf("col = %u\n", col);
 			if (fract->color_mode == NASA)
 			{
-				col_red = 255 * (pow(fract->red[y + x * 1024] / (double)max_red, 1/2.0));
-				col_green = 255 * (pow(fract->green[y + x * 1024] / (double)max_green, 1/2.0));
-				col_blue = 255 * (pow(fract->blue[y + x * 1024] / (double)max_blue, 1/2.0));
+				col_red = 255 * (pow(fract->red[color_coord] / (double)max_red, 1/2.0));
+				col_green = 255 * (pow(fract->green[color_coord] / (double)max_green, 1/2.0));
+				col_blue = 255 * (pow(fract->blue[color_coord] / (double)max_blue, 1/2.0));
 				/*col_red = 255 * fract->red[y + x * 1024] / (double)max_red;
 				  col_green = 255 * fract->green[y + x * 1024] / (double)max_green;
 				  col_blue = 255 * fract->blue[y + x * 1024] / (double)max_blue;*/
-				fract->window.img.str[y + x * 1024] = 65536 * col_red + 256 * col_green + col_blue;
+				fract->window.img.str[coord] = 65536 * col_red + 256 * col_green + col_blue;
 			}
 			else
 			{
 				if (fract->color_base == WHITE)
-					fract->window.img.str[y + x * 1024] = col + 256 * col + 65536 * col;
+					fract->window.img.str[coord] = col + 256 * col + 65536 * col;
 				if (fract->color_base == RED)
-					fract->window.img.str[y + x * 1024] = 65536 * col;
+					fract->window.img.str[coord] = 65536 * col;
 				if (fract->color_base == GREEN)
-					fract->window.img.str[y + x * 1024] = 256 * col;
+					fract->window.img.str[coord] = 256 * col;
 				if (fract->color_base == BLUE)
-					fract->window.img.str[y + x * 1024] = col;
+					fract->window.img.str[coord] = col;
 			}
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -148,23 +159,23 @@ void		color_buddha(int x, int y, t_fract *fract)
 	if (fract->color_mode == NASA)
 	{
 		if (fract->iter < fract->iter_max / 100 + fract->iter_min)
-			fract->red[y + x * 1024]++;
+			fract->red[x + y * 1024]++;
 		else if(fract->iter >= fract->iter_max / 100 + fract->iter_min && fract->iter < fract->iter_max / 10 + fract->iter_min)
-			fract->green[y + x * 1024]++;
+			fract->green[x + y * 1024]++;
 		else if(fract->iter >= fract->iter_max / 10 + fract->iter_min && fract->iter < fract->iter_max)
-			fract->blue[y + x * 1024]++;
+			fract->blue[x + y * 1024]++;
 	}
 	if (fract->color_mode == SIN)
 	{
 		if (fract->iter < fract->iter_max / 20 + fract->iter_min)
-			fract->window.img.str[y + x * 1024] += mul * 65536;
+			fract->window.img.str[x + y * 1024] += mul * 65536;
 		else if(fract->iter >= fract->iter_max / 20 + fract->iter_min && fract->iter < fract->iter_max / 5 + fract->iter_min)
-			fract->window.img.str[y + x * 1024] += mul * 256;
+			fract->window.img.str[x + y * 1024] += mul * 256;
 		else if(fract->iter >= fract->iter_max / 5 + fract->iter_min && fract->iter < fract->iter_max)
-			fract->window.img.str[y + x * 1024] += mul;
+			fract->window.img.str[x + y * 1024] += mul;
 	}
 	else
-		fract->window.img.str[y + x * 1024]++;
+		fract->window.img.str[x + y * 1024]++;
 }
 
 void		swap_color_base(int key, t_fract *fract)
