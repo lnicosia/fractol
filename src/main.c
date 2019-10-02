@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:49:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:00:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		usage(void)
 {
 	ft_printf("usage: ./fractol julia | mandelbrot | ship | buddhabrot");
-	ft_printf("| buddha2 | bjulia | newton | barnsley | koch\n");
+	ft_printf("| buddha2 | bjulia | newton | barnsley | koch | tricorn\n");
 	return (-1);
 }
 
@@ -89,6 +89,11 @@ int		parse_args(char **av, t_env *data)
 			{
 				if (!data->args[8])
 					data->args[8] = 1;
+			}
+			if (ft_strequ(av[i], "tricorn"))
+			{
+				if (!data->args[9])
+					data->args[9] = 1;
 			}
 			else
 				return (usage());

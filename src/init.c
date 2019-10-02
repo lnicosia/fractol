@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:49:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:01:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_functions(t_env *data)
 	data->fract_func[6] = &buddha2;
 	data->fract_func[7] = &barnsley;
 	data->fract_func[8] = &koch;
+	data->fract_func[9] = &tricorn;
 }
 
 void	init_init_functions(t_env *data)
@@ -83,6 +84,7 @@ void	init_init_functions(t_env *data)
 	data->init_func[6] = &init_buddha2;
 	data->init_func[7] = &init_barnsley;
 	data->init_func[8] = &init_koch;
+	data->init_func[9] = &init_tricorn;
 }
 
 int		init_fract(t_env *data)

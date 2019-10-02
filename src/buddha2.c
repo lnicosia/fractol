@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:04:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:34:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	*calc_buddha2(void *param)
 	fract = (t_fract*)param;
 	srand(time(NULL));
 	x = 0;
-	while (x < 10000)
+	while (x < 1000000)
 	{
 		c.r = (rand() / (double)RAND_MAX) * -fract->min.x * 2 + fract->min.x;
 		c.i = (rand() / (double)RAND_MAX) * -fract->min.y * 2 + fract->min.y;

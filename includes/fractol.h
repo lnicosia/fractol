@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:03:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:52:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 9
+# define MAX_FRACT 10
 # include <mlx.h>
 # include <pthread.h>
 # include <time.h>
@@ -78,6 +78,7 @@ typedef struct	s_fract
 	unsigned int	*green;
 	unsigned int	*blue;
 	int				start;
+	int				pow;
 	int				end;
 	char			*name;
 	double			zoom;
@@ -120,8 +121,10 @@ void			newton(t_fract *fract);
 void			koch(t_fract *fract);
 void			newton_sin(t_fract *fract);
 void			barnsley(t_fract *fract);
+void			tricorn(t_fract *fract);
 int				init_julia(t_fract *fract);
 int				init_mandelbrot(t_fract *fract);
+int				init_tricorn(t_fract *fract);
 int				init_ship(t_fract *fract);
 int				init_buddhabrot(t_fract *fract);
 int				init_buddha2(t_fract *fract);
@@ -147,6 +150,7 @@ t_complex		ft_cdiv(t_complex c1, t_complex c2);
 t_complex		ft_cpow(t_complex c1, int pow);
 t_complex		ft_csin(t_complex c);
 t_complex		ft_ccos(t_complex c);
+t_complex		ft_cconj(t_complex c);
 t_complex		new_complex(double r, double i);
 t_coord2		new_coord2(int x, int y);
 t_fcoord2		new_fcoord2(double x, double y);

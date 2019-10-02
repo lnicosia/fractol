@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:56:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:35:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ static void	reset_image(t_fract *fract)
 		fract->window.img.str[i] = 0;
 }
 
+void	color_barnsley(t_fract *fract, int x, int y, int dice)
+{
+	/*uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;*/
+
+	if (fract->color_mode == FLAT)
+		fract->window.img.str[x + y * 1920] = 65536 * fract->iter + 256 * fract->iter + fract->iter;
+	if (fract->color_mode == COS)
+		fract->window.img.str[x + y * 1920] = 65536 * dice + 256 * dice + dice;
+	else if (fract->color_mode == NASA)
+		fract->window.img.str[x + y * 1920] = 0xFFFFFF / fract->iter;
+	/*fract->window.img.str[x + y * 1920] = (0xFF & red) << 16
+		| (0xFF & green) << 8
+		| 0xFF & blue;*/
+}
+
 void	barnsley(t_fract *fract)
 {
 	t_fcoord2	c1;
@@ -50,12 +67,12 @@ void	barnsley(t_fract *fract)
 	fract->iter = fract->iter_max;
 	c1.x = 0;
 	c1.y = 0;
+	srand(time(NULL));
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	reset_image(fract);
 	while (fract->iter > 0)
 	{
 		dice = rand() % 100;
-		//ft_printf("rand = %d\n", dice);
 		if (!dice)
 		{
 			c2.x = 0;
@@ -78,11 +95,9 @@ void	barnsley(t_fract *fract)
 		}
 		pixel.x = (int)(fract->zoom * (c2.x - fract->move.x / 2)) + 960;
 		pixel.y = (int)(fract->zoom * (c2.y - fract->move.y / 2)) + 50;
-		//ft_printf("[%d][%d]\n", pixel.y, pixel.x);
 		if (pixel.x >= 0 && pixel.x < 1920
 				&& pixel.y >= 0 && pixel.y < 1080)
-		//fract->window.img.str[pixel.x + pixel.y * 1920] += 0xFFFFFF / 100 * dice;
-		fract->window.img.str[pixel.x + pixel.y * 1920] = 0x00FF00;
+		color_barnsley(fract, pixel.x, pixel.y, dice);
 		c1 = c2;
 		fract->iter--;
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:05:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/19 15:08:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:52:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ t_complex	ft_cpow(t_complex c1, int pow)
 		pow--;
 	}
 	return (res);
+}
+
+t_complex	ft_cconj(t_complex c)
+{
+	c.i = -c.i;
+	return (c);
 }
 
 t_complex	new_complex(double r, double i)

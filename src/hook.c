@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:59:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:49:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ int		key_release(int key, void *param)
 	{
 		if (fract->ctrl_buffer)
 		{
-			if (fract->maj_buffer && fract->iter_min < 2147483642)
-				fract->iter_min += 5;
-			else if (fract->iter_max < 2147483646)
-				fract->iter_min += 1;
+			if (fract->pow < 10)
+				fract->pow++;
 		}
 		else
 		{
@@ -49,10 +47,8 @@ int		key_release(int key, void *param)
 	{
 		if (fract->ctrl_buffer)
 		{
-			if (fract->maj_buffer && fract->iter_min > 4)
-				fract->iter_min -= 5;
-			else if (fract->iter_min > 0)
-				fract->iter_min -= 1;
+			if (fract->pow > 0)
+				fract->pow--;
 		}
 		else
 		{
