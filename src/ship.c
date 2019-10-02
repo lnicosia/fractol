@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:13:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:56:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ int			init_ship(t_fract *fract)
 	fract->color_inside_mode = FLAT;
 	fract->name = "Burning ship";
 	fract->zoom = 12500;
+	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 150;
 	fract->min.x = -1.840;
 	fract->min.y = -0.075;
+	fract->move.x = 0;
+	fract->move.y = 0;
 	return (0);
 }
 
@@ -43,8 +46,8 @@ static void	*calc_ship(void *param)
 		x = 0;
 		while (x < 1920)
 		{
-			c.x = x / fract->zoom + fract->min.x + fract->move.x;
-			c.y = y / fract->zoom + fract->min.y + fract->move.y;
+			c.x = x * fract->inv_zoom + fract->min.x + fract->move.x;
+			c.y = y * fract->inv_zoom + fract->min.y + fract->move.y;
 			z.x = 0;
 			z.y = 0;
 			fract->iter = 0;
@@ -92,4 +95,5 @@ void		ship(t_fract *fract)
 	str = ft_itoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
 	free(str);
+	print_color_data(fract);
 }

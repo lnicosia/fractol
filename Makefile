@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/02 12:17:09 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/02 17:00:02 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  export.c buddhabrot.c color.c burning_julia.c newton.c complex.c \
 		  buddha2.c newton_sin.c color_newton.c barnsley.c koch.c \
-		  plot_line.c coord_utils.c
+		  plot_line.c coord_utils.c print_color_data.c free_all.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h
 
@@ -35,8 +35,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
-		  -flto -Ofast \
-		  #-g3 -fsanitize=address
+		  -g3 -fsanitize=address
+		  #-flto -Ofast \
 
 DEBUG ?= 0
 

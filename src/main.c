@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 11:50:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:49:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		usage(void)
 {
 	ft_printf("usage: ./fractol julia | mandelbrot | ship | buddhabrot");
 	ft_printf("| buddha2 | bjulia | newton | barnsley | koch\n");
-	exit(0);
+	return (-1);
 }
 
 int		parse_arg2(char **av, t_env *data, int i)
@@ -73,7 +73,7 @@ int		parse_arg(char **av, t_env *data, int i)
 	return (1);
 }
 
-void	parse_args(char **av, t_env *data)
+int		parse_args(char **av, t_env *data)
 {
 	int	i;
 
@@ -91,10 +91,11 @@ void	parse_args(char **av, t_env *data)
 					data->args[8] = 1;
 			}
 			else
-				usage();
+				return (usage());
 		}
 		i++;
 	}
+	return (0);
 }
 
 int		main(int ac, char **av)
@@ -103,16 +104,17 @@ int		main(int ac, char **av)
 	int		i;
 
 	if (ac < 2)
-		usage();
+		return (usage());
 	if (init_fract(&data) == 0)
 		return (-1);
-	parse_args(av, &data);
+	if (parse_args(av, &data))
+		return (0);
 	i = 0;
 	while (i < MAX_FRACT)
 	{
 		if (data.args[i])
 		{
-			data.init_fract[i](&data.fract[i]);
+			data.init_func[i](&data.fract[i]);
 			init_window(&data.fract[i], &data);
 			data.fract_func[i](&data.fract[i]);
 		}

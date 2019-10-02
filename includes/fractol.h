@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:10:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:03:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define RED 2
 # define GREEN 3
 # define BLUE 4
+# define MIXED_1 5
+# define MIXED_2 6
+# define MIXED_3 7
 # define FLAT 0
 # define COS 1
 # define SIN 2
@@ -78,6 +81,7 @@ typedef struct	s_fract
 	int				end;
 	char			*name;
 	double			zoom;
+	double			inv_zoom;
 	void			*mlx_ptr;
 	t_window		window;
 	int				iter;
@@ -92,6 +96,7 @@ typedef struct	s_fract
 	int				maj_buffer;
 	int				ctrl_buffer;
 	void			(*func)(struct s_fract *);
+	int				(*init_func)(struct s_fract *);
 }				t_fract;
 
 typedef struct	s_env
@@ -99,7 +104,7 @@ typedef struct	s_env
 	void			*mlx_ptr;
 	t_fract			fract[MAX_FRACT];
 	void			(*fract_func[MAX_FRACT])(t_fract *);
-	int				(*init_fract[MAX_FRACT])(t_fract *);
+	int				(*init_func[MAX_FRACT])(t_fract *);
 	int				args[MAX_FRACT];
 	int				s_width;
 	int				s_height;
@@ -146,5 +151,7 @@ t_complex		new_complex(double r, double i);
 t_coord2		new_coord2(int x, int y);
 t_fcoord2		new_fcoord2(double x, double y);
 void			plot_line(t_coord2 c1, t_coord2 c2, t_fract *fract, int color);
+void			print_color_data(t_fract *fract);
+void			free_all(t_fract *fract);
 
 #endif

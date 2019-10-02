@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:12:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:29:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		   init_koch(t_fract *fract)
 	fract->color_inside_mode = FLAT;
 	fract->name = "Koch snowflake";
 	fract->zoom = 400;
+	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 0;
 	fract->zoom = 0.5;
 	fract->move.x = 0;
@@ -94,4 +95,5 @@ void    koch(t_fract *fract)
 	str = ft_itoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
 	free(str);
+	print_color_data(fract);
 }

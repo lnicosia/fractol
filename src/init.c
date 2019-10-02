@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/22 18:48:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:49:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		init_window(t_fract *fract, t_env *data)
 	return (1);
 }
 
-void	init_fract1(t_env *data)
+void	init_functions(t_env *data)
 {
 	data->fract_func[0] = &julia;
 	data->fract_func[1] = &mandelbrot;
@@ -72,17 +72,17 @@ void	init_fract1(t_env *data)
 	data->fract_func[8] = &koch;
 }
 
-void	init_fract2(t_env *data)
+void	init_init_functions(t_env *data)
 {
-	data->init_fract[0] = &init_julia;
-	data->init_fract[1] = &init_mandelbrot;
-	data->init_fract[2] = &init_ship;
-	data->init_fract[3] = &init_buddhabrot;
-	data->init_fract[4] = &init_burning_julia;
-	data->init_fract[5] = &init_newton;
-	data->init_fract[6] = &init_buddha2;
-	data->init_fract[7] = &init_barnsley;
-	data->init_fract[8] = &init_koch;
+	data->init_func[0] = &init_julia;
+	data->init_func[1] = &init_mandelbrot;
+	data->init_func[2] = &init_ship;
+	data->init_func[3] = &init_buddhabrot;
+	data->init_func[4] = &init_burning_julia;
+	data->init_func[5] = &init_newton;
+	data->init_func[6] = &init_buddha2;
+	data->init_func[7] = &init_barnsley;
+	data->init_func[8] = &init_koch;
 }
 
 int		init_fract(t_env *data)
@@ -93,8 +93,8 @@ int		init_fract(t_env *data)
 	i = 0;
 	if (!(data->mlx_ptr = mlx_init()))
 		return (0);
-	init_fract1(data);
-	init_fract2(data);
+	init_functions(data);
+	init_init_functions(data);
 	while (i < MAX_FRACT)
 	{
 		j = 0;
@@ -107,6 +107,7 @@ int		init_fract(t_env *data)
 		data->fract[i].state = 1;
 		data->fract[i].maj_buffer = 0;
 		data->fract[i].func = data->fract_func[i];
+		data->fract[i].init_func = data->init_func[i];
 		data->fract[i].mlx_ptr = data->mlx_ptr;
 		i++;
 	}

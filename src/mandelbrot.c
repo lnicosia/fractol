@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:12:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:55:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ int			init_mandelbrot(t_fract *fract)
 	fract->color_inside_mode = FLAT;
 	fract->name = "Mandelbrot";
 	fract->zoom = 400;
+	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 50;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
+	fract->move.x = 0;
+	fract->move.y = 0;
 	return (0);
 }
 
@@ -42,8 +45,8 @@ static void	*calc_mandelbrot(void *param)
 		x = 0;
 		while (x < 1920)
 		{
-			c.r = x / fract->zoom + fract->min.x + fract->move.x;
-			c.i = y / fract->zoom + fract->min.y + fract->move.y;
+			c.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
+			c.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
 			z.r = 0;
 			z.i = 0;
 			fract->iter = 0;
@@ -90,4 +93,5 @@ void		mandelbrot(t_fract *fract)
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
 	str = ft_sitoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	print_color_data(fract);
 }

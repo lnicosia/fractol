@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:11:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:56:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ int			init_barnsley(t_fract *fract)
 	fract->color_inside_mode = FLAT;
 	fract->name = "Barnsley";
 	fract->zoom = 10;
+	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 1000000;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
+	fract->move.x = 0;
+	fract->move.y = 0;
 	return (0);
 }
 
@@ -89,4 +92,5 @@ void	barnsley(t_fract *fract)
 	str = ft_itoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
 	free(str);
+	print_color_data(fract);
 }

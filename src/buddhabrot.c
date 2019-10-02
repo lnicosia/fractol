@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 12:17:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:05:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			init_buddhabrot(t_fract *fract)
 	fract->color_mode = NASA;
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
+	fract->inv_zoom = 1 / fract->zoom;
 	//fract->iter_max = 10000;
 	fract->iter_max = 512;
 	fract->min.x = -1.8;
@@ -38,19 +39,21 @@ int			init_buddhabrot(t_fract *fract)
 	if (fract->color_mode == NASA)
 	{
 		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
-			return (ft_perror("Could not malloc red array"));
+		{
+			ft_printf("Could not malloc red array\n");
+			free_all(fract);
+		}
 		init_array(fract->red);
 		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
 		{
-			free(fract->red);
-			return (ft_perror("Could not malloc blue array"));
+			ft_printf("Could not malloc red array\n");
+			free_all(fract);
 		}
 		init_array(fract->blue);
 		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
 		{
-			free(fract->red);
-			free(fract->blue);
-			return (ft_perror("Could not malloc green array"));
+			ft_printf("Could not malloc red array\n");
+			free_all(fract);
 		}
 		init_array(fract->green);
 	}
@@ -69,14 +72,13 @@ static void	*calc_buddhabrot(void *param)
 
 	fract = (t_fract*)param;
 	y = fract->start;
-	//ft_printf("de %d a %d\n", y, fract->end);
 	while (y < fract->end)
 	{
 		x = 0;
 		while (x < 1024)
 		{
-			c.r = x / fract->zoom + fract->min.x;
-			c.i = y / fract->zoom + fract->min.y;
+			c.r = x * fract->inv_zoom + fract->min.x;
+			c.i = y * fract->inv_zoom + fract->min.y;
 			z.r = 0;
 			z.i = 0;
 			fract->iter = 0;
@@ -100,17 +102,13 @@ static void	*calc_buddhabrot(void *param)
 					z.i = 2 * z.r * z.i + c.i;
 					z.r = xtemp + c.r;
 					fract->iter++;
-					coord.x = (int)((z.r - fract->min.x) * fract->zoom)
-						;//+ fract->move.x * 20;
-					coord.y = (int)((z.i - fract->min.y) * fract->zoom)
-						;//+ fract->move.y * 20;
+					coord.x = (int)((z.r - fract->min.x) * fract->zoom);
+					coord.y = (int)((z.i - fract->min.y) * fract->zoom);
 					if (coord.x >= 0 && coord.x < 1024
 							&& coord.y >= 0 && coord.y < 1024)
 					{
 						color_buddha(coord.x, coord.y, fract);
-						//coord.y = coord.y + 2 * (512 - coord.y) - 1;
-						coord.y = (int)((-z.i - fract->min.y) * fract->zoom)
-							;//+ fract->move.y * 20;
+						coord.y = (int)((-z.i - fract->min.y) * fract->zoom);
 						if (coord.y >= 0 && coord.y < 1024)
 							color_buddha(coord.x, coord.y, fract);
 					}
@@ -146,7 +144,6 @@ void		buddhabrot(t_fract *fract)
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
 	ft_printf("Done\n\n");
-	//exit(0);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
@@ -158,18 +155,5 @@ void		buddhabrot(t_fract *fract)
 	str = ft_itoa(fract->iter_min);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF, str);
 	free(str);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 50, 0xFFFFFF,
-			"Color mode: ");
-	if (fract->color_mode == NASA)
-		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
-				"NASA");
-	else if (fract->color_mode == SIN)
-		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
-				"SIN");
-	else if (fract->color_mode == FLAT)
-		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
-				"FLAT");
-	else if (fract->color_mode == COS)
-		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 50, 0xFFFFFF,
-				"COS");
+	print_color_data(fract);
 }

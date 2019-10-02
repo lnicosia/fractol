@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/26 13:58:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:59:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,18 @@ int		key_release(int key, void *param)
 		fract->maj_buffer = 0;
 	if (key == LCTRL_KEY || key == RCTRL_KEY)
 		fract->ctrl_buffer = 0;
+	if (key == R_KEY)
+	{
+		if (fract->red)
+			ft_memdel((void**)&fract->red);
+		if (fract->green)
+			ft_memdel((void**)&fract->green);
+		if (fract->blue)
+			ft_memdel((void**)&fract->blue);
+		if (fract->init_func(fract))
+			return (-1);
+		fract->func(fract);
+	}
 	return (0);
 }
 
@@ -130,21 +142,12 @@ int		mouse_press(int button, int x, int y, void *param)
 	fract = (t_fract*)param;
 	if (button == SCROLLUP_KEY && fract->iter_max < 2147483643)
 	{
-		//if (fract->nb != 3 && fract->nb != 6)
-		//{
 		fract->min.x = (x / fract->zoom + fract->min.x)
 			- (x / (fract->zoom * 1.5));
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
-		/*}
-		  else
-		  {
-		  fract->min.y = (x / fract->zoom + fract->min.x)
-		  - (x / (fract->zoom * 1.5));
-		  fract->min.x = (y / fract->zoom + fract->min.y)
-		  - (y / (fract->zoom * 1.5));
-		  }*/
 		fract->zoom *= 1.5;
+		fract->inv_zoom = 1 / fract->zoom;
 		fract->iter_max += fract->nb == 8 ? 0 : 1;
 		fract->func(fract);
 	}
@@ -154,21 +157,12 @@ int		mouse_press(int button, int x, int y, void *param)
 		if ((fract->zoom > 3 && fract->iter_max > 4)
 				|| fract->nb == 8)
 		{
-			//if (fract->nb != 3 && fract->nb != 6)
-			//{
 			fract->min.x = (x / fract->zoom + fract->min.x)
 				- (x / (fract->zoom / 1.5));
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
-			//}
-			/*else
-			  {
-			  fract->min.y = (x / fract->zoom + fract->min.x)
-			  - (x / (fract->zoom / 1.5));
-			  fract->min.x = (y / fract->zoom + fract->min.y)
-			  - (y / (fract->zoom / 1.5));
-			  }*/
 			fract->zoom /= 1.5;
+			fract->inv_zoom = 1 / fract->zoom;
 			fract->iter_max -= fract->nb == 8 ? 0 : 1;
 			fract->func(fract);
 		}
