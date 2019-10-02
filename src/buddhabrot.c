@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:05:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:08:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int			init_buddhabrot(t_fract *fract)
 	fract->iter_max = 512;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
+	fract->move.x = 0;
+	fract->move.y = 0;
 	fract->iter_min = 15;
 	fract->red = NULL;
 	fract->green = NULL;

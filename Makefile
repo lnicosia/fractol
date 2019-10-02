@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/02 17:00:02 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/02 17:08:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
-		  -g3 -fsanitize=address
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-g3 -fsanitize=address
 
 DEBUG ?= 0
 
