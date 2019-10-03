@@ -18,12 +18,12 @@ void	fill_img(t_coord2 c, t_fract *fract, int color, float brightness)
 	int	green;
 	int blue;
 
-	if (c.x < 0 || c.x > 1919 || c.y < 0 || c.y >
-			1079)
+	if (c.x < 0 || c.x >= 1024 || c.y < 0 || c.y >=
+			1024)
 		return ;
 	if (brightness == 1)
 	{
-		fract->window.img.str[c.x + c.y * 1920] = color;
+		fract->window.img.str[c.x + c.y * 1024] = color;
 		return ;
 	}
 	red = color >> 16 & 0xFF;
@@ -32,7 +32,7 @@ void	fill_img(t_coord2 c, t_fract *fract, int color, float brightness)
 	red = red * brightness;
 	blue = blue * brightness;
 	green = green * brightness;
-	fract->window.img.str[c.x + c.y * 1920] = ((red << 16) | (green << 8)
+	fract->window.img.str[c.x + c.y * 1024] = ((red << 16) | (green << 8)
 			| blue);
 }
 

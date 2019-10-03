@@ -19,11 +19,11 @@ int			init_mandelbrot(t_fract *fract)
 	fract->color_inside = WHITE;
 	fract->color_inside_mode = FLAT;
 	fract->name = "Mandelbrot";
-	fract->zoom = 400;
+	fract->zoom = 350;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 30;
-	fract->min.x = -2.7;
-	fract->min.y = -1.35;
+	fract->min.x = -2.2;
+	fract->min.y = -1.5;
 	fract->move.x = 0;
 	fract->move.y = 0;
 	fract->pow = 2;
@@ -44,7 +44,7 @@ static void	*calc_mandelbrot(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			c.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			c.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -54,9 +54,6 @@ static void	*calc_mandelbrot(void *param)
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
-				/*xtemp = z.r * z.r - z.i * z.i;
-				z.i = 2 * z.r * z.i + c.i;
-				z.r = xtemp + c.r;*/
 				z = ft_cadd(ft_cpow(z, fract->pow), c);
 				fract->iter++;
 			}
@@ -82,8 +79,8 @@ void		mandelbrot(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&mandelbrot[i], fract, sizeof(t_fract));
-		mandelbrot[i].end = 1080 / 8 * (i + 1);
-		mandelbrot[i].start = 1080 / 8 * i;
+		mandelbrot[i].end = 1024 / 8 * (i + 1);
+		mandelbrot[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_mandelbrot, &mandelbrot[i]);
 		i++;
 	}

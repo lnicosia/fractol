@@ -19,11 +19,11 @@ int			init_julia(t_fract *fract)
 	fract->color_mode = FLAT;
 	fract->color_inside = WHITE;
 	fract->name = "Julia";
-	fract->zoom = 400;
+	fract->zoom = 300;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 64;
-	fract->min.y = -1.4;
-	fract->min.x = -2.25;
+	fract->min.y = -1.7;
+	fract->min.x = -1.8;
 	fract->move.x = 0;
 	fract->move.y = 0;
 	fract->transfo.x = 0;
@@ -44,7 +44,7 @@ static void	*calc_julia(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			z.x = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			z.y = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -79,8 +79,8 @@ void		julia(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&julia[i], fract, sizeof(t_fract));
-		julia[i].end = 1080 / 8 * (i + 1);
-		julia[i].start = 1080 / 8 * i;
+		julia[i].end = 1024 / 8 * (i + 1);
+		julia[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_julia, &julia[i]);
 		i++;
 	}

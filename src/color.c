@@ -24,9 +24,10 @@ void		color(int x, int y, t_fract *fract)
 	red = 0;
 	green = 0;
 	blue = 0;
+	srand(time(NULL));
 	div = 255 * fract->iter / fract->iter_max;
 	if (fract->color_base == BLACK)
-		fract->window.img.str[x + y * 1920] = 0;
+		fract->window.img.str[x + y * 1024] = 0;
 	if (fract->color_base == WHITE)
 	{
 		if (fract->color_mode == COS)
@@ -79,26 +80,27 @@ void		color(int x, int y, t_fract *fract)
 	{
 		if (fract->color_mode == COS)
 		{
-			red = 0xFF * ft_fabs(cos(fract->iter * 0.03));
-			green = 0xFF * ft_fabs(cos(fract->iter * 0.03));
-			blue = 0xFF * ft_fabs(cos(fract->iter * 0.02));
+			red = 0xFF * cos(fract->iter * 0.2);
+			green = 0xFF * cos(fract->iter * 0.02);
+			blue = 0xFF * cos(fract->iter * 0.02);
 		}
 		else if (fract->color_mode == SIN)
 		{
-			red = 0xFF * ft_fabs(sin(fract->iter * 2));
-			green = 0xFF * ft_fabs(sin(fract->iter * 2));
-			blue = 0xFF * ft_fabs(sin(fract->iter * 2));
+			red = 0xFF * sin(fract->iter * 0.2);
+			green = 0xFF * sin(fract->iter * 0.2);
+			blue = 0xFF * sin(fract->iter * 0.2);
 		}
 		else
 		{
-			red = 0xFF * fract->iter / fract->iter_max;
-			green = 0xFF * fract->iter / fract->iter_max;
-			blue = 0xFF * fract->iter / fract->iter_max;
+			red = 0xFF * fract->iter / (double)fract->iter_max;
+			green = 0x88 * fract->iter / (double)fract->iter_max;
+			//blue = 0xFF * fract->iter / (double)fract->iter_max;
+			//ft_printf("red = 0x%X green = 0x%X blue = 0x%X\n", red,green,blue);
 		}
 	}
-	fract->window.img.str[x + y * 1920] = (0xFF & red) << 16
-		| (0xFF & green) << 8
-		| (0xFF & blue);
+	fract->window.img.str[x + y * 1024] = red << 16
+		| green << 8
+		| blue;
 }
 
 void		color_inside(int x, int y, t_fract *fract)
@@ -111,21 +113,21 @@ void		color_inside(int x, int y, t_fract *fract)
 	else if (fract->color_mode == SIN)
 		div = sin(fract->iter * 0.02);
 	if (fract->color_inside == BLACK)
-		fract->window.img.str[x + y * 1920] = 0;
+		fract->window.img.str[x + y * 1024] = 0;
 	if (fract->color_inside == WHITE)
-		fract->window.img.str[x + y * 1920] = 0xFFFFFF;
+		fract->window.img.str[x + y * 1024] = 0xFFFFFF;
 	if (fract->color_inside == RED)
-		fract->window.img.str[x + y * 1920] = 0xFF0000;
+		fract->window.img.str[x + y * 1024] = 0xFF0000;
 	if (fract->color_inside == GREEN)
-		fract->window.img.str[x + y * 1920] = 0xFF00;
+		fract->window.img.str[x + y * 1024] = 0xFF00;
 	if (fract->color_inside == BLUE)
-		fract->window.img.str[x + y * 1920] = 0xFF;
+		fract->window.img.str[x + y * 1024] = 0xFF;
+	if (fract->color_inside == MIXED_1)
+		fract->window.img.str[x + y * 1024] = 0xFFFFFF;
 	if (fract->color_inside_mode == COS)
-		fract->window.img.str[x + y * 1920] *= 255 * cos(fract->iter * 0.01);
-		//fract->window.img.str[x + y * 1920] *= 65535 * div + 255 * div + div;
+		fract->window.img.str[x + y * 1024] *= 255 * cos(fract->iter * 0.01);
 	if (fract->color_inside_mode == SIN)
-		fract->window.img.str[x + y * 1920] *= 255 * sin(fract->iter * 0.01);
-		//fract->window.img.str[x + y * 1920] *= 65535 * div + 255 * div + div;
+		fract->window.img.str[x + y * 1024] *= 255 * sin(fract->iter * 0.01);
 }
 
 void		colorize_buddha(t_fract *fract)

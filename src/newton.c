@@ -22,7 +22,7 @@ int			init_newton(t_fract *fract)
 	fract->zoom = 400;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 40;
-	fract->min.x = -2.4;
+	fract->min.x = -1.2;
 	fract->min.y = -1.4;
 	fract->move.x = 0;
 	fract->move.y = 0;
@@ -53,7 +53,7 @@ static void	*calc_newton(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			z.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			z.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -73,7 +73,7 @@ static void	*calc_newton(void *param)
 			else if (is_tol(z, roots[2], tolerance))
 				color_blue(x, y, fract);
 			else
-				fract->window.img.str[x + 1920 * y] = 0;
+				fract->window.img.str[x + 1024 * y] = 0;
 			x++;
 		}
 		y++;
@@ -92,8 +92,8 @@ void		newton(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&newton[i], fract, sizeof(t_fract));
-		newton[i].end = 1080 / 8 * (i + 1);
-		newton[i].start = 1080 / 8 * i;
+		newton[i].end = 1024 / 8 * (i + 1);
+		newton[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_newton, &newton[i]);
 		i++;
 	}

@@ -45,11 +45,11 @@ int		init_window(t_fract *fract, t_env *data)
 	}
 	else
 	{
-		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1920,
-						1080, fract->name)))
+		if (!(fract->window.win_ptr = mlx_new_window(data->mlx_ptr, 1024,
+						1024, fract->name)))
 			return (0);
-		if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1920,
-						1080)))
+		if (!(fract->window.img_ptr = mlx_new_image(data->mlx_ptr, 1024,
+						1024)))
 			return (0);
 	}
 	fract->window.img.str = (unsigned int*)mlx_get_data_addr(fract->window.

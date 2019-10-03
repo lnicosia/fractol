@@ -36,8 +36,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
-		  -flto -Ofast \
-		  #-g3 -fsanitize=address
+		  -g3 -fsanitize=address
+		  #-flto -Ofast \
 
 DEBUG ?= 0
 

@@ -90,7 +90,7 @@ int		parse_args(char **av, t_env *data)
 				if (!data->args[8])
 					data->args[8] = 1;
 			}
-			if (ft_strequ(av[i], "tricorn"))
+			else if (ft_strequ(av[i], "tricorn"))
 			{
 				if (!data->args[9])
 					data->args[9] = 1;

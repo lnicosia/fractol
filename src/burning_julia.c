@@ -19,10 +19,10 @@ int			init_burning_julia(t_fract *fract)
 	fract->color_base = RED;
 	fract->color_mode = FLAT;
 	fract->name = "Burning Julia";
-	fract->zoom = 400;
+	fract->zoom = 350;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 64;
-	fract->min.x = -2.25;
+	fract->min.x = -1.5;
 	fract->min.y = -1.4;
 	fract->move.x = 0;
 	fract->move.y = 0;
@@ -44,7 +44,7 @@ static void	*calc_julia(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			z.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			z.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -79,8 +79,8 @@ void		burning_julia(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&julia[i], fract, sizeof(t_fract));
-		julia[i].end = 1080 / 8 * (i + 1);
-		julia[i].start = 1080 / 8 * i;
+		julia[i].end = 1024 / 8 * (i + 1);
+		julia[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_julia, &julia[i]);
 		i++;
 	}

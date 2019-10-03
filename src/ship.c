@@ -20,11 +20,11 @@ int			init_ship(t_fract *fract)
 	fract->color_inside = WHITE;
 	fract->color_inside_mode = FLAT;
 	fract->name = "Burning ship";
-	fract->zoom = 12500;
+	fract->zoom = 10000;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 150;
-	fract->min.x = -1.840;
-	fract->min.y = -0.075;
+	fract->min.x = -1.812;
+	fract->min.y = -0.085;
 	fract->move.x = 0;
 	fract->move.y = 0;
 	return (0);
@@ -44,7 +44,7 @@ static void	*calc_ship(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			c.x = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			c.y = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -81,8 +81,8 @@ void		ship(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&ship[i], fract, sizeof(t_fract));
-		ship[i].end = 1080 / 8 * (i + 1);
-		ship[i].start = 1080 / 8 * i;
+		ship[i].end = 1024 / 8 * (i + 1);
+		ship[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_ship, &ship[i]);
 		i++;
 	}

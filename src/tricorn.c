@@ -19,11 +19,11 @@ int			init_tricorn(t_fract *fract)
 	fract->color_inside = WHITE;
 	fract->color_inside_mode = FLAT;
 	fract->name = "Tricorn";
-	fract->zoom = 400;
+	fract->zoom = 250;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 50;
-	fract->min.x = -2.7;
-	fract->min.y = -1.35;
+	fract->min.x = -2.25;
+	fract->min.y = -2;
 	fract->move.x = 0;
 	fract->move.y = 0;
 	fract->pow = 2;
@@ -44,7 +44,7 @@ static void	*calc_tricorn(void *param)
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			c.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			c.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
@@ -82,8 +82,8 @@ void		tricorn(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&tricorn[i], fract, sizeof(t_fract));
-		tricorn[i].end = 1080 / 8 * (i + 1);
-		tricorn[i].start = 1080 / 8 * i;
+		tricorn[i].end = 1024 / 8 * (i + 1);
+		tricorn[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_tricorn, &tricorn[i]);
 		i++;
 	}

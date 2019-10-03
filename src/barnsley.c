@@ -20,10 +20,10 @@ int			init_barnsley(t_fract *fract)
 	fract->color_inside = WHITE;
 	fract->color_inside_mode = FLAT;
 	fract->name = "Barnsley";
-	fract->zoom = 10;
+	fract->zoom = 9;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 1000000;
-	fract->min.x = -2.7;
+	fract->min.x = 1;
 	fract->min.y = -1.35;
 	fract->move.x = 0;
 	fract->move.y = 0;
@@ -35,7 +35,7 @@ static void	reset_image(t_fract *fract)
 	int	i;
 
 	i = -1;
-	while (++i < 2073600)
+	while (++i < 1048576)
 		fract->window.img.str[i] = 0;
 }
 
@@ -46,12 +46,12 @@ void	color_barnsley(t_fract *fract, int x, int y, int dice)
 	uint8_t	blue;*/
 
 	if (fract->color_mode == FLAT)
-		fract->window.img.str[x + y * 1920] = 65536 * fract->iter + 256 * fract->iter + fract->iter;
+		fract->window.img.str[x + y * 1024] = 65536 * fract->iter + 256 * fract->iter + fract->iter;
 	if (fract->color_mode == COS)
-		fract->window.img.str[x + y * 1920] = 65536 * dice + 256 * dice + dice;
+		fract->window.img.str[x + y * 1024] = 65536 * dice + 256 * dice + dice;
 	else if (fract->color_mode == NASA)
-		fract->window.img.str[x + y * 1920] = 0xFFFFFF / fract->iter;
-	/*fract->window.img.str[x + y * 1920] = (0xFF & red) << 16
+		fract->window.img.str[x + y * 1024] = 0xFFFFFF / fract->iter;
+	/*fract->window.img.str[x + y * 1024] = (0xFF & red) << 16
 		| (0xFF & green) << 8
 		| 0xFF & blue;*/
 }
@@ -93,10 +93,10 @@ void	barnsley(t_fract *fract)
 			c2.x = 0.85 * c1.x + 0.04 * c1.y;
 			c2.y = -0.04 * c1.x + 0.85 * c1.y + 16;
 		}
-		pixel.x = (int)(fract->zoom * (c2.x - fract->move.x / 2)) + 960;
+		pixel.x = (int)(fract->zoom * (c2.x - fract->move.x / 2)) + 512;
 		pixel.y = (int)(fract->zoom * (c2.y - fract->move.y / 2)) + 50;
-		if (pixel.x >= 0 && pixel.x < 1920
-				&& pixel.y >= 0 && pixel.y < 1080)
+		if (pixel.x >= 0 && pixel.x < 1024
+				&& pixel.y >= 0 && pixel.y < 1024)
 		color_barnsley(fract, pixel.x, pixel.y, dice);
 		c1 = c2;
 		fract->iter--;

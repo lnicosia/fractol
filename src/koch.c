@@ -24,8 +24,8 @@ int		   init_koch(t_fract *fract)
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 0;
 	fract->zoom = 0.5;
-	fract->move.x = 0;
-	fract->move.y = 0;
+	fract->move.x = 800;
+	fract->move.y = 200;
 	return (0);
 }
 
@@ -35,12 +35,12 @@ static void	reset_image(t_fract *fract)
 	int	y;
 
 	y = 0;
-	while (y < 1080)
+	while (y < 1024)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
-			fract->window.img.str[x + y * 1920] = 0;
+			fract->window.img.str[x + y * 1024] = 0;
 			x++;
 		}
 		y++;
