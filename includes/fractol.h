@@ -92,6 +92,7 @@ typedef struct	s_fract
 	t_coord2		drag;
 	t_fcoord2		transfo;
 	t_fcoord2		move;
+	t_fcoord2		center;
 	int				movement;
 	t_list			*pixels;
 	int				maj_buffer;

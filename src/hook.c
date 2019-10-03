@@ -122,8 +122,8 @@ int		mouse_move(int x, int y, void *param)
 	i = 0;
 	if (fract->movement && fract->nb != 3)
 	{
-		fract->transfo.x = (double)x / 1920.0;
-		fract->transfo.y = (double)y / 1080.0;
+		fract->transfo.x = x / 1024.0;
+		fract->transfo.y = y / 1024.0;
 		fract->func(fract);
 	}
 	return (0);
@@ -142,6 +142,8 @@ int		mouse_press(int button, int x, int y, void *param)
 			- (x / (fract->zoom * 1.5));
 		fract->min.y = (y / fract->zoom + fract->min.y)
 			- (y / (fract->zoom * 1.5));
+		fract->center.x = x + (fract->center.x - x) * 1.5;
+		fract->center.y = y + (fract->center.y - y) * 1.5;
 		fract->zoom *= 1.5;
 		fract->inv_zoom = 1 / fract->zoom;
 		fract->iter_max += fract->nb == 8 ? 0 : 1;
@@ -157,6 +159,8 @@ int		mouse_press(int button, int x, int y, void *param)
 				- (x / (fract->zoom / 1.5));
 			fract->min.y = (y / fract->zoom + fract->min.y)
 				- (y / (fract->zoom / 1.5));
+			fract->center.x = x + (fract->center.x - x) / 1.5;
+			fract->center.y = y + (fract->center.y - y) / 1.5;
 			fract->zoom /= 1.5;
 			fract->inv_zoom = 1 / fract->zoom;
 			fract->iter_max -= fract->nb == 8 ? 0 : 1;
