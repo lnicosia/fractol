@@ -13,7 +13,7 @@
 #include "fractol.h"
 #include <math.h>
 
-int		   init_koch(t_fract *fract)
+int			init_koch(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
@@ -33,27 +33,18 @@ int		   init_koch(t_fract *fract)
 
 static void	reset_image(t_fract *fract)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	y = 0;
-	while (y < 1024)
-	{
-		x = 0;
-		while (x < 1024)
-		{
-			fract->window.img.str[x + y * 1024] = 0;
-			x++;
-		}
-		y++;
-	}
+	i = -1;
+	while (++i < 1048576)
+		fract->window.img.str[i] = 0;
 }
 
-void    calc_koch(t_coord2 p1,t_coord2 p2, t_fract *fract, int iter)
+void		calc_koch(t_coord2 p1, t_coord2 p2, t_fract *fract, int iter)
 {
-	t_coord2    p3;
-	t_coord2    p4;
-	t_coord2    p5;
+	t_coord2	p3;
+	t_coord2	p4;
+	t_coord2	p5;
 	double		angle;
 
 	angle = M_PI / 3;
@@ -70,28 +61,27 @@ void    calc_koch(t_coord2 p1,t_coord2 p2, t_fract *fract, int iter)
 		calc_koch(p5, p2, fract, iter - 1);
 	}
 	else
-		plot_line(p1, p2, fract, 0xFFFFFF);
+	{
+		if (fract->color_mode == COS)
+			plot_line_aa(p1, p2, fract, 0xFFFFFF);
+		else
+			plot_line(p1, p2, fract, 0xFFFFFF);
+	}
 }
 
-void    koch(t_fract *fract)
+void		koch(t_fract *fract)
 {
-	t_coord2    p1;
-	t_coord2    p2;
-	t_coord2    p3;
+	t_coord2	p1;
+	t_coord2	p2;
+	t_coord2	p3;
 	char		*str;
 
-	p1 = new_coord2((960 - (415 + fract->move.x) * fract->zoom),
-			(650 - (360 + fract->move.y) * fract->zoom));
-	p2 = new_coord2((960 + (415 - fract->move.x) * fract->zoom),
-			(650 - (360 + fract->move.y) * fract->zoom));
-	p3 = new_coord2(960 - fract->move.x * fract->zoom,
-			(650 + (360 - fract->move.y) * fract->zoom));
 	p1 = new_coord2(fract->center.x - (200 + fract->move.x) * fract->zoom,
-			fract->center.y - (200 + fract->move.y) * fract->zoom); 
+			fract->center.y - (200 + fract->move.y) * fract->zoom);
 	p2 = new_coord2(fract->center.x + (200 - fract->move.x) * fract->zoom,
-			fract->center.y - (200 + fract->move.y) * fract->zoom); 
+			fract->center.y - (200 + fract->move.y) * fract->zoom);
 	p3 = new_coord2(fract->center.x - fract->move.x * fract->zoom,
-			fract->center.y + (200 - fract->move.y) * fract->zoom); 
+			fract->center.y + (200 - fract->move.y) * fract->zoom);
 	reset_image(fract);
 	calc_koch(p1, p2, fract, fract->iter_max);
 	calc_koch(p2, p3, fract, fract->iter_max);
@@ -99,9 +89,11 @@ void    koch(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+			"Iterations: ");
 	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+			str);
 	free(str);
 	print_color_data(fract);
 }

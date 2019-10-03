@@ -156,7 +156,15 @@ t_complex		new_complex(double r, double i);
 t_coord2		new_coord2(int x, int y);
 t_fcoord2		new_fcoord2(double x, double y);
 void			plot_line(t_coord2 c1, t_coord2 c2, t_fract *fract, int color);
+void			plot_line_aa(t_coord2 c1, t_coord2 c2, t_fract *fract,
+		int color);
 void			print_color_data(t_fract *fract);
 void			free_all(t_fract *fract);
+int				ipart(float x);
+int				round_(float x);
+float			fpart(float x);
+float			rfpart(float x);
+void			fill_img(t_coord2 c, t_fract *fract, int color,
+		float brightness);
 
 #endif

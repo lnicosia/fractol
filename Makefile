@@ -26,7 +26,7 @@ SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  export.c buddhabrot.c color.c burning_julia.c newton.c complex.c \
 		  buddha2.c newton_sin.c color_newton.c barnsley.c koch.c \
 		  plot_line.c coord_utils.c print_color_data.c free_all.c \
-		  tricorn.c
+		  tricorn.c plot_line_aa.c math.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h
 
@@ -36,8 +36,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
-		  -g3 -fsanitize=address
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-g3 -fsanitize=address
 
 DEBUG ?= 0
 
@@ -60,7 +60,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@gcc -c $< -o $@ $(CFLAGS) 
+	gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
 	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
