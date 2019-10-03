@@ -96,4 +96,8 @@ void		tricorn(t_fract *fract)
 	str = ft_sitoa(fract->iter_max);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
 	print_color_data(fract);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF, "| Power = ");
+	str = ft_sitoa(fract->pow);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 260, 10, 0xFFFFFF, str);
+	print_color_data(fract);
 }

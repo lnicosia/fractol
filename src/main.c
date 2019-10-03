@@ -110,6 +110,7 @@ int		main(int ac, char **av)
 
 	if (ac < 2)
 		return (usage());
+	ft_bzero(&data, sizeof(t_env));
 	if (init_fract(&data) == 0)
 		return (-1);
 	if (parse_args(av, &data))

@@ -21,7 +21,7 @@ int			init_mandelbrot(t_fract *fract)
 	fract->name = "Mandelbrot";
 	fract->zoom = 400;
 	fract->inv_zoom = 1 / fract->zoom;
-	fract->iter_max = 50;
+	fract->iter_max = 30;
 	fract->min.x = -2.7;
 	fract->min.y = -1.35;
 	fract->move.x = 0;

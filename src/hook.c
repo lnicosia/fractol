@@ -20,7 +20,7 @@ int		key_release(int key, void *param)
 
 	fract = (t_fract*)param;
 	if (key == ESC_KEY)
-		quit(fract);
+		free_all(fract);
 	if (key == E_KEY)
 		export_fdf(*fract);
 	if (key >= K1_KEY && key <= K0_KEY)
@@ -31,7 +31,7 @@ int		key_release(int key, void *param)
 	{
 		if (fract->ctrl_buffer)
 		{
-			if (fract->pow < 10)
+			if (fract->pow < 20)
 				fract->pow++;
 		}
 		else
