@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 12:28:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:27:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:24:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	print_inside_color(t_fract *fract)
 	else if (fract->color_inside_mode == COS)
 		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 50, 0xFFFFFF,
 				"cos");
+	else if (fract->color_inside_mode == LOG)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 50, 0xFFFFFF,
+				"log");
+	else if (fract->color_inside_mode == INV_LOG)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 50, 0xFFFFFF,
+				"1 / log");
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 250, 70, 0xFFFFFF,
 			"| Inside color: ");
 	if (fract->color_inside == WHITE)
@@ -54,6 +60,12 @@ void	print_inside_color(t_fract *fract)
 	else if (fract->color_inside == MIXED_3)
 		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 70, 0xFFFFFF,
 				"mixed 3");
+	else if (fract->color_inside == MIXED_4)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 70, 0xFFFFFF,
+				"mixed 4");
+	else if (fract->color_inside == MIXED_5)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 405, 70, 0xFFFFFF,
+				"mixed 5");
 }
 
 void	print_color_data(t_fract *fract)
@@ -72,6 +84,12 @@ void	print_color_data(t_fract *fract)
 	else if (fract->color_mode == COS)
 		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 50, 0xFFFFFF,
 				"cos");
+	else if (fract->color_mode == LOG)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 50, 0xFFFFFF,
+				"log");
+	else if (fract->color_mode == INV_LOG)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 50, 0xFFFFFF,
+				"1 / log");
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 70, 0xFFFFFF,
 			"Outside color: ");
 	if (fract->color_base == WHITE)
@@ -98,5 +116,11 @@ void	print_color_data(t_fract *fract)
 	else if (fract->color_base == MIXED_3)
 		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 70, 0xFFFFFF,
 				"mixed 3");
+	else if (fract->color_base == MIXED_4)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 70, 0xFFFFFF,
+				"mixed 4");
+	else if (fract->color_base == MIXED_5)
+		mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 155, 70, 0xFFFFFF,
+				"mixed 5");
 	print_inside_color(fract);
 }

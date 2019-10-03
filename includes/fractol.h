@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:49:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:23:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@
 # define MIXED_1 5
 # define MIXED_2 6
 # define MIXED_3 7
+# define MIXED_4 8
+# define MIXED_5 9
 # define FLAT 0
 # define COS 1
 # define SIN 2
 # define NASA 3
+# define LOG 4
+# define INV_LOG 5
 # define SIN_PI_3 0.86602540378
 
 typedef struct	s_fcoord2

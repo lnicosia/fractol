@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:54:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:28:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,78 +25,83 @@ void		color(int x, int y, t_fract *fract)
 	green = 0;
 	blue = 0;
 	srand(time(NULL));
-	div = 255 * fract->iter / fract->iter_max;
+	div = fract->iter / (double)fract->iter_max;
 	if (fract->color_base == BLACK)
 		fract->window.img.str[x + y * 1024] = 0;
-	if (fract->color_base == WHITE)
+	if (fract->color_mode == COS)
 	{
-		if (fract->color_mode == COS)
-		{
-			red = 0xFF * ft_fabs(cos(fract->iter));
-			blue = 0xFF * ft_fabs(cos(fract->iter));
-			green = 0xFF * ft_fabs(cos(fract->iter));
-		}
-		else if (fract->color_mode == SIN)
-		{
-			red = 0xFF * ft_fabs(sin(fract->iter));
-			blue = 0xFF * ft_fabs(sin(fract->iter));
-			green = 0xFF * ft_fabs(sin(fract->iter));
-		}
-		else
-		{
-			red = 0xFF * fract->iter / fract->iter_max;
-			green = 0xFF * fract->iter / fract->iter_max;
-			blue = 0xFF * fract->iter / fract->iter_max;
-		}
+		red = 0xFF * ft_fabs(cos(fract->iter));
+		blue = 0xFF * ft_fabs(cos(fract->iter));
+		green = 0xFF * ft_fabs(cos(fract->iter));
 	}
-	if (fract->color_base == RED)
+	else if (fract->color_mode == SIN)
 	{
-		if (fract->color_mode == COS)
-			red = 0xFF * ft_fabs(cos(fract->iter));
-		else if (fract->color_mode == SIN)
-			red = 0xFF * ft_fabs(sin(fract->iter));
-		else
-			red = 0xFF * fract->iter / fract->iter_max;
+		red = 0xFF * ft_fabs(sin(fract->iter));
+		blue = 0xFF * ft_fabs(sin(fract->iter));
+		green = 0xFF * ft_fabs(sin(fract->iter));
 	}
-	if (fract->color_base == GREEN)
+	else if (fract->color_mode == LOG)
 	{
-		if (fract->color_mode == COS)
-			green = 0xFF * ft_fabs(cos(fract->iter));
-		else if (fract->color_mode == SIN)
-			green = 0xFF * ft_fabs(sin(fract->iter));
-		else
-			green = 0xFF * fract->iter / fract->iter_max;
+		red = 0xFF * log(div);
+		blue = 0xFF * log(div);
+		green = 0xFF * log(div);
 	}
-	if (fract->color_base == BLUE)
+	else if (fract->color_mode == INV_LOG)
 	{
-		if (fract->color_mode == COS)
-			blue = 0xFF * ft_fabs(cos(fract->iter));
-		else if (fract->color_mode == SIN)
-			blue = 0xFF * ft_fabs(sin(fract->iter));
-		else
-			blue = 0xFF * fract->iter / fract->iter_max;
+		red = 0xFF / log(fract->iter);
+		blue = 0xFF / log(fract->iter);
+		green = 0xFF / log(fract->iter);
+	}
+	else
+	{
+		red = 0xFF * fract->iter / fract->iter_max;
+		green = 0xFF * fract->iter / fract->iter_max;
+		blue = 0xFF * fract->iter / fract->iter_max;
 	}
 	if (fract->color_base == MIXED_1)
 	{
-		if (fract->color_mode == COS)
-		{
-			red = 0xFF * cos(fract->iter * 0.2);
-			green = 0xFF * cos(fract->iter * 0.02);
-			blue = 0xFF * cos(fract->iter * 0.02);
-		}
-		else if (fract->color_mode == SIN)
-		{
-			red = 0xFF * sin(fract->iter * 0.2);
-			green = 0xFF * sin(fract->iter * 0.2);
-			blue = 0xFF * sin(fract->iter * 0.2);
-		}
-		else
-		{
-			red = 0xFF * fract->iter / (double)fract->iter_max;
-			green = 0x88 * fract->iter / (double)fract->iter_max;
-			//blue = 0xFF * fract->iter / (double)fract->iter_max;
-			//ft_printf("red = 0x%X green = 0x%X blue = 0x%X\n", red,green,blue);
-		}
+		red = 0xFF * cos(fract->iter * 0.04);
+		green = 0xFF * cos(fract->iter * 0.05);
+		blue = 0xFF * cos(fract->iter * 0.06);
+	}
+	if (fract->color_base == MIXED_2)
+	{
+		red = 0xFF * ft_fabs(cos(fract->iter * 0.02));
+		green = 0xFF * ft_fabs(cos(fract->iter * 0.03));
+		blue = 0xFF * ft_fabs(cos(fract->iter * 0.04));
+	}
+	if (fract->color_base == MIXED_3)
+	{
+		red = 0xFF * ft_fabs(cos(fract->iter * 0.12));
+		green = 0xFF * ft_fabs(cos(fract->iter * 0.13));
+		blue = 0xFF * ft_fabs(cos(fract->iter * 0.14));
+	}
+	if (fract->color_base == MIXED_4)
+	{
+		red = 0xFF * ft_fabs(cos(fract->iter * 0.20));
+		green = 0xFF * ft_fabs(cos(fract->iter * 0.15));
+		blue = 0xFF * ft_fabs(cos(fract->iter * 0.10));
+	}
+	if (fract->color_base == MIXED_5)
+	{
+		red = 0xFF * ft_fabs(cos(fract->iter * 0.04));
+		green = 0xFF * ft_fabs(cos(fract->iter * 0.03));
+		blue = 0xFF * ft_fabs(cos(fract->iter * 0.02));
+	}
+	if (fract->color_base == RED)
+	{
+		green = 0;
+		blue = 0;
+	}
+	else if (fract->color_base == GREEN)
+	{
+		red = 0;
+		blue = 0;
+	}
+	else if (fract->color_base == BLUE)
+	{
+		red = 0;
+		green = 0;
 	}
 	fract->window.img.str[x + y * 1024] = red << 16
 		| green << 8
@@ -108,10 +113,6 @@ void		color_inside(int x, int y, t_fract *fract)
 	double	div;
 
 	div = 255 * fract->iter / fract->iter_max;
-	if (fract->color_mode == COS)
-		div = cos(fract->iter * 0.01);
-	else if (fract->color_mode == SIN)
-		div = sin(fract->iter * 0.02);
 	if (fract->color_inside == BLACK)
 		fract->window.img.str[x + y * 1024] = 0;
 	if (fract->color_inside == WHITE)
@@ -125,9 +126,13 @@ void		color_inside(int x, int y, t_fract *fract)
 	if (fract->color_inside == MIXED_1)
 		fract->window.img.str[x + y * 1024] = 0xFFFFFF;
 	if (fract->color_inside_mode == COS)
-		fract->window.img.str[x + y * 1024] *= 255 * cos(fract->iter * 0.01);
+		fract->window.img.str[x + y * 1024] *= 255 * ft_fabs(cos(fract->iter * 0.01));
 	if (fract->color_inside_mode == SIN)
-		fract->window.img.str[x + y * 1024] *= 255 * sin(fract->iter * 0.01);
+		fract->window.img.str[x + y * 1024] *= 255 * ft_fabs(sin(fract->iter * 0.01));
+	if (fract->color_inside_mode == LOG)
+		fract->window.img.str[x + y * 1024] *= 255 * log(fract->iter);
+	if (fract->color_inside_mode == INV_LOG)
+		fract->window.img.str[x + y * 1024] *= 255 / log(fract->iter);
 }
 
 void		colorize_buddha(t_fract *fract)
@@ -309,6 +314,20 @@ void		swap_color_base(int key, t_fract *fract)
 		else
 			fract->color_base = MIXED_3;
 	}
+	else if (key == K9_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = MIXED_4;
+		else
+			fract->color_base = MIXED_4;
+	}
+	else if (key == K0_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside = MIXED_5;
+		else
+			fract->color_base = MIXED_5;
+	}
 	fract->func(fract);
 }
 
@@ -341,6 +360,20 @@ void		swap_color_mode(int key, t_fract *fract)
 			fract->color_inside_mode = NASA;
 		else
 			fract->color_mode = NASA;
+	}
+	if (key == NK5_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = LOG;
+		else
+			fract->color_mode = LOG;
+	}
+	if (key == NK6_KEY)
+	{
+		if (fract->maj_buffer)
+			fract->color_inside_mode = INV_LOG;
+		else
+			fract->color_mode = INV_LOG;
 	}
 	fract->func(fract);
 }
