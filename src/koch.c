@@ -86,12 +86,12 @@ void    koch(t_fract *fract)
 			(650 - (360 + fract->move.y) * fract->zoom));
 	p3 = new_coord2(960 - fract->move.x * fract->zoom,
 			(650 + (360 - fract->move.y) * fract->zoom));
-	p1 = new_coord2(fract->center.x - 200 * fract->zoom - fract->move.x / 5,
-			fract->center.y - 200 * fract->zoom - fract->move.y / 5); 
-	p2 = new_coord2(fract->center.x + 200 * fract->zoom - fract->move.x / 5,
-			fract->center.y - 200 * fract->zoom - fract->move.y / 5); 
-	p3 = new_coord2(fract->center.x - fract->move.x / 5,
-			fract->center.y + 200 * fract->zoom - fract->move.y / 5); 
+	p1 = new_coord2(fract->center.x - (200 + fract->move.x) * fract->zoom,
+			fract->center.y - (200 + fract->move.y) * fract->zoom); 
+	p2 = new_coord2(fract->center.x + (200 - fract->move.x) * fract->zoom,
+			fract->center.y - (200 + fract->move.y) * fract->zoom); 
+	p3 = new_coord2(fract->center.x - fract->move.x * fract->zoom,
+			fract->center.y + (200 - fract->move.y) * fract->zoom); 
 	reset_image(fract);
 	calc_koch(p1, p2, fract, fract->iter_max);
 	calc_koch(p2, p3, fract, fract->iter_max);
