@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:34:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:37:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int			init_buddha2(t_fract *fract)
 	fract->blue = NULL;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	fract->incr = 8;
+	fract->maj_incr = 40;
 	if (fract->color_mode == NASA)
 	{
 		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))

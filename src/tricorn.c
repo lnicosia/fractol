@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 18:53:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:37:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int			init_tricorn(t_fract *fract)
 	fract->move.x = 0;
 	fract->move.y = 0;
 	fract->pow = 2;
+	fract->incr = 8;
+	fract->maj_incr = 40;
 	return (0);
 }
 

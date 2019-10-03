@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 18:49:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:43:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int		key_release(int key, void *param)
 		}
 		else
 		{
-			if (fract->maj_buffer && fract->iter_max < 2147483607)
-				fract->iter_max += fract->nb != 8 ? 40: 0;
-			else if (fract->iter_max < 2147483643)
-				fract->iter_max += fract->nb == 8 ? 1 : 4;
+			if (fract->maj_buffer)
+				fract->iter_max += fract->maj_incr;
+			else
+				fract->iter_max += fract->incr;
 		}
 		fract->func(fract);
 	}
@@ -52,11 +52,16 @@ int		key_release(int key, void *param)
 		}
 		else
 		{
-			if (fract->maj_buffer && fract->iter_max > 40)
-				fract->iter_max -= fract->nb != 8 ? 40 : 0;
-			else if (fract->iter_max > 4
-					|| (fract->nb == 8 && fract->iter_max > 0))
-				fract->iter_max -= fract->nb == 8 ? 1 : 4;
+			if (fract->maj_buffer)
+			{
+				if (fract->iter_max > fract->maj_incr)
+					fract->iter_max -= fract->maj_incr;
+			}
+			else
+			{
+				if (fract->iter_max > fract->incr)
+					fract->iter_max -= fract->incr;
+			}
 		}
 		fract->func(fract);
 	}
@@ -136,7 +141,7 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	i = 0;
 	fract = (t_fract*)param;
-	if (button == SCROLLUP_KEY && fract->iter_max < 2147483643)
+	if (button == SCROLLUP_KEY)
 	{
 		fract->min.x = (x / fract->zoom + fract->min.x)
 			- (x / (fract->zoom * 1.5));
@@ -146,7 +151,6 @@ int		mouse_press(int button, int x, int y, void *param)
 		fract->center.y = y + (fract->center.y - y) * 1.5;
 		fract->zoom *= 1.5;
 		fract->inv_zoom = 1 / fract->zoom;
-		fract->iter_max += fract->nb == 8 ? 0 : 1;
 		fract->func(fract);
 	}
 	else if (button == SCROLLDOWN_KEY && (fract->iter_max > 4
@@ -163,7 +167,6 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->center.y = y + (fract->center.y - y) / 1.5;
 			fract->zoom /= 1.5;
 			fract->inv_zoom = 1 / fract->zoom;
-			fract->iter_max -= fract->nb == 8 ? 0 : 1;
 			fract->func(fract);
 		}
 	}

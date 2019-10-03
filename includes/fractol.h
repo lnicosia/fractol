@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 18:52:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:49:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define COS 1
 # define SIN 2
 # define NASA 3
+# define SIN_PI_3 0.86602540378
 
 typedef struct	s_fcoord2
 {
@@ -85,9 +86,11 @@ typedef struct	s_fract
 	double			inv_zoom;
 	void			*mlx_ptr;
 	t_window		window;
-	int				iter;
-	int				iter_max;
-	int				iter_min;
+	size_t			iter;
+	size_t			iter_max;
+	size_t			iter_min;
+	size_t			incr;
+	size_t			maj_incr;
 	t_fcoord2		min;
 	t_coord2		drag;
 	t_fcoord2		transfo;

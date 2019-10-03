@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 16:56:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:37:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int			init_ship(t_fract *fract)
 	fract->min.y = -0.085;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	fract->incr = 8;
+	fract->maj_incr = 40;
 	return (0);
 }
 

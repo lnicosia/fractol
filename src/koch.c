@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 15:29:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:49:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int			init_koch(t_fract *fract)
 	fract->zoom = 0.5;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	fract->incr = 1;
+	fract->maj_incr = 1;
 	return (0);
 }
 
@@ -45,16 +47,14 @@ void		calc_koch(t_coord2 p1, t_coord2 p2, t_fract *fract, int iter)
 	t_coord2	p3;
 	t_coord2	p4;
 	t_coord2	p5;
-	double		angle;
 
-	angle = M_PI / 3;
 	if (iter > 0)
 	{
-		p3 = new_coord2((2 * p1.x + p2.x) / 3, (2 * p1.y + p2.y) / 3);
-		p5 = new_coord2((2 * p2.x + p1.x) / 3, (2 * p2.y + p1.y) / 3);
+		p3 = new_coord2((2 * p1.x + p2.x) * 0.3333, (2 * p1.y + p2.y) * 0.3333);
+		p5 = new_coord2((2 * p2.x + p1.x) * 0.3333, (2 * p2.y + p1.y) * 0.3333);
 		p4 = new_coord2(p3.x + (p5.x - p3.x) * 0.5
-				+ (p5.y - p3.y) * sin(angle),
-				p3.y - (p5.x - p3.x) * sin(angle) + (p5.y - p3.y) * 0.5);
+				+ (p5.y - p3.y) * SIN_PI_3,
+				p3.y - (p5.x - p3.x) * SIN_PI_3 + (p5.y - p3.y) * 0.5);
 		calc_koch(p1, p3, fract, iter - 1);
 		calc_koch(p3, p4, fract, iter - 1);
 		calc_koch(p4, p5, fract, iter - 1);

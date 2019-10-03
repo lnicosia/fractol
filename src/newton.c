@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 15:33:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:37:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int			init_newton(t_fract *fract)
 	fract->min.y = -1.4;
 	fract->move.x = 0;
 	fract->move.y = 0;
+	fract->incr = 8;
+	fract->maj_incr = 40;
 	return (0);
 }
 

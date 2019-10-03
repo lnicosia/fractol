@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 15:33:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:37:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int			init_burning_julia(t_fract *fract)
 	fract->move.y = 0;
 	fract->transfo.x = 0;
 	fract->transfo.y = 0;
+	fract->incr = 8;
+	fract->maj_incr = 40;
 	return (0);
 }
 

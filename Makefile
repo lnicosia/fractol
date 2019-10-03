@@ -53,8 +53,8 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all: 
-	@make -C $(LIBFT_DIR)
-	@make $(BIN_DIR)/$(NAME)
+	@make -C $(LIBFT_DIR) -j8
+	@make $(BIN_DIR)/$(NAME) -j8
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
