@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:43:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/04 11:54:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ int		mouse_press(int button, int x, int y, void *param)
 		fract->center.x = x + (fract->center.x - x) * 1.5;
 		fract->center.y = y + (fract->center.y - y) * 1.5;
 		fract->zoom *= 1.5;
+		if (fract->nb == 7)
+			fract->incr *= 1.5;
 		fract->inv_zoom = 1 / fract->zoom;
 		fract->func(fract);
 	}
@@ -166,6 +168,8 @@ int		mouse_press(int button, int x, int y, void *param)
 			fract->center.x = x + (fract->center.x - x) / 1.5;
 			fract->center.y = y + (fract->center.y - y) / 1.5;
 			fract->zoom /= 1.5;
+			if (fract->nb == 7)
+				fract->incr /= 1.5;
 			fract->inv_zoom = 1 / fract->zoom;
 			fract->func(fract);
 		}

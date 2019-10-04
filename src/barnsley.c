@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 17:35:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/04 11:51:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int			init_barnsley(t_fract *fract)
 	fract->name = "Barnsley";
 	fract->zoom = 9;
 	fract->inv_zoom = 1 / fract->zoom;
-	fract->iter_max = 1000;
+	fract->iter_max = 1500000;
 	fract->min.x = 1;
 	fract->min.y = -1.35;
 	fract->move.x = 0;
 	fract->move.y = 0;
-	fract->incr = 1000;
-	fract->maj_incr = 50000;
+	fract->center.x = 512;
+	fract->center.y = 50;
+	fract->incr = 10000;
+	fract->maj_incr = 500000;
 	return (0);
 }
 
@@ -41,7 +43,7 @@ static void	reset_image(t_fract *fract)
 		fract->window.img.str[i] = 0;
 }
 
-void	color_barnsley(t_fract *fract, int x, int y, int dice)
+void	color_barnsley(t_fract *fract, t_coord2 pos, int dice)
 {
 	uint8_t	red;
 	uint8_t	green;
@@ -52,23 +54,15 @@ void	color_barnsley(t_fract *fract, int x, int y, int dice)
 	blue = 0;
 	if (fract->color_mode == FLAT)
 	{
-		red = 0xFF * fract->iter;
-		green = 0xFF * fract->iter;
-		blue = 0xFF * fract->iter;
-		//fract->window.img.str[x + y * 1024] = 65536 * fract->iter + 256 * fract->iter + fract->iter;
+		green = 0xFF * fract->iter / (double)fract->iter_max;
 	}
 	if (fract->color_mode == COS)
 	{
 		red = 0xFF * dice;
 		green = 0xFF * dice;
 		blue = 0xFF * dice;
-		//fract->window.img.str[x + y * 1024] = 65536 * dice + 256 * dice + dice;
 	}
-	else if (fract->color_mode == NASA)
-	{
-		//fract->window.img.str[x + y * 1024] = 0xFFFFFF / fract->iter;
-	}
-	fract->window.img.str[x + y * 1024] = (0xFF & red) << 16
+	fract->window.img.str[pos.x + pos.y * 1024] = (0xFF & red) << 16
 		| (0xFF & green) << 8
 		| (0xFF & blue);
 }
@@ -95,7 +89,7 @@ void	barnsley(t_fract *fract)
 			c2.x = 0;
 			c2.y = 0.16 * c1.y;
 		}
-		else if (dice > 0 && dice <= 8)
+		else if (dice > 0 && dice < 8)
 		{
 			c2.x = -0.15 * c1.x + 0.28 * c1.y;
 			c2.y = 0.26 * c1.x + 0.24 * c1.y + 0.44;
@@ -110,19 +104,21 @@ void	barnsley(t_fract *fract)
 			c2.x = 0.85 * c1.x + 0.04 * c1.y;
 			c2.y = -0.04 * c1.x + 0.85 * c1.y + 16;
 		}
-		pixel.x = (int)(fract->zoom * (c2.x - fract->move.x * 0.5)) + 512;
-		pixel.y = (int)(fract->zoom * (c2.y - fract->move.y * 0.5)) + 50;
+		pixel.x = fract->center.x + (c2.x - fract->move.x * 0.5) * fract->zoom; 
+		pixel.y = fract->center.y + (c2.y - fract->move.y * 0.5) * fract->zoom; 
 		if (pixel.x >= 0 && pixel.x < 1024
 				&& pixel.y >= 0 && pixel.y < 1024)
-		color_barnsley(fract, pixel.x, pixel.y, dice);
+		color_barnsley(fract, pixel, dice);
 		c1 = c2;
 		fract->iter--;
 	}
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+			"Iterations: ");
 	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+			str);
 	free(str);
 	print_color_data(fract);
 }
