@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 15:33:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:43:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			init_newton_sin(t_fract *fract)
 	fract->name = "Newton";
 	fract->zoom = 200;
 	fract->inv_zoom = 1 / fract->zoom;
-	fract->iter_max = 16;
+	fract->iter_max = 40;
 	fract->min.x = -2.0;
 	fract->min.y = -2.0;
 	fract->move.x = 0;
@@ -47,22 +47,26 @@ static void	*calc_newton_sin(void *param)
 
 	fract = (t_fract*)param;
 	tolerance = 0.001;
-	roots[0] = new_complex(2 * M_PI, 0);
+	/*roots[0] = new_complex(2 * M_PI, 0);
 	roots[1] = new_complex(2 * M_PI, 0);
-	roots[2] = new_complex(M_PI + 2 * M_PI, 0);
+	roots[2] = new_complex(M_PI + 2 * M_PI, 0);*/
+	roots[0] = new_complex(1, 0);
+	roots[1] = new_complex(-0.5, SQRT_3_2);
+	roots[2] = new_complex(-0.5, -SQRT_3_2);
 	y = fract->start;
 	while (y < fract->end)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < 1024)
 		{
 			z.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
 			z.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
 			fract->iter = 0;
-			while (fract->iter < fract->iter_max)
-				//&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
+			while (fract->iter < fract->iter_max
+				&& !is_sin_tol(z, roots[0], tolerance) && !is_sin_tol(z, roots[1], tolerance) && !is_sin_tol(z, roots[2], tolerance))
 			{
-				z = ft_csub(z, ft_cmul(new_complex(1, 0), ft_cdiv(ft_csin(z), ft_ccos(z))));
+				//z = ft_csub(z, ft_cmul(new_complex(1, 0), ft_cdiv(ft_csin(z), ft_ccos(z))));
+				z = ft_csub(new_complex(0.333333, 0), ft_cdiv(new_complex(1, 0), ft_cmul(new_complex(3, 0), ft_cpow(z, 3))));
 				fract->iter++;
 			}
 			//ft_printf("%f + %fi\n", z.r, z.i);
@@ -92,8 +96,8 @@ void		newton_sin(t_fract *fract)
 	while (i < 8)
 	{
 		ft_memcpy(&newton[i], fract, sizeof(t_fract));
-		newton[i].end = 1080 / 8 * (i + 1);
-		newton[i].start = 1080 / 8 * i;
+		newton[i].end = 1024 / 8 * (i + 1);
+		newton[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_newton_sin, &newton[i]);
 		i++;
 	}

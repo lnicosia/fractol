@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 17:23:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/04 15:56:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define LOG 4
 # define INV_LOG 5
 # define SIN_PI_3 0.86602540378
+# define SQRT_3_2 0.86602540378
 
 typedef struct	s_fcoord2
 {

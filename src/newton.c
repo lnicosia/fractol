@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:26:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	*calc_newton(void *param)
 	fract = (t_fract*)param;
 	tolerance = 0.001;
 	roots[0] = new_complex(1, 0);
-	roots[1] = new_complex(-0.5, sqrt(3) / 2);
-	roots[2] = new_complex(-0.5, -sqrt(3) / 2);
+	roots[1] = new_complex(-0.5, SQRT_3_2);
+	roots[2] = new_complex(-0.5, -SQRT_3_2);
 	y = fract->start;
 	while (y < fract->end)
 	{
@@ -63,9 +63,10 @@ static void	*calc_newton(void *param)
 			while (fract->iter < fract->iter_max
 				&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
 			{
-				z = ft_csub(z, ft_cmul(new_complex(0.5, 0), ft_cdiv(ft_csub(ft_cpow(z, 3),
+			/*	z = ft_csub(z, ft_cmul(new_complex(0.5, 0), ft_cdiv(ft_csub(ft_cpow(z, 3),
 									new_complex(1, 0)),
-								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
+								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));*/
+				z = ft_csub(z, ft_cdiv(ft_cadd(ft_csub(ft_cpow(z, 6), ft_cmul(new_complex(2, 0), ft_cpow(z, 3))), new_complex(1, 0)), ft_cmul(new_complex(9, 0), ft_cpow(z, 5))));
 				fract->iter++;
 			}
 			if (is_tol(z, roots[0], tolerance))
