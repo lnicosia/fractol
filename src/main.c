@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 12:29:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 15:49:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,14 @@ int		parse_args(char **av, t_env *data)
 	}
 	return (0);
 }
+
+/*
+**__attribute__((destructor)) void leaks(void)
+**{
+**	ft_printf("Checking leaks after main\n");
+**	while (1);
+**}
+*/
 
 int		main(int ac, char **av)
 {
