@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:52:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/04 11:54:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 12:00:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		key_release(int key, void *param)
 		{
 			if (fract->pow < 20)
 				fract->pow++;
+			if (fract->a < 2)
+				fract->a += 0.1;
 		}
 		else
 		{
@@ -49,6 +51,8 @@ int		key_release(int key, void *param)
 		{
 			if (fract->pow > 0)
 				fract->pow--;
+			if (fract->a > 0)
+				fract->a -= 0.1;
 		}
 		else
 		{

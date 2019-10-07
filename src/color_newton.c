@@ -6,12 +6,18 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:30:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 17:40:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 12:18:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <math.h>
+
+int	is_tol(t_complex z, t_complex root, double tolerance)
+{
+	return (fabs(ft_csub(z, root).r) < tolerance
+			&& fabs(ft_csub(z, root).i) < tolerance);
+}
 
 void	color_red(int x, int y, t_fract *fract)
 {

@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/04 15:56:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 12:29:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define MAX_FRACT 10
+# define MAX_FRACT 13
 # include <mlx.h>
 # include <pthread.h>
 # include <time.h>
@@ -88,6 +88,7 @@ typedef struct	s_fract
 	int				end;
 	char			*name;
 	double			zoom;
+	double			a;
 	double			inv_zoom;
 	void			*mlx_ptr;
 	t_window		window;
@@ -128,9 +129,11 @@ void			buddha2(t_fract *fract);
 void			burning_julia(t_fract *fract);
 void			newton(t_fract *fract);
 void			koch(t_fract *fract);
-void			newton_sin(t_fract *fract);
 void			barnsley(t_fract *fract);
 void			tricorn(t_fract *fract);
+void			householder(t_fract *fract);
+void			householder_fail(t_fract *fract);
+void			householder_fail2(t_fract *fract);
 int				init_julia(t_fract *fract);
 int				init_mandelbrot(t_fract *fract);
 int				init_tricorn(t_fract *fract);
@@ -139,12 +142,15 @@ int				init_buddhabrot(t_fract *fract);
 int				init_buddha2(t_fract *fract);
 int				init_burning_julia(t_fract *fract);
 int				init_newton(t_fract *fract);
-int				init_newton_sin(t_fract *fract);
 int				init_barnsley(t_fract *fract);
 int				init_koch(t_fract *fract);
+int				init_householder(t_fract *fract);
+int				init_householder_fail(t_fract *fract);
+int				init_householder_fail2(t_fract *fract);
 int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
+int				is_tol(t_complex z, t_complex root, double tolerance);
 void			reset_img(t_fract *fract);
 void			color(int x, int y, t_fract *fract);
 void			color_inside(int x, int y, t_fract *fract);

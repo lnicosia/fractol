@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newton.c                                           :+:      :+:    :+:   */
+/*   householder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 12:31:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 12:30:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "color_newton.h"
 #include <math.h>
 
-int			init_newton(t_fract *fract)
+int			init_householder(t_fract *fract)
 {
 	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
-	fract->name = "Newton";
+	fract->name = "Householder";
 	fract->zoom = 400;
 	fract->inv_zoom = 1 / fract->zoom;
 	fract->iter_max = 40;
@@ -32,7 +32,7 @@ int			init_newton(t_fract *fract)
 	return (0);
 }
 
-static void	*calc_newton(void *param)
+static void	*calc_householder(void *param)
 {
 	int			x;
 	int			y;
@@ -58,9 +58,7 @@ static void	*calc_newton(void *param)
 			while (fract->iter < fract->iter_max
 				&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
 			{
-				z = ft_csub(z, ft_cmul(new_complex(fract->a, 0),
-							ft_cdiv(ft_csub(ft_cpow(z, 3), new_complex(1, 0)),
-								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
+				z = ft_cdiv(ft_cadd(ft_cmul(new_complex(5, 0), ft_cpow(z, 6)), ft_csub(ft_cmul(new_complex(5, 0), ft_cpow(z, 3)), new_complex(1, 0))), ft_cmul(new_complex(9, 0), ft_cpow(z, 5)));
 				fract->iter++;
 			}
 			if (is_tol(z, roots[0], tolerance))
@@ -78,20 +76,20 @@ static void	*calc_newton(void *param)
 	return (NULL);
 }
 
-void		newton(t_fract *fract)
+void		householder(t_fract *fract)
 {
 	pthread_t	thread[8];
-	t_fract		newton[8];
+	t_fract		householder[8];
 	int			i;
 	char		*str;
 
 	i = 0;
 	while (i < 8)
 	{
-		ft_memcpy(&newton[i], fract, sizeof(t_fract));
-		newton[i].end = 1024 / 8 * (i + 1);
-		newton[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_newton, &newton[i]);
+		ft_memcpy(&householder[i], fract, sizeof(t_fract));
+		householder[i].end = 1024 / 8 * (i + 1);
+		householder[i].start = 1024 / 8 * i;
+		pthread_create(&thread[i], NULL, calc_householder, &householder[i]);
 		i++;
 	}
 	while (i-- > 0)
