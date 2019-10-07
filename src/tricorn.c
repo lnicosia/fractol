@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 15:52:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	*calc_tricorn(void *param)
 {
 	int			x;
 	int			y;
-	//double		xtemp;
 	t_complex	z;
 	t_complex	c;
 	t_fract		*fract;
@@ -56,9 +55,6 @@ static void	*calc_tricorn(void *param)
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
-				/*xtemp = z.r * z.r - z.i * z.i;
-				z.i = -2 * z.r * z.i + c.i;
-				z.r = xtemp + c.r;*/
 				z = ft_cadd(ft_cpow(ft_cconj(z), fract->pow), c);
 				fract->iter++;
 			}

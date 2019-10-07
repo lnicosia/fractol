@@ -6,12 +6,11 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:49:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 int			init_koch(t_fract *fract)
 {

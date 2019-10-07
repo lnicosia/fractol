@@ -6,12 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 17:42:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/01 12:20:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 void	plot_extremes_low(t_coord2 c1, t_coord2 c2, t_fract *fract, int color)
 {

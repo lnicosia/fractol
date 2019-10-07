@@ -6,14 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:30:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 15:30:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
-int	is_tol(t_complex z, t_complex root, double tolerance)
+int		is_tol(t_complex z, t_complex root, double tolerance)
 {
 	return (fabs(ft_csub(z, root).r) < tolerance
 			&& fabs(ft_csub(z, root).i) < tolerance);

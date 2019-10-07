@@ -6,12 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 int			init_ship(t_fract *fract)
 {

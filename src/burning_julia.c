@@ -6,12 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 int			init_burning_julia(t_fract *fract)
 {

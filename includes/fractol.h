@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 12:29:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:32:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <pthread.h>
 # include <time.h>
+# include <math.h>
 # include "libft.h"
 # define BLACK 0
 # define WHITE 1
@@ -154,7 +155,7 @@ int				is_tol(t_complex z, t_complex root, double tolerance);
 void			reset_img(t_fract *fract);
 void			color(int x, int y, t_fract *fract);
 void			color_inside(int x, int y, t_fract *fract);
-void			color_buddha(int x, int y, t_fract *fract);
+void			color_buddha_pixel(int x, int y, t_fract *fract);
 void			colorize_buddha(t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);
 void			swap_color_mode(int key, t_fract *fract);

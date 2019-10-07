@@ -6,12 +6,11 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/04 11:51:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 int			init_barnsley(t_fract *fract)
 {
@@ -43,7 +42,7 @@ static void	reset_image(t_fract *fract)
 		fract->window.img.str[i] = 0;
 }
 
-void	color_barnsley(t_fract *fract, t_coord2 pos, int dice)
+void		color_barnsley(t_fract *fract, t_coord2 pos, int dice)
 {
 	uint8_t	red;
 	uint8_t	green;
@@ -67,7 +66,7 @@ void	color_barnsley(t_fract *fract, t_coord2 pos, int dice)
 		| (0xFF & blue);
 }
 
-void	barnsley(t_fract *fract)
+void		barnsley(t_fract *fract)
 {
 	t_fcoord2	c1;
 	t_fcoord2	c2;

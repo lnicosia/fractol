@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:30:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int			init_buddhabrot(t_fract *fract)
 	fract->name = "Buddhabrot";
 	fract->zoom = 400;
 	fract->inv_zoom = 1 / fract->zoom;
-	//fract->iter_max = 10000;
 	fract->iter_max = 512;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
@@ -111,10 +110,10 @@ static void	*calc_buddhabrot(void *param)
 					if (coord.x >= 0 && coord.x < 1024
 							&& coord.y >= 0 && coord.y < 1024)
 					{
-						color_buddha(coord.x, coord.y, fract);
+						color_buddha_pixel(coord.x, coord.y, fract);
 						coord.y = (int)((-z.i - fract->min.y) * fract->zoom);
 						if (coord.y >= 0 && coord.y < 1024)
-							color_buddha(coord.x, coord.y, fract);
+							color_buddha_pixel(coord.x, coord.y, fract);
 					}
 				}
 			}

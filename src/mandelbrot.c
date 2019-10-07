@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:38:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 15:53:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	*calc_mandelbrot(void *param)
 {
 	int			x;
 	int			y;
-	//double		xtemp;
 	t_complex	z;
 	t_complex	c;
 	t_fract		*fract;

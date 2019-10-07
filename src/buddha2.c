@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 15:37:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:30:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	reset_img(t_fract *fract)
+void		reset_img(t_fract *fract)
 {
 	int	i;
 
@@ -88,7 +88,6 @@ static void	*calc_buddha2(void *param)
 	{
 		c.r = (rand() / (double)RAND_MAX) * -fract->min.x * 2 + fract->min.x;
 		c.i = (rand() / (double)RAND_MAX) * -fract->min.y * 2 + fract->min.y;
-		//ft_printf("c = %f + %fi\n", c.r, c.i);
 		z.r = 0;
 		z.i = 0;
 		fract->iter = 0;
@@ -117,10 +116,10 @@ static void	*calc_buddha2(void *param)
 				if (coord.x >= 0 && coord.x < 1024
 						&& coord.y >= 0 && coord.y < 1024)
 				{
-					color_buddha(coord.x, coord.y, fract);
+					color_buddha_pixel(coord.x, coord.y, fract);
 					coord.y = (int)((-z.i - fract->min.y) * fract->zoom);
 					if (coord.y >= 0 && coord.y < 1024)
-						color_buddha(coord.x, coord.y, fract);
+						color_buddha_pixel(coord.x, coord.y, fract);
 				}
 			}
 		}
@@ -150,7 +149,6 @@ void		buddha2(t_fract *fract)
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
 	ft_printf("Done\n\n");
-	//exit(0);
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);

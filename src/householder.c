@@ -6,13 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 12:30:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:33:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "color_newton.h"
-#include <math.h>
 
 int			init_householder(t_fract *fract)
 {
