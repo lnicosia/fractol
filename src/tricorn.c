@@ -47,15 +47,18 @@ static void	*calc_tricorn(void *param)
 		x = 0;
 		while (x < 1024)
 		{
-			c.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
-			c.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
+			c.r = x * fract->inv_zoom + fract->min.x 
+			+ fract->move.x;
+			c.i = y * fract->inv_zoom + fract->min.y
+			+ fract->move.y;
 			z.r = 0;
 			z.i = 0;
 			fract->iter = 0;
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
-				z = ft_cadd(ft_cpow(ft_cconj(z), fract->pow), c);
+				z = ft_cadd(ft_cpow(ft_cconj(z), fract->pow),
+				c);
 				fract->iter++;
 			}
 			if (fract->iter == fract->iter_max)
@@ -90,12 +93,16 @@ void		tricorn(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+	"Iterations: ");
 	str = ft_sitoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+	str);
 	print_color_data(fract);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF, "| Power = ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF,
+	"| Power = ");
 	str = ft_sitoa(fract->pow);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 260, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 260, 10, 0xFFFFFF,
+	str);
 	print_color_data(fract);
 }

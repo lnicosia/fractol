@@ -66,58 +66,55 @@ void		color_barnsley(t_fract *fract, t_coord2 pos, int dice)
 		| (0xFF & blue);
 }
 
+void		get_barnsley_pixel(int dice, t_fcoord2 *c1, t_fcoord2 *c2)
+{
+	if (!dice)
+	{
+		c2->x = 0;
+		c2->y = 0.16 * c1->y;
+	}
+	else if (dice > 0 && dice < 8)
+	{
+		c2->x = -0.15 * c1->x + 0.28 * c1->y;
+		c2->y = 0.26 * c1->x + 0.24 * c1->y + 0.44;
+	}
+	else if (dice > 7 && dice < 16)
+	{
+		c2->x = 0.2 * c1->x - 0.26 * c1->y;
+		c2->y = 0.23 * c1->x + 0.22 * c1->y + 1.6;
+	}
+	else
+	{
+		c2->x = 0.85 * c1->x + 0.04 * c1->y;
+		c2->y = -0.04 * c1->x + 0.85 * c1->y + 16;
+	}
+}
+
 void		barnsley(t_fract *fract)
 {
 	t_fcoord2	c1;
 	t_fcoord2	c2;
 	t_coord2	pixel;
 	int			dice;
-	char		*str;
 
 	fract->iter = fract->iter_max;
-	c1.x = 0;
-	c1.y = 0;
+	c1 = new_fcoord2(0, 0);
 	srand(time(NULL));
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	reset_image(fract);
 	while (fract->iter > 0)
 	{
 		dice = rand() % 100;
-		if (!dice)
-		{
-			c2.x = 0;
-			c2.y = 0.16 * c1.y;
-		}
-		else if (dice > 0 && dice < 8)
-		{
-			c2.x = -0.15 * c1.x + 0.28 * c1.y;
-			c2.y = 0.26 * c1.x + 0.24 * c1.y + 0.44;
-		}
-		else if (dice > 7 && dice < 16)
-		{
-			c2.x = 0.2 * c1.x - 0.26 * c1.y;
-			c2.y = 0.23 * c1.x + 0.22 * c1.y + 1.6;
-		}
-		else
-		{
-			c2.x = 0.85 * c1.x + 0.04 * c1.y;
-			c2.y = -0.04 * c1.x + 0.85 * c1.y + 16;
-		}
-		pixel.x = fract->center.x + (c2.x - fract->move.x * 0.5) * fract->zoom; 
-		pixel.y = fract->center.y + (c2.y - fract->move.y * 0.5) * fract->zoom; 
+		get_barnsley_pixel(dice, &c1, &c2);
+		pixel.x = fract->center.x + (c2.x - fract->move.x * 0.5)
+			* fract->zoom;
+		pixel.y = fract->center.y + (c2.y - fract->move.y * 0.5)
+			* fract->zoom;
 		if (pixel.x >= 0 && pixel.x < 1024
 				&& pixel.y >= 0 && pixel.y < 1024)
-		color_barnsley(fract, pixel, dice);
+			color_barnsley(fract, pixel, dice);
 		c1 = c2;
 		fract->iter--;
 	}
-	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
-			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
-			"Iterations: ");
-	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
-			str);
-	free(str);
-	print_color_data(fract);
+	put_fractal_to_window(fract);
 }

@@ -26,9 +26,11 @@ void	color_red(int x, int y, t_fract *fract)
 			fract->window.img.str[x + 1024 * y] = 0xFF0000 *
 				(255 * fract->iter / fract->iter_max);
 		else if (fract->color_base == BLACK)
-			fract->window.img.str[x + 1024 * y] = (255 * fract->iter / fract->iter_max) << 16;
+			fract->window.img.str[x + 1024 * y] = (255 * fract->iter
+			/ fract->iter_max) << 16;
 		else if (fract->color_base == RED)
-			fract->window.img.str[x + 1024 * y] = ((0xFF * fract->iter / fract->iter_max)) << 16
+			fract->window.img.str[x + 1024 * y] = ((0xFF
+			* fract->iter / fract->iter_max)) << 16
 				| ((0x99 * fract->iter / fract->iter_max)) << 8;
 		else
 			fract->window.img.str[x + 1024 * y] = 0xFF9900 *
@@ -50,9 +52,11 @@ void	color_green(int x, int y, t_fract *fract)
 			fract->window.img.str[x + 1024 * y] = 0xFF00 *
 				(255 * fract->iter / fract->iter_max);
 		else if (fract->color_base == BLACK)
-			fract->window.img.str[x + 1024 * y] = (255 * fract->iter / fract->iter_max) << 8;
+			fract->window.img.str[x + 1024 * y] = (255 * fract->iter
+			/ fract->iter_max) << 8;
 		else if (fract->color_base == RED)
-			fract->window.img.str[x + 1024 * y] = (0x99 * fract->iter / fract->iter_max) << 16
+			fract->window.img.str[x + 1024 * y] = (0x99
+			* fract->iter / fract->iter_max) << 16
 				| (0xCC * fract->iter / fract->iter_max) << 8
 				| (0xFF * fract->iter / fract->iter_max);
 		else
@@ -75,9 +79,11 @@ void	color_blue(int x, int y, t_fract *fract)
 			fract->window.img.str[x + 1024 * y] = 0xFF *
 				(255 * fract->iter / fract->iter_max);
 		else if (fract->color_base == BLACK)
-			fract->window.img.str[x + 1024 * y] = (255 * fract->iter / fract->iter_max);
+			fract->window.img.str[x + 1024 * y] = (255 * fract->iter
+			/ fract->iter_max);
 		else if (fract->color_base == RED)
-			fract->window.img.str[x + 1024 * y] = (0x33 * fract->iter / fract->iter_max) << 8
+			fract->window.img.str[x + 1024 * y] = (0x33
+			* fract->iter / fract->iter_max) << 8
 				| (0x66 * fract->iter / fract->iter_max);
 		else
 			fract->window.img.str[x + 1024 * y] = 0xFF *
@@ -96,12 +102,15 @@ void	color_newton(int x, int y, t_fract *fract, t_complex z)
 	if (fract->color_mode == FLAT)
 	{
 		if (fract->color_base == WHITE)
-			fract->window.img.str[x + 1024 * y] = 0xFF * z.r + 0x00FF00 * z.i;
+			fract->window.img.str[x + 1024 * y] = 0xFF * z.r
+			+ 0x00FF00 * z.i;
 		else
-			fract->window.img.str[x + 1024 * y] = 0xFF * z.r + 0x00FF00 * z.i;
+			fract->window.img.str[x + 1024 * y] = 0xFF * z.r
+			+ 0x00FF00 * z.i;
 	}
 	else if (fract->color_mode == COS)
-		fract->window.img.str[x + 1024 * y] = 0xFF0000 * fabs(cos(z.r * 0.05));
+		fract->window.img.str[x + 1024 * y] = 0xFF0000 * fabs(cos(z.r
+		* 0.05));
 	else if (fract->color_mode == SIN)
 		fract->window.img.str[x + 1024 * y] = 0xFF *
 			sin(fract->iter * 0.01);

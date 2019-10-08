@@ -166,5 +166,6 @@ float			fpart(float x);
 float			rfpart(float x);
 void			fill_img(t_coord2 c, t_fract *fract, int color,
 		float brightness);
+void			put_fractal_to_window(t_fract *fract);
 
 #endif

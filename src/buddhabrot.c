@@ -41,19 +41,22 @@ int			init_buddhabrot(t_fract *fract)
 	fract->maj_incr = 40;
 	if (fract->color_mode == NASA)
 	{
-		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int)
+						* 1048576)))
 		{
 			ft_printf("Could not malloc red array\n");
 			free_all(fract);
 		}
 		init_array(fract->red);
-		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int)
+						* 1048576)))
 		{
 			ft_printf("Could not malloc red array\n");
 			free_all(fract);
 		}
 		init_array(fract->blue);
-		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int) * 1048576)))
+		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int)
+						* 1048576)))
 		{
 			ft_printf("Could not malloc red array\n");
 			free_all(fract);
@@ -93,27 +96,36 @@ static void	*calc_buddhabrot(void *param)
 				z.r = xtemp + c.r;
 				fract->iter++;
 			}
-			if (fract->iter < fract->iter_max && fract->iter > fract->iter_min)
+			if (fract->iter < fract->iter_max && fract->iter
+					> fract->iter_min)
 			{
 				z.r = 0;
 				z.i = 0;
 				fract->iter = 0;
 				while (z.r * z.r + z.i * z.i < 4
-						&& fract->iter < fract->iter_max)
+					&& fract->iter < fract->iter_max)
 				{
 					xtemp = z.r * z.r - z.i * z.i;
 					z.i = 2 * z.r * z.i + c.i;
 					z.r = xtemp + c.r;
 					fract->iter++;
-					coord.x = (int)((z.r - fract->min.x) * fract->zoom);
-					coord.y = (int)((z.i - fract->min.y) * fract->zoom);
+					coord.x = (int)((z.r - fract->min.x)
+							* fract->zoom);
+					coord.y = (int)((z.i - fract->min.y)
+							* fract->zoom);
 					if (coord.x >= 0 && coord.x < 1024
-							&& coord.y >= 0 && coord.y < 1024)
+							&& coord.y >= 0
+							&& coord.y < 1024)
 					{
-						color_buddha_pixel(coord.x, coord.y, fract);
-						coord.y = (int)((-z.i - fract->min.y) * fract->zoom);
-						if (coord.y >= 0 && coord.y < 1024)
-							color_buddha_pixel(coord.x, coord.y, fract);
+						color_buddha_pixel(coord.x,
+								coord.y, fract);
+						coord.y = (int)((-z.i
+						- fract->min.y) * fract->zoom);
+						if (coord.y >= 0
+							&& coord.y < 1024)
+							color_buddha_pixel(
+							coord.x, coord.y,
+							fract);
 					}
 				}
 			}
@@ -139,7 +151,8 @@ void		buddhabrot(t_fract *fract)
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
 		buddhabrot[i].end = 512 / 8 * (i + 1);
 		buddhabrot[i].start = 512 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_buddhabrot, &buddhabrot[i]);
+		pthread_create(&thread[i], NULL, calc_buddhabrot,
+		&buddhabrot[i]);
 		i++;
 	}
 	while (i-- > 0)
@@ -150,13 +163,15 @@ void		buddhabrot(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iter max: ");
-	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
-	free(str);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF, "Iter min: ");
-	str = ft_itoa(fract->iter_min);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF, str);
-	free(str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+	"Iter max: ");
+	str = ft_sitoa(fract->iter_max);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+	str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF,
+	"Iter min: ");
+	str = ft_sitoa(fract->iter_min);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF,
+	str);
 	print_color_data(fract);
 }

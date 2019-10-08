@@ -62,7 +62,7 @@ static void	*calc_householder_fail2(void *param)
 				&& !is_tol(z, roots[2], tolerance))
 			{
 				z = ft_csub(z, ft_cdiv(ft_cadd(ft_rmul(4,
-				ft_cpow(z, 6)), ft_radd(-1,ft_rmul(-3,
+				ft_cpow(z, 6)), ft_radd(-1, ft_rmul(-3,
 				ft_cpow(z, 6)))), ft_rmul(9, ft_cpow(z, 5))));
 				fract->iter++;
 			}

@@ -47,8 +47,10 @@ static void	*calc_julia(void *param)
 		x = 0;
 		while (x < 1024)
 		{
-			z.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
-			z.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
+			z.r = x * fract->inv_zoom + fract->min.x
+			+ fract->move.x;
+			z.i = y * fract->inv_zoom + fract->min.y
+			+ fract->move.y;
 			fract->iter = 0;
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
@@ -90,9 +92,11 @@ void		burning_julia(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+	"Iterations: ");
 	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+	str);
 	free(str);
 	print_color_data(fract);
 }
