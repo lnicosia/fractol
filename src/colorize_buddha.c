@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:30:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 11:49:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 13:44:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ t_color_data	get_color_count(t_fract *fract)
 			coord = x + y * 1024;
 			set_color_count(fract, coord, &cd);
 		}
-	}
-	if (fract->color_mode == NASA)
-	{
-		ft_printf("max count = %u\n", cd.max);
-		ft_printf("max red = %u\n", cd.max_red);
-		ft_printf("max green = %u\n", cd.max_green);
-		ft_printf("max blue = %u\n", cd.max_blue);
 	}
 	return (cd);
 }

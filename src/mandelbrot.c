@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 15:53:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 14:48:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	*calc_mandelbrot(void *param)
 			while (z.r * z.r + z.i * z.i < 4
 					&& fract->iter < fract->iter_max)
 			{
-				z = ft_cadd(ft_cpow(z, fract->pow), c);
+				z = compute_mandelbrot_sequence(z, c);
 				fract->iter++;
 			}
 			if (fract->iter == fract->iter_max)
