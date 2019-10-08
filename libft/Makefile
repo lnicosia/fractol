@@ -37,7 +37,8 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_clamp.c ft_fclamp.c ft_fclamp.c ft_atof.c ft_getlen.c \
 		  ft_sitoa.c ft_realloc.c ft_getsize.c ft_delindex.c ft_perror.c \
 		  ft_lstcontains.c vector_utils.c segments_intersect.c \
-		  get_intersection.c
+		  get_intersection.c complex.c complex_base_op.c \
+		  complex_real_op.c
 
 HEADERS = libft.h
 

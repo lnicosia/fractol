@@ -51,15 +51,19 @@ static void	*calc_newton(void *param)
 		x = 0;
 		while (x < 1024)
 		{
-			z.r = x * fract->inv_zoom + fract->min.x + fract->move.x;
-			z.i = y * fract->inv_zoom + fract->min.y + fract->move.y;
+			z.r = x * fract->inv_zoom + fract->min.x
+			+ fract->move.x;
+			z.i = y * fract->inv_zoom + fract->min.y 
+			+ fract->move.y;
 			fract->iter = 0;
 			while (fract->iter < fract->iter_max
-				&& !is_tol(z, roots[0], tolerance) && !is_tol(z, roots[1], tolerance) && !is_tol(z, roots[2], tolerance))
+				&& !is_tol(z, roots[0], tolerance)
+				&& !is_tol(z, roots[1], tolerance)
+				&& !is_tol(z, roots[2], tolerance))
 			{
-				z = ft_csub(z, ft_cmul(new_complex(fract->a, 0),
-							ft_cdiv(ft_csub(ft_cpow(z, 3), new_complex(1, 0)),
-								ft_cmul(new_complex(3, 0), ft_cpow(z, 2)))));
+				z = ft_csub(z, ft_rmul(fract->a,
+				ft_cdiv(ft_rsub(1, ft_cpow(z, 3)),
+				ft_rmul(3, ft_cpow(z, 2)))));
 				fract->iter++;
 			}
 			if (is_tol(z, roots[0], tolerance))
@@ -98,8 +102,10 @@ void		newton(t_fract *fract)
 	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
 			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF, "Iterations: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
+	"Iterations: ");
 	str = ft_sitoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF, str);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
+	str);
 	print_color_data(fract);
 }

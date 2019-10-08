@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex.c                                          :+:      :+:    :+:   */
+/*   complex_base_op.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 17:05:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 18:52:04 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/10/07 17:33:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-#include "math.h"
+#include "libft.h"
 
 t_complex	ft_cadd(t_complex c1, t_complex c2)
 {
@@ -59,38 +58,5 @@ t_complex	ft_cpow(t_complex c1, int pow)
 		res = ft_cmul(res, c1);
 		pow--;
 	}
-	return (res);
-}
-
-t_complex	ft_cconj(t_complex c)
-{
-	c.i = -c.i;
-	return (c);
-}
-
-t_complex	new_complex(double r, double i)
-{
-	t_complex	res;
-
-	res.r = r;
-	res.i = i;
-	return (res);
-}
-
-t_complex	ft_csin(t_complex c)
-{
-	t_complex	res;
-
-	res.r = sin(c.r) * cosh(c.i);
-	res.i = sinh(c.i) * cos(c.r);
-	return (res);
-}
-
-t_complex	ft_ccos(t_complex c)
-{
-	t_complex	res;
-
-	res.r = cos(c.r) * cosh(c.i);
-	res.i = -sinh(c.r) * sinh(c.r);
 	return (res);
 }

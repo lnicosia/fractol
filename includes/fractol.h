@@ -49,12 +49,6 @@ typedef struct	s_coord2
 	int	y;
 }				t_coord2;
 
-typedef struct	s_complex
-{
-	double	r;
-	double	i;
-}				t_complex;
-
 typedef struct	s_img
 {
 	int				bit_per_pixels;
@@ -159,15 +153,6 @@ void			color_buddha_pixel(int x, int y, t_fract *fract);
 void			colorize_buddha(t_fract *fract);
 void			swap_color_base(int key, t_fract *fract);
 void			swap_color_mode(int key, t_fract *fract);
-t_complex		ft_cadd(t_complex c1, t_complex c2);
-t_complex		ft_csub(t_complex c1, t_complex c2);
-t_complex		ft_cmul(t_complex c1, t_complex c2);
-t_complex		ft_cdiv(t_complex c1, t_complex c2);
-t_complex		ft_cpow(t_complex c1, int pow);
-t_complex		ft_csin(t_complex c);
-t_complex		ft_ccos(t_complex c);
-t_complex		ft_cconj(t_complex c);
-t_complex		new_complex(double r, double i);
 t_coord2		new_coord2(int x, int y);
 t_fcoord2		new_fcoord2(double x, double y);
 void			plot_line(t_coord2 c1, t_coord2 c2, t_fract *fract, int color);

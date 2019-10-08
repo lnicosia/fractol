@@ -23,12 +23,12 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
-		  export.c buddhabrot.c color.c burning_julia.c newton.c complex.c \
+		  export.c buddhabrot.c color.c burning_julia.c newton.c \
 		  buddha2.c color_newton.c barnsley.c koch.c \
 		  plot_line.c coord_utils.c print_color_data.c \
-		  tricorn.c plot_line_aa.c math.c householder.c householder_fail.c \
-		  householder_fail2.c swap_color_base.c swap_color_mode.c \
-		  colorize_buddha.c color_outside.c
+		  tricorn.c plot_line_aa.c math.c householder.c \
+		  householder_fail.c householder_fail2.c swap_color_base.c \
+		  swap_color_mode.c colorize_buddha.c color_outside.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h colorize_buddha.h 
 

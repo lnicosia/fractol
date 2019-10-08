@@ -1,6 +1,0 @@
-COULEURS ALL
-Mandelbrot symetrie
-Buddha symetrie
-Buddha centrer / zoom
-Buddha changer valeur couleurs (mul = 25)
-Buddha changer iter_min

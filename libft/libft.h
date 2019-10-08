@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <math.h>
 
 typedef struct	s_list
 {
@@ -48,6 +49,12 @@ typedef	struct		s_segment
 	t_v2			p1;
 	t_v2			p2;
 }					t_segment;
+
+typedef struct	s_complex
+{
+	double	r;
+	double	i;
+}				t_complex;
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -144,5 +151,18 @@ t_v2			get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				check_line_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				custom_error(const char *message);
+t_complex		ft_cadd(t_complex c1, t_complex c2);
+t_complex		ft_csub(t_complex c1, t_complex c2);
+t_complex		ft_cmul(t_complex c1, t_complex c2);
+t_complex		ft_cdiv(t_complex c1, t_complex c2);
+t_complex		ft_radd(double r, t_complex c);
+t_complex		ft_rsub(double r, t_complex c);
+t_complex		ft_rmul(double r, t_complex c);
+t_complex		ft_rdiv(double r, t_complex c);
+t_complex		ft_cpow(t_complex c1, int pow);
+t_complex		ft_csin(t_complex c);
+t_complex		ft_ccos(t_complex c);
+t_complex		ft_cconj(t_complex c);
+t_complex		new_complex(double r, double i);
 
 #endif
