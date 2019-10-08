@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 11:47:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 15:48:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx_keycode.h"
 
-void		color_inside(int x, int y, t_fract *fract)
+void	color_inside(int x, int y, t_fract *fract)
 {
 	double	div;
 
@@ -40,7 +40,7 @@ void		color_inside(int x, int y, t_fract *fract)
 		fract->window.img.str[x + y * 1024] *= 255 / log(fract->iter);
 }
 
-void		color_buddha_pixel(int x, int y, t_fract *fract)
+void	color_buddha_pixel(int x, int y, t_fract *fract)
 {
 	if (fract->color_mode == NASA)
 	{
@@ -68,7 +68,7 @@ void		color_buddha_pixel(int x, int y, t_fract *fract)
 		fract->window.img.str[y + x * 1024]++;
 }
 
-void		reset_img(unsigned int *array)
+void	reset_img(unsigned int *array)
 {
 	int	i;
 

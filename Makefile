@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/07 18:37:54 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/08 15:51:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  tricorn.c plot_line_aa.c math.c householder.c \
 		  householder_fail.c householder_fail2.c swap_color_base.c \
 		  swap_color_mode.c colorize_buddha.c color_outside.c \
-		  put_fractal_to_window.c
+		  put_fractal_to_window.c newton_utils.c
 
 HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h colorize_buddha.h 
 
