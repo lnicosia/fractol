@@ -6,20 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 17:30:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:53:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static void	init_array(unsigned int *array)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 1048576)
-		array[i] = 0;
-}
 
 int			init_buddhabrot(t_fract *fract)
 {
@@ -31,38 +22,11 @@ int			init_buddhabrot(t_fract *fract)
 	fract->iter_max = 512;
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
-	fract->move.x = 0;
-	fract->move.y = 0;
 	fract->iter_min = 15;
-	fract->red = NULL;
-	fract->green = NULL;
-	fract->blue = NULL;
 	fract->incr = 8;
 	fract->maj_incr = 40;
-	if (fract->color_mode == NASA)
-	{
-		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int)
-						* 1048576)))
-		{
-			ft_printf("Could not malloc red array\n");
-			free_all(fract);
-		}
-		init_array(fract->red);
-		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int)
-						* 1048576)))
-		{
-			ft_printf("Could not malloc red array\n");
-			free_all(fract);
-		}
-		init_array(fract->blue);
-		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int)
-						* 1048576)))
-		{
-			ft_printf("Could not malloc red array\n");
-			free_all(fract);
-		}
-		init_array(fract->green);
-	}
+	if (init_color_arrays(fract))
+		return (-1);
 	return (0);
 }
 
@@ -144,7 +108,7 @@ void		buddhabrot(t_fract *fract)
 	char			*str;
 
 	i = 0;
-	reset_img(fract);
+	reset_img(fract->window.img.str);
 	ft_printf("Computing Buddha..\n");
 	while (i < 8)
 	{

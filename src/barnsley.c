@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:45:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 17:33:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:55:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ int			init_barnsley(t_fract *fract)
 	fract->incr = 10000;
 	fract->maj_incr = 500000;
 	return (0);
-}
-
-static void	reset_image(t_fract *fract)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 1048576)
-		fract->window.img.str[i] = 0;
 }
 
 void		color_barnsley(t_fract *fract, t_coord2 pos, int dice)
@@ -100,8 +91,7 @@ void		barnsley(t_fract *fract)
 	fract->iter = fract->iter_max;
 	c1 = new_fcoord2(0, 0);
 	srand(time(NULL));
-	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
-	reset_image(fract);
+	reset_img(fract->window.img.str);
 	while (fract->iter > 0)
 	{
 		dice = rand() % 100;

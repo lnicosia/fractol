@@ -6,29 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 17:30:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:53:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void		reset_img(t_fract *fract)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 1048576)
-		fract->window.img.str[i] = 0;
-}
-
-static void	init_array(unsigned int *array)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 1048576)
-		array[i] = 0;
-}
 
 int			init_buddha2(t_fract *fract)
 {
@@ -41,37 +23,10 @@ int			init_buddha2(t_fract *fract)
 	fract->min.x = -1.8;
 	fract->min.y = -1.28;
 	fract->iter_min = 15;
-	fract->red = NULL;
-	fract->green = NULL;
-	fract->blue = NULL;
-	fract->move.x = 0;
-	fract->move.y = 0;
 	fract->incr = 8;
 	fract->maj_incr = 40;
-	if (fract->color_mode == NASA)
-	{
-		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int)
-			* 1048576)))
-		{
-			ft_printf("Could not malloc green array\n");
-			free_all(fract);
-		}
-		init_array(fract->red);
-		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int)
-			* 1048576)))
-		{
-			ft_printf("Could not malloc green array\n");
-			free_all(fract);
-		}
-		init_array(fract->blue);
-		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int)
-			* 1048576)))
-		{
-			ft_printf("Could not malloc green array\n");
-			free_all(fract);
-		}
-		init_array(fract->green);
-	}
+	if (init_color_arrays(fract))
+		return (1);
 	return (0);
 }
 
@@ -145,7 +100,7 @@ void		buddha2(t_fract *fract)
 	char			*str;
 
 	i = 0;
-	reset_img(fract);
+	ft_bzero(fract->window.img.str, sizeof(fract->window.img.str));
 	ft_printf("Computing Buddha..\n");
 	while (i < 8)
 	{

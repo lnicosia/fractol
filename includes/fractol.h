@@ -146,7 +146,7 @@ int				init_window(t_fract *fract, t_env *data);
 int				init_fract(t_env *data);
 int				export_fdf(t_fract fract);
 int				is_tol(t_complex z, t_complex root, double tolerance);
-void			reset_img(t_fract *fract);
+void			reset_img(unsigned int *array);
 void			color(int x, int y, t_fract *fract);
 void			color_inside(int x, int y, t_fract *fract);
 void			color_buddha_pixel(int x, int y, t_fract *fract);
@@ -167,5 +167,6 @@ float			rfpart(float x);
 void			fill_img(t_coord2 c, t_fract *fract, int color,
 		float brightness);
 void			put_fractal_to_window(t_fract *fract);
+int			init_color_arrays(t_fract *fract);
 
 #endif

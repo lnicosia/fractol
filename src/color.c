@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 18:19:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:47:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,42 @@ void		color_buddha_pixel(int x, int y, t_fract *fract)
 	}
 	else
 		fract->window.img.str[y + x * 1024]++;
+}
+
+void		reset_img(unsigned int *array)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 1048576)
+		array[i] = 0;
+}
+
+int		init_color_arrays(t_fract *fract)
+{
+	if (fract->color_mode == NASA)
+	{
+		if (!(fract->red = (unsigned int*)malloc(sizeof(unsigned int)
+			* 1048576)))
+		{
+			ft_printf("Could not malloc green array\n");
+			free_all(fract);
+		}
+		reset_img(fract->red);
+		if (!(fract->blue = (unsigned int*)malloc(sizeof(unsigned int)
+			* 1048576)))
+		{
+			ft_printf("Could not malloc green array\n");
+			free_all(fract);
+		}
+		reset_img(fract->blue);
+		if (!(fract->green = (unsigned int*)malloc(sizeof(unsigned int)
+			* 1048576)))
+		{
+			ft_printf("Could not malloc green array\n");
+			free_all(fract);
+		}
+		reset_img(fract->green);
+	}
+	return (0);
 }
