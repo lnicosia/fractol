@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 13:44:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 14:30:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static void	iterate_z(t_complex z, t_complex c, t_coord2 pos, t_fract *fract)
 	while (z.r * z.r + z.i * z.i < 4
 			&& fract->iter < fract->iter_max)
 	{
-		z = compute_mandelbrot_sequence(z, c);
+		if (fract->pow == 2)
+			z = compute_mandelbrot_sequence(z, c);
+		else
+			z = ft_cadd(ft_cpow(z, fract->pow), c);
 		fract->iter++;
 	}
 	if (fract->iter == fract->iter_max)
