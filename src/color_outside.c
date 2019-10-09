@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 18:18:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 18:39:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 14:25:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void		color(int x, int y, t_fract *fract)
 	div = fract->iter / (double)fract->iter_max;
 	if (fract->color_base == BLACK)
 		fract->window.img.str[x + y * 1024] = 0;
-	set_color(fract, &red, &blue, &green);
-	set_mixed_colors(fract, &red, &blue, &green);
+	set_color(fract, &red, &green, &blue);
+	set_mixed_colors(fract, &red, &green, &blue);
 	if (fract->color_base == RED || fract->color_base == BLUE)
 		green = 0;
 	if (fract->color_base == GREEN || fract->color_base == BLUE)
