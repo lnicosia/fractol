@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 13:30:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:39:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	key_release3(int key, t_fract *fract)
 		{
 			if (fract->pow > 0)
 				fract->pow--;
-			if (fract->a > 0)
-				fract->a -= 0.1;
+			fract->a -= fract->a > 0 ? 0.1 : 0;
+			if (fract->sample > 0)
+				fract->sample /= 10;
 		}
 		else
 		{
@@ -51,6 +52,8 @@ void	key_release2(int key, t_fract *fract)
 				fract->pow++;
 			if (fract->a < 2)
 				fract->a += 0.1;
+			if (fract->sample < 1000000000000)
+				fract->sample *= 10;
 		}
 		else
 		{

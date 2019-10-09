@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:58:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 15:48:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:12:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,12 @@ void	color_inside(int x, int y, t_fract *fract)
 		fract->window.img.str[x + y * 1024] *= 255 / log(fract->iter);
 }
 
-void	color_buddha_pixel(int x, int y, t_fract *fract)
+void	color_buddha_sin(int x, int y, t_fract *fract)
 {
-	if (fract->color_mode == NASA)
-	{
-		if (fract->iter < fract->iter_max / 100 + fract->iter_min)
-			fract->red[x + y * 1024]++;
-		else if (fract->iter >= fract->iter_max / 100 + fract->iter_min
-				&& fract->iter < fract->iter_max / 10 + fract->iter_min)
-			fract->green[x + y * 1024]++;
-		else if (fract->iter >= fract->iter_max / 10 + fract->iter_min
-				&& fract->iter < fract->iter_max)
-			fract->blue[x + y * 1024]++;
-	}
+	x = x - fract->move.y * 60;
+	y = y - fract->move.x * 50;
+	if (x < 0 || x >= 1024 || y < 0 || y >= 1024)
+		return ;
 	if (fract->color_mode == SIN)
 	{
 		if (fract->iter < fract->iter_max / 20 + fract->iter_min)
@@ -66,6 +59,23 @@ void	color_buddha_pixel(int x, int y, t_fract *fract)
 	}
 	else
 		fract->window.img.str[y + x * 1024]++;
+}
+
+void	color_buddha_pixel(int x, int y, t_fract *fract)
+{
+	if (fract->color_mode == NASA)
+	{
+		if (fract->iter < fract->iter_max / 100 + fract->iter_min)
+			fract->red[x + y * 1024]++;
+		else if (fract->iter >= fract->iter_max / 100 + fract->iter_min
+				&& fract->iter < fract->iter_max / 10 + fract->iter_min)
+			fract->green[x + y * 1024]++;
+		else if (fract->iter >= fract->iter_max / 10 + fract->iter_min
+				&& fract->iter < fract->iter_max)
+			fract->blue[x + y * 1024]++;
+	}
+	else
+		color_buddha_sin(x, y, fract);
 }
 
 void	reset_img(unsigned int *array)

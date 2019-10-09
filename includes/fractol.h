@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 11:49:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:13:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct	s_fract
 	size_t			iter_min;
 	size_t			incr;
 	size_t			maj_incr;
+	size_t			sample;
 	t_fcoord2		min;
 	t_coord2		drag;
 	t_fcoord2		transfo;

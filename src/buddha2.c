@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 13:47:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:39:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			init_buddha2(t_fract *fract)
 	fract->iter_min = 15;
 	fract->incr = 8;
 	fract->pow = 2;
+	fract->sample = 1000000;
 	fract->maj_incr = 40;
 	if (init_color_arrays(fract))
 		return (1);
@@ -33,15 +34,15 @@ int			init_buddha2(t_fract *fract)
 
 static void	*calc_buddha2(void *param)
 {
-	int			x;
+	size_t		x;
 	t_complex	z;
 	t_complex	c;
 	t_fract		*fract;
 
 	fract = (t_fract*)param;
 	srand(time(NULL));
-	x = -1;
-	while (++x < 1000000)
+	x = 0;
+	while (x < fract->sample)
 	{
 		c = new_complex((rand() / (double)RAND_MAX) * -fract->min.x * 2
 			+ fract->min.x, (rand() / (double)RAND_MAX)
@@ -54,8 +55,22 @@ static void	*calc_buddha2(void *param)
 		if (fract->iter < fract->iter_max
 				&& fract->iter > fract->iter_min)
 			iterate_valid_point(fract, c);
+		x++;
 	}
 	return (NULL);
+}
+
+void		print_buddha2_color_data(t_fract *fract)
+{
+	put_fractal_to_window(fract);
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF,
+			"Iter min: ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF,
+			ft_sitoa(fract->iter_min));
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF,
+			"| Sample = ");
+	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 270, 10, 0xFFFFFF,
+			ft_sitoa(fract->sample));
 }
 
 void		buddha2(t_fract *fract)
@@ -67,6 +82,12 @@ void		buddha2(t_fract *fract)
 	i = -1;
 	ft_printf("Computing Buddha..\n");
 	reset_img(fract->window.img.str);
+	if (fract->color_mode == NASA)
+	{
+		reset_img(fract->red);
+		reset_img(fract->blue);
+		reset_img(fract->green);
+	}
 	while (++i < 8)
 	{
 		ft_memcpy(&buddha2[i], fract, sizeof(t_fract));
@@ -78,9 +99,5 @@ void		buddha2(t_fract *fract)
 			free_all(fract);
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
-	put_fractal_to_window(fract);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF,
-			"Iter min: ");
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 30, 0xFFFFFF,
-			ft_sitoa(fract->iter_min));
+	print_buddha2_color_data(fract);
 }
