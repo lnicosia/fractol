@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:13:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 13:33:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 14:03:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_hook(t_fract *fract)
 
 int		init_window(t_fract *fract, t_env *data)
 {
+	fract->mlx_ptr = data->mlx_ptr;
 	if (ft_strequ(fract->name, "Buddhabrot")
 			|| ft_strequ(fract->name, "Random buddhabrot"))
 	{
@@ -99,8 +100,6 @@ int		init_fract(t_env *data)
 	int	j;
 
 	i = 0;
-	if (!(data->mlx_ptr = mlx_init()))
-		return (-1);
 	init_functions(data);
 	init_init_functions(data);
 	while (i < MAX_FRACT)
@@ -116,7 +115,6 @@ int		init_fract(t_env *data)
 		data->fract[i].maj_buffer = 0;
 		data->fract[i].func = data->fract_func[i];
 		data->fract[i].init_func = data->init_func[i];
-		data->fract[i].mlx_ptr = data->mlx_ptr;
 		i++;
 	}
 	return (0);

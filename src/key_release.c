@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 11:41:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:30:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,13 @@ int		key_release(int key, void *param)
 	if (key == ESC_KEY)
 		free_all(fract);
 	if (key == E_KEY)
-		export_fdf(*fract);
+	{
+		if (export_fdf(*fract))
+		{
+			ft_printf("Could not export\n");
+			return (-1);
+		}
+	}
 	if (key >= K1_KEY && key <= K0_KEY)
 		swap_color_base(key, fract);
 	if (key >= NK0_KEY && key <= NK9_KEY)

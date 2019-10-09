@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 15:46:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:47:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ void		buddha2(t_fract *fract)
 	while (++i < 8)
 	{
 		ft_memcpy(&buddha2[i], fract, sizeof(t_fract));
-		pthread_create(&thread[i], NULL, calc_buddha2, &buddha2[i]);
+		if (pthread_create(&thread[i], NULL, calc_buddha2, &buddha2[i]))
+			free_all(fract);
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
-	ft_printf("Done\n\n");
 	put_fractal_to_window(fract);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF,
 			"Iter min: ");

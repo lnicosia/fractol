@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 15:46:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:47:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void		buddhabrot(t_fract *fract)
 		ft_memcpy(&buddhabrot[i], fract, sizeof(t_fract));
 		buddhabrot[i].end = 512 / 8 * (i + 1);
 		buddhabrot[i].start = 512 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_buddhabrot,
-		&buddhabrot[i]);
+		if (pthread_create(&thread[i], NULL, calc_buddhabrot, &buddhabrot[i]))
+			free_all(fract);
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	if (fract->color_mode != SIN)
 		colorize_buddha(fract);
-	ft_printf("Done\n\n");
 	put_fractal_to_window(fract);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 30, 0xFFFFFF,
 	"Iter min: ");

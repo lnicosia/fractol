@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 10:21:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:44:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ void		mandelbrot(t_fract *fract)
 		ft_memcpy(&mandelbrot[i], fract, sizeof(t_fract));
 		mandelbrot[i].end = 1024 / 8 * (i + 1);
 		mandelbrot[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_mandelbrot, &mandelbrot[i]);
+		if (pthread_create(&thread[i], NULL, calc_mandelbrot, &mandelbrot[i]))
+			free_all(fract);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	put_fractal_to_window(fract);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF,
 			"| Power = ");

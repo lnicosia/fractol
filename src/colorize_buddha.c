@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:30:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 13:44:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:47:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ void			colorize_buddha(t_fract *fract)
 			set_color_value(fract, cd, coord);
 		}
 	}
+	ft_printf("Done\n\n");
 }

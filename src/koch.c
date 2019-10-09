@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 11:16:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 17:33:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:24:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		koch(t_fract *fract)
 	t_coord2	p1;
 	t_coord2	p2;
 	t_coord2	p3;
-	char		*str;
 
 	p1 = new_coord2(fract->center.x - (200 + fract->move.x) * fract->zoom,
 			fract->center.y - (200 + fract->move.y) * fract->zoom);
@@ -85,14 +84,5 @@ void		koch(t_fract *fract)
 	calc_koch(p1, p2, fract, fract->iter_max);
 	calc_koch(p2, p3, fract, fract->iter_max);
 	calc_koch(p3, p1, fract, fract->iter_max);
-	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
-	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
-			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
-			"Iterations: ");
-	str = ft_itoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
-			str);
-	free(str);
-	print_color_data(fract);
+	put_fractal_to_window(fract);
 }

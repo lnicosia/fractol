@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 10:12:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:44:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,13 @@ void		householder_fail2(t_fract *fract)
 		ft_memcpy(&householder_fail2[i], fract, sizeof(t_fract));
 		householder_fail2[i].end = 1024 / 8 * (i + 1);
 		householder_fail2[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_householder_fail2,
-				&householder_fail2[i]);
+		if (pthread_create(&thread[i], NULL, calc_householder_fail2,
+				&householder_fail2[i]))
+			free_all(fract);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	put_fractal_to_window(fract);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 12:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/20 14:41:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:30:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int			export_fdf(t_fract fract)
 	char	*file;
 
 	ft_printf("exporting..\n");
-	file = ft_strjoin(fract.name, ".fdf");
+	if (!(file = ft_strjoin(fract.name, ".fdf")))
+		return (-1);
 	if ((fd = open(file, O_CREAT, 00755)) < 0)
 	{
 		ft_printf("Open error\n");

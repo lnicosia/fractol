@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 11:48:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:45:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ void		tricorn(t_fract *fract)
 		ft_memcpy(&tricorn[i], fract, sizeof(t_fract));
 		tricorn[i].end = 1024 / 8 * (i + 1);
 		tricorn[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_tricorn, &tricorn[i]);
+		if (pthread_create(&thread[i], NULL, calc_tricorn, &tricorn[i]))
+			free_all(fract);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	put_fractal_to_window(fract);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF,
 			"| Power = ");

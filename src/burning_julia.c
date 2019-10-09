@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 11:20:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:42:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ void		burning_julia(t_fract *fract)
 		ft_memcpy(&julia[i], fract, sizeof(t_fract));
 		julia[i].end = 1024 / 8 * (i + 1);
 		julia[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_julia, &julia[i]);
+		if (pthread_create(&thread[i], NULL, calc_julia, &julia[i]))
+			free_all(fract);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL))
+			free_all(fract);
 	put_fractal_to_window(fract);
 }
