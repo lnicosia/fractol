@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:43:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 14:26:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:49:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int		parse_args(char **av, t_env *data)
 	return (0);
 }
 
-
-__attribute__((destructor)) void leaks(void)
-{
-	ft_printf("Checking leaks after main\n");
-	while (1);
-}
-
+/*
+**__attribute__((destructor)) void leaks(void)
+**{
+**	ft_printf("Checking leaks after main\n");
+**	while (1);
+**}
+*/
 
 int		main(int ac, char **av)
 {
@@ -95,9 +95,7 @@ int		main(int ac, char **av)
 	ft_bzero(&data, sizeof(t_env));
 	if (init_fract(&data))
 		return (-1);
-	if (parse_args(av, &data))
-		return (0);
-	if (!(data.mlx_ptr = mlx_init()))
+	if (parse_args(av, &data) || !(data.mlx_ptr = mlx_init()))
 		return (-1);
 	i = -1;
 	while (++i < MAX_FRACT)
