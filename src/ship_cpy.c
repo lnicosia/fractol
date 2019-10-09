@@ -1,93 +1,95 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   ship.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 10:59:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 10:19:02 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/03/12 13:23:51 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/10/09 10:49:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int			init_julia(t_fract *fract)
+int			init_ship(t_fract *fract)
 {
-	fract->movement = 0;
-	fract->color_base = RED;
+	fract->color_base = WHITE;
 	fract->color_mode = FLAT;
 	fract->color_inside = WHITE;
-	fract->name = "Julia";
-	fract->zoom = 300;
+	fract->color_inside_mode = FLAT;
+	fract->name = "Burning ship";
+	fract->zoom = 10000;
 	fract->inv_zoom = 1 / fract->zoom;
-	fract->iter_max = 64;
-	fract->min.y = -1.7;
-	fract->min.x = -1.8;
+	fract->iter_max = 40;
+	fract->min.x = -1.812;
+	fract->min.y = -0.085;
 	fract->move.x = 0;
 	fract->move.y = 0;
-	fract->transfo.x = 0;
-	fract->transfo.y = 0;
 	fract->incr = 8;
 	fract->maj_incr = 40;
 	return (0);
 }
 
-static void	iterate_z(t_complex z, int x, int y, t_fract *fract)
+static void	iterate_z(t_complex z, t_complex c, t_coord2 pos, t_fract *fract)
 {
+	double	xtemp;
+
 	while (z.r * z.r + z.i * z.i < 4
 			&& fract->iter < fract->iter_max)
 	{
-		z = compute_mandelbrot_sequence(z, new_complex(-0.835
-					+ fract->transfo.y, 0.2321 + fract->transfo.x));
+		xtemp = z.r * z.r - z.i * z.i;
+		z.i = fabs(2 * z.r * z.i + c.i);
+		z.r = fabs(xtemp + c.r);
 		fract->iter++;
 	}
 	if (fract->iter == fract->iter_max)
-		color_inside(x, y, fract);
+		color_inside(pos.x, pos.y, fract);
 	else
-		color(x, y, fract);
+		color(pos.x, pos.y, fract);
 }
 
-static void	*calc_julia(void *param)
+static void	*calc_ship(void *param)
 {
-	int			x;
-	int			y;
+	t_coord2	pos;
 	t_complex	z;
+	t_complex	c;
 	t_fract		*fract;
 
 	fract = (t_fract*)param;
-	y = fract->start;
-	while (y < fract->end)
+	pos.y = fract->start;
+	while (pos.y < fract->end)
 	{
-		x = 0;
-		while (x < 1024)
+		pos.x = 0;
+		while (pos.x < 1024)
 		{
-			z.r = x * fract->inv_zoom + fract->min.x
+			c.r = pos.x * fract->inv_zoom + fract->min.x
 				+ fract->move.x;
-			z.i = y * fract->inv_zoom + fract->min.y
+			c.i = pos.y * fract->inv_zoom + fract->min.y
 				+ fract->move.y;
+			z = new_complex(0, 0);
 			fract->iter = 0;
-			iterate_z(z, x, y, fract);
-			x++;
+			iterate_z(c, z, pos, fract);
+			pos.x++;
 		}
-		y++;
+		pos.y++;
 	}
 	return (NULL);
 }
 
-void		julia(t_fract *fract)
+void		ship(t_fract *fract)
 {
 	pthread_t	thread[8];
-	t_fract		julia[8];
+	t_fract		ship[8];
 	int			i;
 
 	i = 0;
 	while (i < 8)
 	{
-		ft_memcpy(&julia[i], fract, sizeof(t_fract));
-		julia[i].end = 1024 / 8 * (i + 1);
-		julia[i].start = 1024 / 8 * i;
-		pthread_create(&thread[i], NULL, calc_julia, &julia[i]);
+		ft_memcpy(&ship[i], fract, sizeof(t_fract));
+		ship[i].end = 1024 / 8 * (i + 1);
+		ship[i].start = 1024 / 8 * i;
+		pthread_create(&thread[i], NULL, calc_ship, &ship[i]);
 		i++;
 	}
 	while (i-- > 0)

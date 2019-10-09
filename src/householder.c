@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 17:33:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 10:03:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,53 @@ int			init_householder(t_fract *fract)
 	return (0);
 }
 
+static void	iterate_z(t_complex z, t_complex roots[3], t_coord2 pos,
+		t_fract *fract)
+{
+	while (fract->iter < fract->iter_max
+			&& !is_tol(z, roots[0], 0.001)
+			&& !is_tol(z, roots[1], 0.001)
+			&& !is_tol(z, roots[2], 0.001))
+	{
+		z = ft_cdiv(ft_cadd(ft_rmul(5, ft_cpow(z, 6)),
+					ft_radd(-1, ft_rmul(5, ft_cpow(z, 3)))),
+				ft_rmul(9, ft_cpow(z, 5)));
+		fract->iter++;
+	}
+	if (is_tol(z, roots[0], 0.001))
+		color_red(pos.x, pos.y, fract);
+	else if (is_tol(z, roots[1], 0.001))
+		color_green(pos.x, pos.y, fract);
+	else if (is_tol(z, roots[2], 0.001))
+		color_blue(pos.x, pos.y, fract);
+	else
+		fract->window.img.str[pos.x + 1024 * pos.y] = 0;
+}
+
 static void	*calc_householder(void *param)
 {
-	int			x;
-	int			y;
+	t_coord2	pos;
 	t_complex	z;
 	t_fract		*fract;
 	t_complex	roots[3];
-	double		tolerance;
 
 	fract = (t_fract*)param;
-	tolerance = 0.001;
 	roots[0] = new_complex(1, 0);
 	roots[1] = new_complex(-0.5, SQRT_3_2);
 	roots[2] = new_complex(-0.5, -SQRT_3_2);
-	y = fract->start;
-	while (y < fract->end)
+	pos.y = fract->start - 1;
+	while (++pos.y < fract->end)
 	{
-		x = 0;
-		while (x < 1024)
+		pos.x = -1;
+		while (++pos.x < 1024)
 		{
-			z.r = x * fract->inv_zoom + fract->min.x
-			+ fract->move.x;
-			z.i = y * fract->inv_zoom + fract->min.y
-			+ fract->move.y;
+			z.r = pos.x * fract->inv_zoom + fract->min.x
+				+ fract->move.x;
+			z.i = pos.y * fract->inv_zoom + fract->min.y
+				+ fract->move.y;
 			fract->iter = 0;
-			while (fract->iter < fract->iter_max
-				&& !is_tol(z, roots[0], tolerance)
-				&& !is_tol(z, roots[1], tolerance)
-				&& !is_tol(z, roots[2], tolerance))
-			{
-				z = ft_cdiv(ft_cadd(ft_rmul(5, ft_cpow(z, 6)),
-				ft_radd(-1, ft_rmul(5, ft_cpow(z, 3)))),
-				ft_rmul(9, ft_cpow(z, 5)));
-				fract->iter++;
-			}
-			if (is_tol(z, roots[0], tolerance))
-				color_red(x, y, fract);
-			else if (is_tol(z, roots[1], tolerance))
-				color_green(x, y, fract);
-			else if (is_tol(z, roots[2], tolerance))
-				color_blue(x, y, fract);
-			else
-				fract->window.img.str[x + 1024 * y] = 0;
-			x++;
+			iterate_z(z, roots, pos, fract);
 		}
-		y++;
 	}
 	return (NULL);
 }
@@ -86,7 +87,6 @@ void		householder(t_fract *fract)
 	pthread_t	thread[8];
 	t_fract		householder[8];
 	int			i;
-	char		*str;
 
 	i = 0;
 	while (i < 8)
@@ -95,18 +95,10 @@ void		householder(t_fract *fract)
 		householder[i].end = 1024 / 8 * (i + 1);
 		householder[i].start = 1024 / 8 * i;
 		pthread_create(&thread[i], NULL, calc_householder,
-		&householder[i]);
+				&householder[i]);
 		i++;
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
-	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
-	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
-			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
-	"Iterations: ");
-	str = ft_sitoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
-	str);
-	print_color_data(fract);
+	put_fractal_to_window(fract);
 }

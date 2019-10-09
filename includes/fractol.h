@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 15:15:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 11:49:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ void			fill_img(t_coord2 c, t_fract *fract, int color,
 		float brightness);
 void			put_fractal_to_window(t_fract *fract);
 void			iterate_valid_point(t_fract *fract, t_complex c);
-int			init_color_arrays(t_fract *fract);
+int				init_color_arrays(t_fract *fract);
 t_complex		compute_mandelbrot_sequence(t_complex z, t_complex c);
 void			put_buddha_pixel(t_complex z, t_fract *fract);
 

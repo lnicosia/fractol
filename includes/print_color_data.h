@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   print_color_data.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/29 17:32:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/29 17:34:00 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/10/09 10:57:31 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/10/09 10:58:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PRINT_COLOR_DATA_H
+# define PRINT_COLOR_DATA_H
 
-int		main(void)
-{
-	ft_printf("un nombre: %d, un texte: %s, un nombre a virgule: %f\n", 4, "cc", 4.5454);
-	return (0);
-}
+void	print_outside_color(t_fract *fract);
+void	print_outside_mode(t_fract *fract);
+
+#endif

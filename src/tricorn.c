@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:29:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/07 15:52:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 11:48:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,42 +32,45 @@ int			init_tricorn(t_fract *fract)
 	return (0);
 }
 
+static void	iterate_z(t_complex z, t_complex c, t_coord2 pos, t_fract *fract)
+{
+	while (z.r * z.r + z.i * z.i < 4
+			&& fract->iter < fract->iter_max)
+	{
+		z = ft_cadd(ft_cpow(ft_cconj(z), fract->pow),
+				c);
+		fract->iter++;
+	}
+	if (fract->iter == fract->iter_max)
+		color_inside(pos.x, pos.y, fract);
+	else
+		color(pos.x, pos.y, fract);
+}
+
 static void	*calc_tricorn(void *param)
 {
-	int			x;
-	int			y;
+	t_coord2	pos;
 	t_complex	z;
 	t_complex	c;
 	t_fract		*fract;
 
 	fract = (t_fract*)param;
-	y = fract->start;
-	while (y < fract->end)
+	pos.y = fract->start;
+	while (pos.y < fract->end)
 	{
-		x = 0;
-		while (x < 1024)
+		pos.x = 0;
+		while (pos.x < 1024)
 		{
-			c.r = x * fract->inv_zoom + fract->min.x 
-			+ fract->move.x;
-			c.i = y * fract->inv_zoom + fract->min.y
-			+ fract->move.y;
-			z.r = 0;
-			z.i = 0;
+			c.r = pos.x * fract->inv_zoom + fract->min.x
+				+ fract->move.x;
+			c.i = pos.y * fract->inv_zoom + fract->min.y
+				+ fract->move.y;
+			z = new_complex(0, 0);
 			fract->iter = 0;
-			while (z.r * z.r + z.i * z.i < 4
-					&& fract->iter < fract->iter_max)
-			{
-				z = ft_cadd(ft_cpow(ft_cconj(z), fract->pow),
-				c);
-				fract->iter++;
-			}
-			if (fract->iter == fract->iter_max)
-				color_inside(x, y, fract);
-			else
-				color(x, y, fract);
-			x++;
+			iterate_z(z, c, pos, fract);
+			pos.x++;
 		}
-		y++;
+		pos.y++;
 	}
 	return (NULL);
 }
@@ -90,19 +93,10 @@ void		tricorn(t_fract *fract)
 	}
 	while (i-- > 0)
 		pthread_join(thread[i], NULL);
-	mlx_clear_window(fract->mlx_ptr, fract->window.win_ptr);
-	mlx_put_image_to_window(fract->mlx_ptr, fract->window.win_ptr,
-			fract->window.img_ptr, 0, 0);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 10, 10, 0xFFFFFF,
-	"Iterations: ");
-	str = ft_sitoa(fract->iter_max);
-	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 125, 10, 0xFFFFFF,
-	str);
-	print_color_data(fract);
+	put_fractal_to_window(fract);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 160, 10, 0xFFFFFF,
-	"| Power = ");
+			"| Power = ");
 	str = ft_sitoa(fract->pow);
 	mlx_string_put(fract->mlx_ptr, fract->window.win_ptr, 260, 10, 0xFFFFFF,
-	str);
-	print_color_data(fract);
+			str);
 }

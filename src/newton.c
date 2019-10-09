@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:50:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/08 16:00:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 09:58:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			init_newton(t_fract *fract)
 	return (0);
 }
 
-void		iterate_z(t_complex z, t_complex roots[3], t_coord2 pos,
+static void	iterate_z(t_complex z, t_complex roots[3], t_coord2 pos,
 t_fract *fract)
 {
 	while (fract->iter < fract->iter_max

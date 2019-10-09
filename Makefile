@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/08 15:51:03 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/09 11:43:47 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,18 @@ BIN_DIR = .
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_RAW = main.c hook.c close_window.c julia.c mandelbrot.c init.c ship.c \
+SRC_RAW = main.c key_press.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  export.c buddhabrot.c color.c burning_julia.c newton.c \
 		  buddha2.c color_newton.c barnsley.c koch.c \
 		  plot_line.c coord_utils.c print_color_data.c \
 		  tricorn.c plot_line_aa.c math.c householder.c \
 		  householder_fail.c householder_fail2.c swap_color_base.c \
 		  swap_color_mode.c colorize_buddha.c color_outside.c \
-		  put_fractal_to_window.c newton_utils.c
+		  put_fractal_to_window.c newton_utils.c print_outside_data.c \
+		  key_release.c mouse.c
 
-HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h colorize_buddha.h 
+HEADERS = fractol.h mlx_keycode.h hook.h color_newton.h colorize_buddha.h \
+		  print_color_data.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))

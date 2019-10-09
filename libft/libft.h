@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 12:29:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 11:50:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ typedef struct	s_v3
 	double		z;
 }				t_v3;
 
-typedef	struct		s_segment
+typedef	struct	s_segment
 {
 	t_v2			p1;
 	t_v2			p2;
-}					t_segment;
+}				t_segment;
 
 typedef struct	s_complex
 {
@@ -142,7 +142,8 @@ size_t			ft_getlen(long nb);
 size_t			ft_getsize(long nb);
 void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int				ft_perror(const char *s);
-void			*ft_delindex(void *ptr, size_t old_size, size_t new_size, size_t index);
+void			*ft_delindex(void *ptr, size_t old_size, size_t new_size,
+		size_t index);
 int				ft_lstcontains(t_list *lst, void *content);
 t_point			new_point(int x, int y);
 t_v2			new_v2(double x, double y);

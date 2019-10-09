@@ -6,14 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:27:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 10:30:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/09 12:07:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-int		ft_snprintf(char *restrict str, size_t size, const char * restrict format, ...)
+int		ft_snprintf(char *restrict str, size_t size,
+		const char *restrict format, ...)
 {
 	t_data	data;
 
