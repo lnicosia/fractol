@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelfront.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 13:18:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 14:45:08 by sipatry          ###   ########.fr       */
+/*   Created: 2019/11/13 10:40:32 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 18:59:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
+void	ft_lstdelfront(t_list **lst)
 {
-	void		*res;
-
-	if (old_size == new_size)
-		return (ptr);
-	if (!(res = malloc(new_size)))
-	{
-		ft_memdel(&ptr);
-		return (NULL);
-	}
-	ft_bzero(res, new_size);
-	if (ptr)
-	{
-		res = ft_memmove(res, ptr, old_size);
-	}
-	ft_memdel(&ptr);
-	return (res);
+	while (*lst)
+		ft_lstpopfront(lst);
 }

@@ -5,37 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 11:32:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/10 11:32:58 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/12 17:44:04 by sipatry           #+#    #+#             */
+/*   Updated: 2020/05/01 19:03:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static double	part2(const char *str)
+static void	skip_numbers(const char **str, int *count)
 {
-	int		count;
-	double	res2;
-
-	count = 0;
-	res2 = ft_abs(ft_atoi(str));
-	while (*str >= '0' && *str <= '9')
+	while (**str >= '0' && **str <= '9')
 	{
-		str++;
-		count++;
+		(*str)++;
+		(*count)++;
 	}
-	while (count > 0)
-	{
-		res2 /= 10;
-		count--;
-	}
-	return (res2);
 }
 
-double			ft_atof(const char *str)
+static void	get_float_part(int *count, double *res2)
+{
+	while (*count > 0)
+	{
+		*res2 /= 10;
+		(*count)--;
+	}
+}
+
+double		ft_atof(const char *str)
 {
 	double	res;
 	double	res1;
+	double	res2;
 	int		count;
 	int		neg;
 
@@ -47,14 +46,14 @@ double			ft_atof(const char *str)
 	}
 	count = 0;
 	res1 = ft_abs(ft_atoi(str));
-	while (*str >= '0' && *str <= '9')
-	{
-		str++;
-		count++;
-	}
+	skip_numbers(&str, &count);
 	if (!*str || *str != '.')
 		return (neg * res1);
 	str++;
-	res = res1 + part2(str);
+	count = 0;
+	res2 = ft_abs(ft_atoi(str));
+	skip_numbers(&str, &count);
+	get_float_part(&count, &res2);
+	res = res1 + res2;
 	return (neg * res);
 }

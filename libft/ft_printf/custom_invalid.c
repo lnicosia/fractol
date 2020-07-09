@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 13:18:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 14:45:08 by sipatry          ###   ########.fr       */
+/*   Created: 2019/02/01 15:03:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 18:45:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
+int			custom_invalid(const char *restrict format, ...)
 {
-	void		*res;
+	t_data	data;
 
-	if (old_size == new_size)
-		return (ptr);
-	if (!(res = malloc(new_size)))
-	{
-		ft_memdel(&ptr);
-		return (NULL);
-	}
-	ft_bzero(res, new_size);
-	if (ptr)
-	{
-		res = ft_memmove(res, ptr, old_size);
-	}
-	ft_memdel(&ptr);
-	return (res);
+	if (!format)
+		return (-1);
+	init_data(&data, 1);
+	va_start(data.ap, format);
+	parse_format(format, &data);
+	write(STDERR_FILENO, data.buffer, data.i);
+	va_end(data.ap);
+	return (1);
 }

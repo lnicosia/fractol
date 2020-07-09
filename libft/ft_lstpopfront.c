@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_lstpopfront.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 13:18:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 14:45:08 by sipatry          ###   ########.fr       */
+/*   Created: 2019/11/08 17:27:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/08 17:46:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
+void	ft_lstpopfront(t_list **alst)
 {
-	void		*res;
+	t_list	*new;
 
-	if (old_size == new_size)
-		return (ptr);
-	if (!(res = malloc(new_size)))
-	{
-		ft_memdel(&ptr);
-		return (NULL);
-	}
-	ft_bzero(res, new_size);
-	if (ptr)
-	{
-		res = ft_memmove(res, ptr, old_size);
-	}
-	ft_memdel(&ptr);
-	return (res);
+	if (!alst)
+		return ;
+	new = (*alst)->next;
+	if ((*alst)->content)
+		free((*alst)->content);
+	free(*alst);
+	*alst = new;
 }

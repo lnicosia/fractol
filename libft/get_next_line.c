@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 11:05:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 12:05:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 18:58:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ int		lst_contains(t_list *lst, t_read **curr, int fd)
 	return (0);
 }
 
-int		free_link(t_list **datas, t_read *curr)
+int		contains_zero(char *buf, int size)
 {
-	(void)curr;
-	if (*datas == NULL)
-		return (-1);
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (buf[i] == 0)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -99,13 +105,14 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	if ((new = lst_contains(datas, &curr, fd)) == 0)
 	{
-		if (!(curr = (t_read*)malloc(sizeof(*curr))))
+		if (!(curr = (t_read*)ft_memalloc(sizeof(*curr))))
 			return (-1);
 		if (!(curr->str = ft_strnew(0)))
 			return (-1);
 		curr->fd = fd;
 	}
-	while ((!(ft_strchr(curr->str, '\n'))) && (ret = read(fd, buff, BUFF_SIZE)))
+	while (!ft_strchr(curr->str, '\n') && (ret = read(fd, buff, BUFF_SIZE))
+		&& !contains_zero(buff, ret))
 	{
 		buff[ret] = '\0';
 		if (ret < 0 || !(curr->str = ft_strjoin_free(curr->str, buff)))

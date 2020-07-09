@@ -5,13 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 11:32:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/10 11:32:37 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/19 14:08:42 by sipatry           #+#    #+#             */
+/*   Updated: 2020/05/01 18:58:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+void	fill_current_index(void *res, void *ptr, size_t *i, size_t *j)
+{
+	((char*)res)[*i] = ((char*)ptr)[*j];
+	(*i)++;
+	(*j)++;
+}
 
 void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 {
@@ -20,23 +27,23 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 	size_t		j;
 	size_t		new_size;
 
+	if (!ptr || !old_size || !type || old_size < type)
+		return (NULL);
 	i = 0;
 	j = 0;
 	new_size = old_size - type;
-	if (!ptr || !old_size || !type || old_size <= type
-			|| !(res = malloc(new_size)))
+	if (new_size == 0 || !(res = malloc(new_size)))
+	{
+		ft_memdel(&ptr);
 		return (NULL);
+	}
 	ft_bzero(res, new_size);
 	while (i < new_size)
 	{
 		if (j == index)
 			j += type;
 		else
-		{
-			((char*)res)[i] = ((char*)ptr)[j];
-			i++;
-			j++;
-		}
+			fill_current_index(res, ptr, &i, &j);
 	}
 	ft_memdel(&ptr);
 	return (res);
