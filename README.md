@@ -6,15 +6,6 @@ This is my version of Fractol project from 42. This project provides a graphical
 
 How to use Fractol
 
-### Prerequisites
-
-Only working on MacOSX atm. The following frameworks/libs are needed
-```
-OpenGL
-Appkit
-X11
-```
-
 ### Installing
 
 ```
