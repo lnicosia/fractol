@@ -2,6 +2,12 @@
 
 This is my version of Fractol project from 42. This project provides a graphical representation of the following fractals: julia, mandelbrot, burning ship, buddhabrot, burning julia, newton's, barnsley fern, koch snowflake and tricorn.
 
+![](docs/buddha.png)
+
+![](docs/mandelbrot.png)
+
+![](docs/ship.png)
+
 ## User Guide
 
 How to use Fractol
