@@ -1,13 +1,13 @@
 # Fractol
 
-This is my version of Fractol project from 42
+This is my version of Fractol project from 42. This project provides a graphical representation of the following fractals: julia, mandelbrot, burning ship, buddhabrot, burning julia, newton's, barnsley fern, koch snowflake and tricorn.
 
 ## User Guide
-	
+
 How to use Fractol
 
 ### Prerequisites
-	
+
 Only working on MacOSX atm. The following frameworks/libs are needed
 ```
 OpenGL
@@ -16,13 +16,13 @@ X11
 ```
 
 ### Installing
-		
+
 ```
 make
 ```
 
 ### Using Fractol
-		
+
 ```
 run ./fractol with any of the following arguments: julia | mandelbrot | ship | buddhabrot| buddha2 | bjulia | newton | barnsley | koch
 ```
@@ -58,11 +58,11 @@ Left click + move
 Mouse scroll
 ```
 
-* Fdf export
+* Fdf export: you can export a file usable by my [FdF](https://github.com/lnicosia/Fdf) project.
 ```
 🄴 : export to a readable .fdf format
 ```
 
 ## Authors
-		
+
 Lucas Nicosia
