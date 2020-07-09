@@ -15,9 +15,7 @@
 
 void	color_inside(int x, int y, t_fract *fract)
 {
-	double	div;
 
-	div = 255 * fract->iter / fract->iter_max;
 	if (fract->color_inside == WHITE)
 		fract->window.img.str[x + y * 1024] = 0xFFFFFF;
 	else if (fract->color_inside == RED)

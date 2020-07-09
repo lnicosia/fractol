@@ -97,7 +97,6 @@ void		set_mixed_colors(t_fract *fract, uint8_t *red, uint8_t *green,
 
 void		color(int x, int y, t_fract *fract)
 {
-	double	div;
 	uint8_t	red;
 	uint8_t	green;
 	uint8_t	blue;
@@ -105,7 +104,6 @@ void		color(int x, int y, t_fract *fract)
 	red = 0;
 	green = 0;
 	blue = 0;
-	div = fract->iter / (double)fract->iter_max;
 	if (fract->color_base == BLACK)
 		fract->window.img.str[x + y * 1024] = 0;
 	set_color(fract, &red, &green, &blue);

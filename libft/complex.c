@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
 t_complex	ft_cconj(t_complex c)
 {

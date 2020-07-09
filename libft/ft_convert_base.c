@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-int		ft_strlen(char *str)
+int		ft_strlen2(char *str)
 {
 	int len;
 
@@ -31,7 +31,7 @@ int		ft_check_base(char *base)
 
 	i = 0;
 	j = 0;
-	if (ft_strlen(base) < 2)
+	if (ft_strlen2(base) < 2)
 		return (0);
 	while (base[i])
 	{
@@ -49,7 +49,7 @@ int		ft_check_base(char *base)
 	return (1);
 }
 
-int		ft_atoi(char *nbr, char *base_from)
+int		ft_atoi2(char *nbr, char *base_from)
 {
 	int res;
 	int j;
@@ -70,7 +70,7 @@ int		ft_atoi(char *nbr, char *base_from)
 		while (base_from[++j])
 		{
 			if (*nbr == base_from[j])
-				res = ft_strlen(base_from) * res + j;
+				res = ft_strlen2(base_from) * res + j;
 		}
 		nbr++;
 		k++;
@@ -78,13 +78,13 @@ int		ft_atoi(char *nbr, char *base_from)
 	return (res * neg);
 }
 
-char	*ft_itoa(int nbr, char *str, char *base_to, int size)
+char	*ft_itoa2(int nbr, char *str, char *base_to, int size)
 {
 	int	len;
 	int i;
 
 	i = 0;
-	len = ft_strlen(base_to);
+	len = ft_strlen2(base_to);
 	if (nbr == -2147483648)
 	{
 		str[--size] = base_to[-(nbr % len)];
@@ -117,18 +117,18 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	str = 0;
 	if (!ft_check_base(base_from) || !ft_check_base(base_to))
 		return (0);
-	res = ft_atoi(nbr, base_from);
+	res = ft_atoi2(nbr, base_from);
 	if (res <= 0)
 		size++;
 	nb2 = res;
 	while (nb2 != 0)
 	{
-		nb2 = nb2 / ft_strlen(base_to);
+		nb2 = nb2 / ft_strlen2(base_to);
 		size++;
 	}
 	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
 		return (0);
-	str = ft_itoa(res, str, base_to, size);
+	str = ft_itoa2(res, str, base_to, size);
 	str[size] = '\0';
 	return (str);
 }

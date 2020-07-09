@@ -16,10 +16,8 @@
 int		mouse_move(int x, int y, void *param)
 {
 	t_fract	*fract;
-	int		i;
 
 	fract = (t_fract*)param;
-	i = 0;
 	if (fract->movement && fract->nb != 3)
 	{
 		fract->transfo.x = x / 1024.0;
@@ -55,9 +53,7 @@ void	mouse_press2(int button, int x, int y, t_fract *fract)
 int		mouse_press(int button, int x, int y, void *param)
 {
 	t_fract	*fract;
-	int		i;
 
-	i = 0;
 	fract = (t_fract*)param;
 	if (button == SCROLLUP_KEY)
 	{

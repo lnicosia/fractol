@@ -30,9 +30,7 @@ void	key_press2(int key, t_fract *fract)
 int		key_press(int key, void *param)
 {
 	t_fract	*fract;
-	int		i;
 
-	i = 0;
 	fract = (t_fract*)param;
 	if (key == UP_KEY)
 	{

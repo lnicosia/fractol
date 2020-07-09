@@ -21,6 +21,8 @@ BIN_DIR = .
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+MLX_DIR = minilibx
+MLX = $(MLX_DIR)/libmlx.a
 
 SRC_RAW = main.c key_press.c close_window.c julia.c mandelbrot.c init.c ship.c \
 		  export.c buddhabrot.c color.c burning_julia.c newton.c \
@@ -50,12 +52,20 @@ DEBUG ?= 0
 #	CFLAGS += -fsanitize=address
 #endif
 
-MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
+#MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
+MLX_FLAGS = -lX11 -lXext -lm -lpthread
 
-RED := "\033[0;31m"
-GREEN := "\033[0;32m"
-CYAN := "\033[0;36m"
-RESET :="\033[0m"
+#
+# Color declarations
+#
+
+RED := "\e[0;31m"
+GREEN := "\e[0;32m"
+YELLOW := "\e[0;33m"
+BLUE := "\e[0;34m"
+MAGENTA := "\e[0;35m"
+CYAN := "\e[0;36m"
+RESET :="\e[0m"
 
 all: 
 	@make -C $(LIBFT_DIR) -j8
@@ -64,26 +74,28 @@ all:
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
+	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
-	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(BIN_DIR)/$(NAME)' with success!"${RESET}
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(MLX)
+	@printf ${CYAN}"[INFO] Linking $(BIN_DIR)/$(NAME)...\n"${RESET}
+	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"${RESET}
 
 clean: 
 	@make clean -C libft
 	@rm -f $(OBJ)
 	@rm -Rf $(OBJ_DIR)
-	@echo ${CYAN}"[INFO] Removed objs"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs"${RESET}
 
 fclean:
 	@make fclean -C libft
 	@rm -f $(OBJ)
 	@rm -Rf $(OBJ_DIR)
-	@echo ${CYAN}"[INFO] Removed objs"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 	@rm -Rf $(NAME)
-	@echo ${CYAN}"[INFO] Removed $(BIN_DIR)/$(NAME)"${RESET}
+	@printf ${CYAN}"[INFO] Removed $(BIN_DIR)/$(NAME)\n"${RESET}
 
 re: fclean all
 

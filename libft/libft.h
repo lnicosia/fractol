@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdint.h>
 # include "thread_pool.h"
 
 typedef struct		s_list
@@ -62,6 +63,12 @@ typedef	struct		s_plane
 	t_v3			norm;
 	double			d;
 }					t_plane;
+
+typedef struct		s_complex
+{
+	double			r;
+	double			i;
+}					t_complex;
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -171,5 +178,18 @@ t_plane				new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
 t_v3				get_intersection_line_plane(t_v3 p1, t_v3 p2,
 t_plane plane, t_v3 p3);
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
+t_complex			ft_cadd(t_complex c1, t_complex c2);
+t_complex			ft_csub(t_complex c1, t_complex c2);
+t_complex			ft_cmul(t_complex c1, t_complex c2);
+t_complex			ft_cdiv(t_complex c1, t_complex c2);
+t_complex			ft_radd(double r, t_complex c);
+t_complex			ft_rsub(double r, t_complex c);
+t_complex			ft_rmul(double r, t_complex c);
+t_complex			ft_rdiv(double r, t_complex c);
+t_complex			ft_cpow(t_complex c1, int pow);
+t_complex			ft_csin(t_complex c);
+t_complex			ft_cscos(t_complex c);
+t_complex			ft_cconj(t_complex c);
+t_complex			new_complex(double r, double i);
 
 #endif
