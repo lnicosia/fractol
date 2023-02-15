@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 11:33:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/09 15:13:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:47:30 by lumenthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <time.h>
 # include <math.h>
 # include "libft.h"
+# include "libmft.h"
 # define BLACK 0
 # define WHITE 1
 # define RED 2

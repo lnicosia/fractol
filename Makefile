@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/09 11:43:47 by lnicosia         ###   ########.fr        #
+#    Updated: 2023/02/15 18:53:12 by lumenthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ INCLUDES_DIR = includes
 BIN_DIR = .
 
 LIBFT_DIR = libft
+LIBMFT_DIR = libmft
 LIBFT = $(LIBFT_DIR)/libft.a
-MLX_DIR = minilibx
+LIBMFT = $(LIBMFT_DIR)/libmft.a
+MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
 SRC_RAW = main.c key_press.c close_window.c julia.c mandelbrot.c init.c ship.c \
@@ -42,7 +44,9 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR) \
+		  -I $(LIBFT_DIR)/$(INCLUDES_DIR) \
+		  -I $(LIBMFT_DIR)/$(INCLUDES_DIR) \
+		  -I $(MLX_DIR) \
 		  -flto -Ofast \
 		  #-g3 -fsanitize=address
 
@@ -68,20 +72,30 @@ CYAN := "\e[0;36m"
 RESET :="\e[0m"
 
 all: 
-	@make -C $(LIBFT_DIR) -j8
-	@make $(BIN_DIR)/$(NAME) -j8
+	@make -C $(LIBFT_DIR)
+	@make -C $(LIBMFT_DIR)
+	@make $(BIN_DIR)/$(NAME)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MLX_INIT) $(LIBFT_INIT)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
-	@gcc -c $< -o $@ $(CFLAGS) 
+	gcc -c $< -o $@ $(CFLAGS) 
 
-$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(MLX)
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(LIBMFT) $(MLX)
 	@printf ${CYAN}"[INFO] Linking $(BIN_DIR)/$(NAME)...\n"${RESET}
-	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+	gcc $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"${RESET}
+
+$(MLX_INIT):
+	git submodule update --init
+
+$(LIBFT_INIT):
+	git submodule update --init
+
+$(MLX): $(MLX_DIR)/mlx.h
+	@make -C $(MLX_DIR)
 
 clean: 
 	@make clean -C libft
