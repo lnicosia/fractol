@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2023/02/15 18:53:12 by lumenthi         ###   ########.fr        #
+#    Updated: 2023/02/15 19:03:04 by lumenthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ all:
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MLX_INIT) $(LIBFT_INIT)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SUBMODULES_INIT)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	gcc -c $< -o $@ $(CFLAGS) 
 
@@ -88,14 +88,17 @@ $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(LIBMFT) $(MLX)
 	gcc $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"${RESET}
 
-$(MLX_INIT):
-	git submodule update --init
-
-$(LIBFT_INIT):
+$(SUBMODULES_INIT):
 	git submodule update --init
 
 $(MLX): $(MLX_DIR)/mlx.h
 	@make -C $(MLX_DIR)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+$(LIBMFT):
+	@make -C $(LIBMFT_DIR)
 
 clean: 
 	@make clean -C libft
